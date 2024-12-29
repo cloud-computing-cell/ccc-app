@@ -253,7 +253,7 @@ class _HomeState extends State<Home> {
                         child: Container(
                           height: 100,
                           width: 100,
-                          child: SvgPicture.asset("assets/images/develop.svg"),
+                          child: SvgPicture.asset("assets/images/think.svg"),
                           
                         ),
                       ),
@@ -358,7 +358,7 @@ class _HomeState extends State<Home> {
                         child: Container(
                           height: 100,
                           width: 100,
-                          child: SvgPicture.asset("assets/images/develop.svg"),
+                          child: SvgPicture.asset("assets/images/deploy.svg"),
                           
                         ),
                       ),
