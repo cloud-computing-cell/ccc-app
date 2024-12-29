@@ -18,6 +18,7 @@ class _ConnectusState extends State<Connectus> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        extendBody: true,
           body: SingleChildScrollView(
             child: Column(
                     children: [
@@ -41,7 +42,7 @@ class _ConnectusState extends State<Connectus> {
             ),
             SizedBox(height: 5,),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 45),
+              padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Text(
                 "We value building strong relationships and staying in touch with you. Whether you have questions, need support, or want to share feedback, we’re here for you.",
                 style: TextStyle(
