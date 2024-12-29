@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Customnav extends StatefulWidget {
   final ValueChanged<int> onItemSelected;
@@ -32,15 +33,23 @@ class _CustomnavState extends State<Customnav> {
           ),
           Center(
             heightFactor: 0.6,
-            child: FloatingActionButton(
-              onPressed: () {
-               
-               
-              },
-              backgroundColor: Colors.white,
-              child: Image.asset("assets/images/ccclogo.png"),
-              shape: const CircleBorder(),
+            child: Transform.scale(
+              scale: 1.3,
+              child: FloatingActionButton(
+                onPressed: () {
+                 
+                 
+                },
+                backgroundColor: Colors.white,
+                child: Transform.scale(
+                  scale: 1.4,
+              
+                  child: SvgPicture.asset("assets/images/explore.svg",fit: BoxFit.cover,)),
+                shape: const CircleBorder(),
+                
+              ),
             ),
+            
           ),
           Positioned.fill(
             child: Row(

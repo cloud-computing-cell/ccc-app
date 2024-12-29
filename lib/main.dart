@@ -18,64 +18,6 @@ void main(){
   );
 }
 
-// class Main extends StatefulWidget {
-//   const Main({super.key});
-
-//   @override
-//   State<Main> createState() => _MainState();
-// }
-
-// class _MainState extends State<Main> {
-//   int currentindex =0;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final nav =[
-//       Icon(Icons.home , size: 30, color: Color.fromRGBO(51, 34, 104, 1),),
-//       Icon(Icons.event , size: 30,color: Color.fromRGBO(51, 34, 104, 1),),
-//       Icon(Icons.holiday_village , size: 30,color: Color.fromRGBO(51, 34, 104, 1),),
-//       Icon(Icons.quiz_outlined , size: 30,color: Color.fromRGBO(51, 34, 104, 1),),
-//       Icon(Icons.more_vert , size: 30,color: Color.fromRGBO(51, 34, 104, 1),),
-
-//     ];
-//     final screen =[
-//       Home(),
-//       MyEventPage(),
-//       Team(),
-//       Quiz(),
-//       More(),
-      
-//     ];
-
-//     return SafeArea(
-      
-//       child: Scaffold(
-//          extendBody: true,
-//         backgroundColor: const Color.fromRGBO(19, 20, 23, 1),
-        
-//         body: screen[currentindex],
-      
-//         bottomNavigationBar: CurvedNavigationBar(
-//           backgroundColor: Colors.transparent,
-//           color: Colors.white,
-                         
-          
-//           items: nav,
-//           height: 50 ,
-//           animationDuration:const Duration(milliseconds: 300),
-//           onTap: (index) {
-//             setState(() {
-//               currentindex = index;
-//             });
-//             },        
-//           ),
-//       ),
-//     );
-// }
-// }
-
-
-
 class Main extends StatefulWidget {
   const Main({super.key});
 
@@ -100,7 +42,7 @@ class _MainState extends State<Main> {
       Home(),
       MyEventPage(),
       Team(),
-      Connectus(),
+      Quiz(),
       
       
     ];
