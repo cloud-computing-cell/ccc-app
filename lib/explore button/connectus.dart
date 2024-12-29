@@ -174,7 +174,7 @@ class _ConnectusState extends State<Connectus> {
               ),
              ),
           
-             SizedBox(height: 20),
+             SizedBox(height: 100),
                   ],
                 ),
         ));
