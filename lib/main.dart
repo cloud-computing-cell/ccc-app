@@ -1,6 +1,8 @@
 import 'package:ccc_app/custom_nav/customnav.dart';
 import 'package:ccc_app/explore%20button/connectus.dart';
+import 'package:ccc_app/explore%20button/domain.dart';
 import 'package:ccc_app/explore%20button/project.dart';
+import 'package:ccc_app/explore%20button/register.dart';
 import 'package:ccc_app/main_ui/event.dart';
 import 'package:ccc_app/main_ui/home.dart';
 import 'package:ccc_app/main_ui/more.dart';
@@ -42,10 +44,17 @@ class _MainState extends State<Main> {
       Home(),
       MyEventPage(),
       Team(),
+      Quiz(),
+      Project(),
       Connectus(),
-      
-      
+      Register(),
+      Domain(),
+            
     ];
+    // final secNavBar =[
+     
+            
+    // ];
 
     return SafeArea(
       

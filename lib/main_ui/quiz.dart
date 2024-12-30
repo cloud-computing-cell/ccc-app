@@ -15,6 +15,15 @@ class _QuizState extends State<Quiz> {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Color.fromRGBO(19, 20, 23, 1),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SvgPicture.asset("assets/images/quiz.svg")
+          ],
+        ),
+      ),
+    );
   }
 }

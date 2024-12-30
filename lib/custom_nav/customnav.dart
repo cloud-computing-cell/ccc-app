@@ -11,6 +11,7 @@ class Customnav extends StatefulWidget {
 
 class _CustomnavState extends State<Customnav> {
   int selectedIndex = 0;
+   bool showSecondNavBar = false;
 
   void onTap(int index) {
     setState(() {
@@ -22,36 +23,38 @@ class _CustomnavState extends State<Customnav> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SizedBox(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
       width: size.width,
-      height: 80,
+       height: showSecondNavBar ? 160 : 80,
+      //  height: showSecondNavBar ? 145 : 65,
       child: Stack(
         children: [
-          CustomPaint(
-            size: Size(size.width, 80),
-            painter: BNBcustomPainter(),
-          ),
-          Center(
-            heightFactor: 0.6,
-            child: Transform.scale(
-              scale: 1.3,
-              child: FloatingActionButton(
-                onPressed: () {
-                 
-                 
-                },
-                backgroundColor: Colors.white,
-                child: Transform.scale(
-                  scale: 1.4,
-              
-                  child: SvgPicture.asset("assets/images/explore.svg",fit: BoxFit.cover,)),
-                shape: const CircleBorder(),
-                
-              ),
+                 if (showSecondNavBar)
+         Positioned.fill(
+          top: 15,
+           child: Padding(
+             padding: const EdgeInsets.symmetric(horizontal: 20),
+             child: Container(
+              width: double.infinity,
+              height: 160,
+               color: Colors.black,
+             ),
+           ),
+         ),
+
+          Positioned(
+            top: showSecondNavBar?80:0,
+            child: CustomPaint(
+              size: Size(size.width, 80),
+              painter: BNBcustomPainter(),
             ),
-            
           ),
+         
           Positioned.fill(
+            top: showSecondNavBar?80: 0,
+            left: 0,
+            right: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -61,6 +64,59 @@ class _CustomnavState extends State<Customnav> {
                 _buildIcon(Icons.group_add_outlined, 2,"Team"),
                 _buildIcon(Icons.quiz_outlined, 3, "Quiz"),
               ],
+            ),
+          ),
+          if (showSecondNavBar)
+            Positioned(
+              top: 15,
+              left: 0,
+              right: 0,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+
+                  height: 65,
+                  decoration: BoxDecoration(
+                  color: Colors.black,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildIcon(Icons.explore, 4, "Projects"),
+                      _buildIcon(Icons.phone, 5, "Contact"),
+                      SizedBox(width: size.width * 0.06),
+                      _buildIcon(Icons.contact_page_rounded, 6, "Register"),
+                      _buildIcon(Icons.info_outline, 7, "Domain"),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+             Positioned(
+            top: showSecondNavBar?80:0,
+            left: 0,
+            right: 0,
+            child: Center(
+              heightFactor: 0.6,
+              child: Transform.scale(
+                scale: 1.3,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      showSecondNavBar = !showSecondNavBar;
+                    });
+                  },
+                  backgroundColor: Colors.white,
+                  child: Transform.scale(
+                    scale: 1.4,
+                
+                    child: SvgPicture.asset("assets/images/explore.svg",fit: BoxFit.cover,)),
+                  shape: const CircleBorder(),
+                  
+                ),
+              ),
+              
             ),
           ),
         ],
