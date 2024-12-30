@@ -127,7 +127,16 @@ class _CustomnavState extends State<Customnav> {
   Widget _buildIcon(IconData icon, int index, String name) {
     final isSelected = selectedIndex == index;
     return GestureDetector(
-      onTap: () => onTap(index),
+      onTap: () {
+      onTap(index);
+                    setState(() {
+                      if(showSecondNavBar){
+                        showSecondNavBar=!showSecondNavBar;
+                      }
+                    });
+                  
+        
+      },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
