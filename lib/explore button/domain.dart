@@ -1,3 +1,4 @@
+import 'package:ccc_app/background%20Animation/bganimation.dart';
 import 'package:flutter/material.dart';
 
 class Domain extends StatefulWidget {
@@ -11,7 +12,13 @@ class _DomainState extends State<Domain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber,
+      // backgroundColor: Colors.amber,
+      body: Stack(
+        children: [
+          CircleRotationAnimation(),
+          
+        ],
+      ),
     );
   }
 }
