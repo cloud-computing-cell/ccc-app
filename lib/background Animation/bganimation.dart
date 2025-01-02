@@ -24,19 +24,18 @@ class _CircleRotationAnimationState extends State<CircleRotationAnimation>
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
-    // Combine both opacity animations using TweenSequence
     _opacityAnimation = TweenSequence<double>([
       TweenSequenceItem(
         tween: Tween<double>(begin: 0.0, end: 1.0).chain(
           CurveTween(curve: Curves.easeInOut),
         ),
-        weight: 25, // First 25% of the animation duration
+        weight: 25,
       ),
       TweenSequenceItem(
         tween: Tween<double>(begin: 1.0, end: 0.0).chain(
           CurveTween(curve: Curves.easeInOut),
         ),
-        weight: 25, // Last 25% of the animation duration
+        weight: 25,
       ),
     ]).animate(_controller);
 
@@ -52,12 +51,11 @@ class _CircleRotationAnimationState extends State<CircleRotationAnimation>
 
         return Stack(
           children: [
-            // Background gradient circle
             Positioned(
               top: 50,
               right: width / 2 - 230,
               child: Opacity(
-                opacity: _opacityAnimation.value ,
+                opacity: _opacityAnimation.value,
                 child: Container(
                   width: 625,
                   height: 595,
@@ -76,7 +74,6 @@ class _CircleRotationAnimationState extends State<CircleRotationAnimation>
                 ),
               ),
             ),
-            // Moving and fading circle
             Positioned(
               left: (width / 2) - 150 + _horizontalMotion.value,
               top: 400,
