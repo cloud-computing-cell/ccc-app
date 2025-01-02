@@ -1,3 +1,4 @@
+import 'package:ccc_app/background%20Animation/bganimation.dart';
 import 'package:ccc_app/custom_nav/customnav.dart';
 import 'package:ccc_app/explore%20button/connectus.dart';
 import 'package:ccc_app/explore%20button/domain.dart';
@@ -48,7 +49,7 @@ class _MainState extends State<Main> {
       Project(),
       Connectus(),
       Register(),
-      Domain(),
+      CircleRotationAnimation(),
             
     ];
     // final secNavBar =[

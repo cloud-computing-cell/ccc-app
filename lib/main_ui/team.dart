@@ -45,12 +45,16 @@ class _TeamState extends State<Team> {
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   child: Container(
                       width: double.infinity,
-                      height: 250,
+                      height: 200,
                       decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
                               image: AssetImage("assets/images/team.jpg"),
-                              fit: BoxFit.cover))),
+                              fit: BoxFit.cover))
+                              
+                              ),
                 ),
+                
                 SizedBox(height: 10),
                 Text(
                   'OUR TEAM MEMBERS',
@@ -61,14 +65,17 @@ class _TeamState extends State<Team> {
                   ),
                 ),
                 SizedBox(height: 10),
-                Text(
-                  '"Collaboration turns dreams into reality, achieving greatness as one."',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Text(
+                    '"Collaboration turns dreams into reality, achieving greatness as one."',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 30),
                 Row(
@@ -86,7 +93,7 @@ class _TeamState extends State<Team> {
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w600,
-                            color: Color.fromRGBO(145, 145, 145, 1)),
+                            color:selectedYear=="4th"? Color.fromRGBO(245, 163, 10, 1): Color.fromRGBO(145, 145, 145, 1)),
                       ),
                     ),
                     GestureDetector(
@@ -101,7 +108,7 @@ class _TeamState extends State<Team> {
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w600,
-                            color: Color.fromRGBO(145, 145, 145, 1)),
+                            color: selectedYear=="3rd"? Color.fromRGBO(110, 69, 172, 1) :Color.fromRGBO(145, 145, 145, 1)),
                       ),
                     ),
                     GestureDetector(
@@ -116,7 +123,7 @@ class _TeamState extends State<Team> {
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w600,
-                            color: Color.fromRGBO(145, 145, 145, 1)),
+                            color: selectedYear=="2nd" ? Color.fromRGBO(102, 224, 206, 1): Color.fromRGBO(145, 145, 145, 1)),
                       ),
                     ),
                   ],
@@ -144,21 +151,33 @@ class _TeamState extends State<Team> {
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 8,
+                              crossAxisSpacing: 0,
+                              mainAxisSpacing: 10,
                             ),
                             itemCount: teamData.length,
                             itemBuilder: (BuildContext context, int index) {
                               var member = teamData[index];
                               return Container(
-                                width: 150,
+                                width: MediaQuery.of(context).size.width / 2 - 10,
                                 height: 197,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15)
+                                ),
                                 child: Stack(
                                   alignment: Alignment.center,
                                   children: [
-                                    SvgPicture.asset(
-                                      'assets/images/cards.svg',
-                                      fit: BoxFit.cover,
+                                    
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      
+                                      child: SvgPicture.asset(
+                                        selectedYear =="4th"?
+                                        "assets/images/whitebg.svg" : selectedYear=="3rd"? "assets/images/card3.svg": "assets/images/card2.svg",
+                                        fit: BoxFit.cover,
+                                        height: 197,
+                                        width: 150,
+                                        
+                                      ),
                                     ),
                                     Positioned(
                                       top: 30,

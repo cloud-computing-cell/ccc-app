@@ -1,185 +1,62 @@
 [
-    {
-      "_id": "6775686eb2a2cc0f960e397a",
-      "profile": "fdghfdhjfj",
-      "name": "ALok",
-      "domain": "ftyuuubibiojbjkbklijok",
-      "github": "image@photo.com",
-      "linkedin": "gjgkhkhh",
-      "year": "4th year",
-      "__v": 0
-    },
-    {
-      "_id": "67756928b2a2cc0f960e397e",
-      "profile": "sdhjgiuhkbjhf",
-      "name": "graphicon",
-      "domain": "app ",
-      "github": "graphicon@photo.com",
-      "linkedin": "gjgkkkkk",
-      "year": "4th year",
-      "__v": 0
-    },
-    {
-      "_id": "677569b8b2a2cc0f960e3981",
-      "profile": "event1",
-      "name": "evet graphics",
-      "domain": "dev ",
-      "github": "event@photo.com",
-      "linkedin": "gjgkkkkk",
-      "year": "3rd year",
-      "__v": 0
-    },
-    {
-        "_id": "67756928b2a2cc0f960e397e",
-        "profile": "sdhjgiuhkbjhf",
-        "name": "graphicon",
-        "domain": "app ",
-        "github": "graphicon@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "4th year",
-        "__v": 0
-      },
-      {
-        "_id": "677569b8b2a2cc0f960e3981",
-        "profile": "event1",
-        "name": "evet graphics",
-        "domain": "dev ",
-        "github": "event@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "3rd year",
-        "__v": 0
-      },    {
-        "_id": "67756928b2a2cc0f960e397e",
-        "profile": "sdhjgiuhkbjhf",
-        "name": "graphicon",
-        "domain": "app ",
-        "github": "graphicon@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "4th year",
-        "__v": 0
-      },
-      {
-        "_id": "677569b8b2a2cc0f960e3981",
-        "profile": "event1",
-        "name": "evet graphics",
-        "domain": "dev ",
-        "github": "event@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "3rd year",
-        "__v": 0
-      },    {
-        "_id": "67756928b2a2cc0f960e397e",
-        "profile": "sdhjgiuhkbjhf",
-        "name": "graphicon",
-        "domain": "app ",
-        "github": "graphicon@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "4th year",
-        "__v": 0
-      },
-      {
-        "_id": "677569b8b2a2cc0f960e3981",
-        "profile": "event1",
-        "name": "evet graphics",
-        "domain": "dev ",
-        "github": "event@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "3rd year",
-        "__v": 0
-      },    {
-        "_id": "67756928b2a2cc0f960e397e",
-        "profile": "sdhjgiuhkbjhf",
-        "name": "graphicon",
-        "domain": "app ",
-        "github": "graphicon@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "4th year",
-        "__v": 0
-      },
-      {
-        "_id": "677569b8b2a2cc0f960e3981",
-        "profile": "event1",
-        "name": "evet graphics",
-        "domain": "dev ",
-        "github": "event@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "3rd year",
-        "__v": 0
-      },    {
-        "_id": "67756928b2a2cc0f960e397e",
-        "profile": "sdhjgiuhkbjhf",
-        "name": "graphicon",
-        "domain": "app ",
-        "github": "graphicon@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "4th year",
-        "__v": 0
-      },
-      {
-        "_id": "677569b8b2a2cc0f960e3981",
-        "profile": "event1",
-        "name": "evet graphics",
-        "domain": "dev ",
-        "github": "event@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "3rd year",
-        "__v": 0
-      },    {
-        "_id": "67756928b2a2cc0f960e397e",
-        "profile": "sdhjgiuhkbjhf",
-        "name": "graphicon",
-        "domain": "app ",
-        "github": "graphicon@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "4th year",
-        "__v": 0
-      },
-      {
-        "_id": "677569b8b2a2cc0f960e3981",
-        "profile": "event1",
-        "name": "evet graphics",
-        "domain": "dev ",
-        "github": "event@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "3rd year",
-        "__v": 0
-      },    {
-        "_id": "67756928b2a2cc0f960e397e",
-        "profile": "sdhjgiuhkbjhf",
-        "name": "graphicon",
-        "domain": "app ",
-        "github": "graphicon@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "4th year",
-        "__v": 0
-      },
-      {
-        "_id": "677569b8b2a2cc0f960e3981",
-        "profile": "event1",
-        "name": "evet graphics",
-        "domain": "dev ",
-        "github": "event@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "3rd year",
-        "__v": 0
-      },    {
-        "_id": "67756928b2a2cc0f960e397e",
-        "profile": "sdhjgiuhkbjhf",
-        "name": "graphicon",
-        "domain": "app ",
-        "github": "graphicon@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "4th year",
-        "__v": 0
-      },
-      {
-        "_id": "677569b8b2a2cc0f960e3981",
-        "profile": "event1",
-        "name": "evet graphics",
-        "domain": "dev ",
-        "github": "event@photo.com",
-        "linkedin": "gjgkkkkk",
-        "year": "3rd year",
-        "__v": 0
-      }
-  ]
+  {
+    "_id": "6775972fd41db2784845a1cb",
+    "profile": "fdghfdhjfj",
+    "name": "ujjwal",
+    "domain": "ftyuuubibiojbjkbklijok",
+    "github": "image@photo.com",
+    "linkedin": "gjgkhkhh",
+    "year": "2ndyear",
+    "__v": 0
+  },
+  {
+    "_id": "6775973dd41db2784845a1cd",
+    "profile": "fdghfdhjfj",
+    "name": "Ram",
+    "domain": "ftyuuubibiojbjkbklijok",
+    "github": "image@photo.com",
+    "linkedin": "gjgkhkhh",
+    "year": "2ndyear",
+    "__v": 0
+  },
+  {
+    "_id": "6775974ed41db2784845a1cf",
+    "profile": "fdghfdhjfj",
+    "name": "Shyam",
+    "domain": "ftyuuubibiojbjkbklijok",
+    "github": "image@photo.com",
+    "linkedin": "gjgkhkhh",
+    "year": "2ndyear",
+    "__v": 0
+  },
+  {
+    "_id": "6775975bd41db2784845a1d1",
+    "profile": "fdghfdhjfj",
+    "name": "Raju",
+    "domain": "ftyuuubibiojbjkbklijok",
+    "github": "image@photo.com",
+    "linkedin": "gjgkhkhh",
+    "year": "2ndyear",
+    "__v": 0
+  },
+  {
+    "_id": "67759768d41db2784845a1d3",
+    "profile": "fdghfdhjfj",
+    "name": "vinod",
+    "domain": "ftyuuubibiojbjkbklijok",
+    "github": "image@photo.com",
+    "linkedin": "gjgkhkhh",
+    "year": "2ndyear",
+    "__v": 0
+  },
+  {
+    "_id": "67759772d41db2784845a1d5",
+    "profile": "fdghfdhjfj",
+    "name": "alok",
+    "domain": "ftyuuubibiojbjkbklijok",
+    "github": "image@photo.com",
+    "linkedin": "gjgkhkhh",
+    "year": "2ndyear",
+    "__v": 0
+  }
+]
