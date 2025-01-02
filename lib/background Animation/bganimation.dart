@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class CircleRotationAnimation extends StatefulWidget {
   @override
@@ -17,20 +16,29 @@ class _CircleRotationAnimationState extends State<CircleRotationAnimation>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(seconds: 15),
+      duration: Duration(seconds: 20),
       vsync: this,
     );
 
-    _horizontalMotion = Tween<double>(begin: -200.0, end: 200.0).animate(
+    _horizontalMotion = Tween<double>(begin: -210.0, end: 210.0).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
-    _opacityAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Interval(0.5, 1.0, curve: Curves.easeInOut),
+    // Combine both opacity animations using TweenSequence
+    _opacityAnimation = TweenSequence<double>([
+      TweenSequenceItem(
+        tween: Tween<double>(begin: 0.0, end: 1.0).chain(
+          CurveTween(curve: Curves.easeInOut),
+        ),
+        weight: 25, // First 25% of the animation duration
       ),
-    );
+      TweenSequenceItem(
+        tween: Tween<double>(begin: 1.0, end: 0.0).chain(
+          CurveTween(curve: Curves.easeInOut),
+        ),
+        weight: 25, // Last 25% of the animation duration
+      ),
+    ]).animate(_controller);
 
     _controller.repeat();
   }
@@ -44,28 +52,33 @@ class _CircleRotationAnimationState extends State<CircleRotationAnimation>
 
         return Stack(
           children: [
+            // Background gradient circle
             Positioned(
               top: 50,
-              right: width/2-230,
-              child: Container(
-                width: 625,
-                height: 595,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(254, 254, 254, 0.1),
-                      Color.fromRGBO(148, 128, 128, 0),
-                    ],
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    stops: [0.32, 0.79],
+              right: width / 2 - 230,
+              child: Opacity(
+                opacity: _opacityAnimation.value ,
+                child: Container(
+                  width: 625,
+                  height: 595,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(254, 254, 254, 0.1),
+                        Color.fromRGBO(148, 128, 128, 0),
+                      ],
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      stops: [0.32, 0.79],
+                    ),
+                    shape: BoxShape.circle,
                   ),
-                  shape: BoxShape.circle,
                 ),
               ),
             ),
+            // Moving and fading circle
             Positioned(
-              left: (width / 2) + _horizontalMotion.value,
+              left: (width / 2) - 150 + _horizontalMotion.value,
               top: 400,
               child: Opacity(
                 opacity: _opacityAnimation.value,
