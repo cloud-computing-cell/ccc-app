@@ -147,12 +147,13 @@ class _TeamState extends State<Team> {
                                         Container(
                                           width: 150,
                                           height: 197,
-                                          child: SvgPicture.asset("assets/images/loading.svg"),
+                                          child: SvgPicture.asset("assets/images/loader.svg"),
                                         ),
+                                        SizedBox(width: 2,),
                                         Container(
                                       width: 150,
                                       height: 197,
-                                      child: SvgPicture.asset("assets/images/loading.svg"),
+                                      child: SvgPicture.asset("assets/images/loader.svg"),
                                         ),
                                       ],
                                     ),
@@ -162,12 +163,13 @@ class _TeamState extends State<Team> {
                                         Container(
                                           width: 150,
                                           height: 197,
-                                          child: SvgPicture.asset("assets/images/loading.svg"),
+                                          child: SvgPicture.asset("assets/images/loader.svg"),
                                         ),
+                                        SizedBox(width: 2,),
                                         Container(
                                       width: 150,
                                       height: 197,
-                                      child: SvgPicture.asset("assets/images/loading.svg"),
+                                      child: SvgPicture.asset("assets/images/loader.svg"),
                                         ),
                                       ],
                                     ),
