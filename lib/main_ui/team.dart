@@ -171,17 +171,13 @@ class _TeamState extends State<Team> {
                                       alignment: Alignment.center,
                                       children: [
                                         
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(15),
+                                        SvgPicture.asset(
+                                          selectedYear =="4th"?
+                                          "assets/images/4th.svg" : selectedYear=="3rd"? "assets/images/card3.svg": "assets/images/card2.svg",
+                                          fit: BoxFit.cover,
+                                          height: 197,
+                                          width: 150,
                                           
-                                          child: SvgPicture.asset(
-                                            selectedYear =="4th"?
-                                            "assets/images/whitebg.svg" : selectedYear=="3rd"? "assets/images/card3.svg": "assets/images/card2.svg",
-                                            fit: BoxFit.cover,
-                                            height: 197,
-                                            width: 150,
-                                            
-                                          ),
                                         ),
                                         Positioned(
                                           top: 30,

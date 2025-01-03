@@ -49,7 +49,7 @@ class _MainState extends State<Main> {
       Project(),
       Connectus(),
       Register(),
-      Domain(),
+      WebDevelopmentScreen(),
             
     ];
     // final secNavBar =[

@@ -16,7 +16,7 @@ class _CircleRotationAnimationState extends State<CircleRotationAnimation>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(seconds: 20),
+      duration: Duration(seconds: 22),
       vsync: this,
     );
 
