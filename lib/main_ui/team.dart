@@ -137,11 +137,44 @@ class _TeamState extends State<Team> {
                         future: team,
                         builder: (BuildContext context, AsyncSnapshot snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Center(
-                              child: CircularProgressIndicator(
-                                strokeWidth: 8,
-                                valueColor: AlwaysStoppedAnimation(Colors.green),
-                              ),
+                            return Stack(
+                              children: [
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Container(
+                                          width: 150,
+                                          height: 197,
+                                          child: SvgPicture.asset("assets/images/loading.svg"),
+                                        ),
+                                        Container(
+                                      width: 150,
+                                      height: 197,
+                                      child: SvgPicture.asset("assets/images/loading.svg"),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Container(
+                                          width: 150,
+                                          height: 197,
+                                          child: SvgPicture.asset("assets/images/loading.svg"),
+                                        ),
+                                        Container(
+                                      width: 150,
+                                      height: 197,
+                                      child: SvgPicture.asset("assets/images/loading.svg"),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                
+                              ],
                             );
                           }
                           if (snapshot.hasError) {
