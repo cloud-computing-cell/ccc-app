@@ -1,9 +1,4 @@
-// import 'dart:ffi';
-
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:ccc_app/background%20Animation/bganimation.dart';
-import 'package:ccc_app/main_ui/team.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
