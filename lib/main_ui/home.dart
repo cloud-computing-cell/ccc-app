@@ -31,7 +31,8 @@ class _HomeState extends State<Home> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage("assets/images/ccclogo.png"),
-                                fit: BoxFit.cover)),
+                                fit: BoxFit.cover)
+                                ),
                       ),
                       SizedBox(
                         width: 20,
@@ -68,10 +69,7 @@ class _HomeState extends State<Home> {
                   child: Container(
                     width: double.infinity,
                     height: 200,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/images/cimage.png"),
-                            fit: BoxFit.cover)),
+                    child: Image.network("https://s3-alpha-sig.figma.com/img/bd0f/e85c/75a18adc7300adcb1c190a2a281a2549?Expires=1736726400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=glNgLp7p27ovkQkeK28dzFBDy67gvEOx-cd6-RSAYq~4ybI-eO5E8caLAOgdtAen~yvmy86jmSnX0F5WKBXBz1fwsb2iSEcczS-J0em3q2RHzo5CpS8JwJWbKiH8hqbc3~kKR0JM8EoFG-m7kKzRnyC1mxxwPuEnizaAiGDdX5GVn5cDaYr8FSTzTmeG8SprqLGuIZ7imIVosxfEZMz7iMSUB5xfFGyhLeqQygi7K0g5j~A4sCatZWO~rLoCbGwvvMAZ2FncnOK~o~yRWBtjdl-1-CQ10fKJHye3DIC3oZF8WOPvRZURIzvlByAO9kqJdRLHPyVg6Ky4AAsqGnYH0A__"),
                   ),
                 ),
                 Padding(

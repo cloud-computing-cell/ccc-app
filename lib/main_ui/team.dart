@@ -45,20 +45,17 @@ class _TeamState extends State<Team> {
                 Column(
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 10),
                       child: Container(
                           width: double.infinity,
                           height: 200,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
                                   image: AssetImage("assets/images/team.jpg"),
-                                  fit: BoxFit.cover))
-                                  
-                                  ),
+                                  fit: BoxFit.cover))),
                     ),
-                    
                     SizedBox(height: 10),
                     Text(
                       'OUR TEAM MEMBERS',
@@ -97,7 +94,9 @@ class _TeamState extends State<Team> {
                             style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,
-                                color:selectedYear=="4th"? Color.fromRGBO(245, 163, 10, 1): Color.fromRGBO(145, 145, 145, 1)),
+                                color: selectedYear == "4th"
+                                    ? Color.fromRGBO(245, 163, 10, 1)
+                                    : Color.fromRGBO(145, 145, 145, 1)),
                           ),
                         ),
                         GestureDetector(
@@ -112,7 +111,9 @@ class _TeamState extends State<Team> {
                             style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,
-                                color: selectedYear=="3rd"? Color.fromRGBO(110, 69, 172, 1) :Color.fromRGBO(145, 145, 145, 1)),
+                                color: selectedYear == "3rd"
+                                    ? Color.fromRGBO(110, 69, 172, 1)
+                                    : Color.fromRGBO(145, 145, 145, 1)),
                           ),
                         ),
                         GestureDetector(
@@ -127,7 +128,9 @@ class _TeamState extends State<Team> {
                             style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,
-                                color: selectedYear=="2nd" ? Color.fromRGBO(102, 224, 206, 1): Color.fromRGBO(145, 145, 145, 1)),
+                                color: selectedYear == "2nd"
+                                    ? Color.fromRGBO(102, 224, 206, 1)
+                                    : Color.fromRGBO(145, 145, 145, 1)),
                           ),
                         ),
                       ],
@@ -135,52 +138,64 @@ class _TeamState extends State<Team> {
                     SizedBox(height: 10),
                     FutureBuilder(
                         future: team,
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return Stack(
                               children: [
                                 Column(
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Container(
                                           width: 150,
                                           height: 197,
-                                          child: SvgPicture.asset("assets/images/loader.svg"),
+                                          child: SvgPicture.asset(
+                                              "assets/images/loader.svg"),
                                         ),
-                                        SizedBox(width: 2,),
+                                        SizedBox(
+                                          width: 2,
+                                        ),
                                         Container(
-                                      width: 150,
-                                      height: 197,
-                                      child: SvgPicture.asset("assets/images/loader.svg"),
+                                          width: 150,
+                                          height: 197,
+                                          child: SvgPicture.asset(
+                                              "assets/images/loader.svg"),
                                         ),
                                       ],
                                     ),
                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Container(
                                           width: 150,
                                           height: 197,
-                                          child: SvgPicture.asset("assets/images/loader.svg"),
+                                          child: SvgPicture.asset(
+                                              "assets/images/loader.svg"),
                                         ),
-                                        SizedBox(width: 2,),
+                                        SizedBox(
+                                          width: 2,
+                                        ),
                                         Container(
-                                      width: 150,
-                                      height: 197,
-                                      child: SvgPicture.asset("assets/images/loader.svg"),
+                                          width: 150,
+                                          height: 197,
+                                          child: SvgPicture.asset(
+                                              "assets/images/loader.svg"),
                                         ),
                                       ],
                                     ),
                                   ],
                                 ),
-                                
                               ],
                             );
                           }
                           if (snapshot.hasError) {
-                            return Center(child: Text("Error: ${snapshot.error}"));
+                            return Center(
+                                child: Text("Error: ${snapshot.error}"));
                           }
                           if (snapshot.hasData) {
                             var teamData = snapshot.data!;
@@ -197,29 +212,33 @@ class _TeamState extends State<Team> {
                                 itemBuilder: (BuildContext context, int index) {
                                   var member = teamData[index];
                                   return Container(
-                                    width: MediaQuery.of(context).size.width / 2 - 10,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            10,
                                     height: 197,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15)
-                                    ),
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
                                     child: Stack(
                                       alignment: Alignment.center,
                                       children: [
-                                        
                                         SvgPicture.asset(
-                                          selectedYear =="4th"?
-                                          "assets/images/4th.svg" : selectedYear=="3rd"? "assets/images/card3.svg": "assets/images/card2.svg",
+                                          selectedYear == "4th"
+                                              ? "assets/images/4th.svg"
+                                              : selectedYear == "3rd"
+                                                  ? "assets/images/card3.svg"
+                                                  : "assets/images/card2.svg",
                                           fit: BoxFit.cover,
                                           height: 197,
                                           width: 150,
-                                          
                                         ),
                                         Positioned(
                                           top: 30,
                                           child: CircleAvatar(
                                             radius: 35,
-                                            backgroundImage: AssetImage(
-                                                'assets/images/annni.png'),
+                                            child: ClipOval(
+                                                child: Image.network(
+                                                    member["profile"])),
                                           ),
                                         ),
                                         Positioned(
@@ -229,8 +248,8 @@ class _TeamState extends State<Team> {
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.w600,
-                                              color:
-                                                  Color.fromRGBO(130, 130, 130, 1),
+                                              color: Color.fromRGBO(
+                                                  130, 130, 130, 1),
                                             ),
                                           ),
                                         ),
@@ -241,7 +260,8 @@ class _TeamState extends State<Team> {
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w700,
-                                              color: Color.fromRGBO(21, 14, 43, 1),
+                                              color:
+                                                  Color.fromRGBO(21, 14, 43, 1),
                                             ),
                                           ),
                                         ),
@@ -288,7 +308,8 @@ class _TeamState extends State<Team> {
                           } else {
                             return Center(
                               child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation(Colors.white),
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.white),
                               ),
                             );
                           }

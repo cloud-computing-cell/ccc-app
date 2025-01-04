@@ -30,11 +30,11 @@ class DomainDetails extends StatelessWidget {
     final List<Map<String, String>> domains = [
       {
         "title": "App Development",
-        "description": "Designing and building interactive mobile applications for iOS and Android."
+        "description": "App development involves designing, building, and maintaining software applications that run on various devices, including smartphones, tabs, etc. These apps are created to fulfill specific needs, such as enabling communicate, improving productivity, or providing entertainment."
       },
       {
         "title": "Web Development",
-        "description": "Creating responsive and dynamic websites and web applications."
+        "description": "Web development is the process of creating and maintaining websites or web application that are  accessible  through the  internet. It involves coding, designing, and structuring web pages to deliver a functional and engaging user experience"
       },
       {
         "title": "Cloud Computing",
@@ -42,19 +42,11 @@ class DomainDetails extends StatelessWidget {
       },
       {
         "title": "Machine Learning",
-        "description": "Implementing predictive models using data-driven algorithms."
-      },
-      {
-        "title": "Data Science",
-        "description": "Analyzing and visualizing data to derive actionable insights."
-      },
-      {
-        "title": "Cybersecurity",
-        "description": "Ensuring the security of systems, networks, and data."
+        "description": "Machine Learning (ML) is a branch of artificial intelligence (AI) that focuses on developing systems capable of learning and improving from experience without being explicitly programmed."
       },
       {
         "title": "UI/UX Design",
-        "description": "Enhancing user experiences through intuitive and attractive interfaces."
+        "description": "UI - (User Interface) and  UX - (User Experience) design  are  two  essential  components  of creating a digital product, such as a website or mobile app. They work together to ensure that the product is not only visually appeal but also easy and enjoyable to use."
       },
     ];
 
@@ -63,13 +55,13 @@ class DomainDetails extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Stack(
         children: [
-          // Thread Background
+         
           Positioned.fill(
             child: CustomPaint(
               painter: ThreadPainter(itemCount: domains.length),
             ),
           ),
-          // Domain List
+          
           ListView.builder(
             itemCount: domains.length,
             itemBuilder: (context, index) {
@@ -78,7 +70,7 @@ class DomainDetails extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Circular Icon
+                    
                     Container(
                       width: 24,
                       height: 24,
@@ -89,7 +81,7 @@ class DomainDetails extends StatelessWidget {
                       child: const Icon(Icons.circle, size: 12, color: Colors.white),
                     ),
                     const SizedBox(width: 16),
-                    // Text Information
+                    
                     Expanded(
                       child: Card(
                         shape: RoundedRectangleBorder(
@@ -137,8 +129,7 @@ class ThreadPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Color.fromRGBO(51, 34, 104, 1)
+    final paint = Paint()..color = Color.fromRGBO(51, 34, 104, 1)
       ..strokeWidth = 5;
 
     final double spacing = size.height / (itemCount + 1);
@@ -183,33 +174,26 @@ class DomainPhoto extends StatelessWidget {
           ),
           Stack(
             children: [
+              
               Transform.rotate(
                 angle: -0.12,
-                child: SvgPicture.asset("assets/images/1.svg"),
-              ),
-              Transform.rotate(
-                angle: -0.1,
-                child: SvgPicture.asset("assets/images/2.svg"),
-              ),
-              Transform.rotate(
-                angle: -0.08,
-                child: SvgPicture.asset("assets/images/3.svg"),
-              ),
-              Transform.rotate(
-                angle: -0.06,
-                child: SvgPicture.asset("assets/images/4.svg"),
-              ),
-              Transform.rotate(
-                angle: -0.04,
                 child: SvgPicture.asset("assets/images/5.svg"),
               ),
               Transform.rotate(
-                angle: -0.02,
-                child: SvgPicture.asset("assets/images/6.svg"),
+                angle: -0.09,
+                child: SvgPicture.asset("assets/images/4.svg"),
+              ),
+              Transform.rotate(
+                angle: -0.06,
+                child: SvgPicture.asset("assets/images/3.svg"),
+              ),
+              Transform.rotate(
+                angle: -0.03,
+                child: SvgPicture.asset("assets/images/2.svg"),
               ),
               Transform.rotate(
                 angle: 0,
-                child: SvgPicture.asset("assets/images/7.svg"),
+                child: SvgPicture.asset("assets/images/1.svg"),
               ),
             ],
           ),
