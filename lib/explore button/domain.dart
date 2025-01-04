@@ -152,13 +152,13 @@ class ThreadPainter extends CustomPainter {
       ..color = Color.fromRGBO(51, 34, 104, 1)
       ..strokeWidth = 5;
 
-    final double spacing = size.height / (itemCount + 1);
+    final double spacing = size.height;
 
     for (int i = 0; i < itemCount; i++) {
-      final y = spacing * (i + 1);
+      
       canvas.drawLine(
-        Offset(12, y),
-        Offset(12, y + spacing),
+        Offset(12, 0),
+        Offset(12, spacing),
         paint,
       );
     }
