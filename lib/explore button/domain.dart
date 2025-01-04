@@ -9,13 +9,22 @@ class Domain extends StatefulWidget {
 }
 
 class _DomainState extends State<Domain> {
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(flex: 3, child: DomainPhoto()),
-          Expanded(flex: 2, child: const DomainDetails()),
+          Expanded(flex: 3, child: DomainPhoto(selectedIndex: selectedIndex)),
+          Expanded(
+              flex: 2,
+              child: DomainDetails(
+                onDomainSelected: (index) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+              )),
         ],
       ),
     );
@@ -23,30 +32,36 @@ class _DomainState extends State<Domain> {
 }
 
 class DomainDetails extends StatelessWidget {
-  const DomainDetails({super.key});
+  final void Function(int) onDomainSelected;
+  const DomainDetails({required this.onDomainSelected, super.key});
 
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> domains = [
       {
         "title": "App Development",
-        "description": "App development involves designing, building, and maintaining software applications that run on various devices, including smartphones, tabs, etc. These apps are created to fulfill specific needs, such as enabling communicate, improving productivity, or providing entertainment."
+        "description":
+            "App development involves designing, building, and maintaining software applications that run on various devices, including smartphones, tabs, etc. These apps are created to fulfill specific needs, such as enabling communicate, improving productivity, or providing entertainment."
       },
       {
         "title": "Web Development",
-        "description": "Web development is the process of creating and maintaining websites or web application that are  accessible  through the  internet. It involves coding, designing, and structuring web pages to deliver a functional and engaging user experience"
+        "description":
+            "Web development is the process of creating and maintaining websites or web application that are  accessible  through the  internet. It involves coding, designing, and structuring web pages to deliver a functional and engaging user experience"
       },
       {
         "title": "Cloud Computing",
-        "description": "Cloud computing is the delivery of computing services  —  such as storage , processing , databases, networking, and software over the internet. It enable users to access resources on-demand without needs to own physical hardware."
+        "description":
+            "Cloud computing is the delivery of computing services  —  such as storage , processing , databases, networking, and software over the internet. It enable users to access resources on-demand without needs to own physical hardware."
       },
       {
         "title": "Machine Learning",
-        "description": "Machine Learning (ML) is a branch of artificial intelligence (AI) that focuses on developing systems capable of learning and improving from experience without being explicitly programmed."
+        "description":
+            "Machine Learning (ML) is a branch of artificial intelligence (AI) that focuses on developing systems capable of learning and improving from experience without being explicitly programmed."
       },
       {
         "title": "UI/UX Design",
-        "description": "UI - (User Interface) and  UX - (User Experience) design  are  two  essential  components  of creating a digital product, such as a website or mobile app. They work together to ensure that the product is not only visually appeal but also easy and enjoyable to use."
+        "description":
+            "UI - (User Interface) and  UX - (User Experience) design  are  two  essential  components  of creating a digital product, such as a website or mobile app. They work together to ensure that the product is not only visually appeal but also easy and enjoyable to use."
       },
     ];
 
@@ -55,63 +70,67 @@ class DomainDetails extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Stack(
         children: [
-         
           Positioned.fill(
             child: CustomPaint(
               painter: ThreadPainter(itemCount: domains.length),
             ),
           ),
-          
           ListView.builder(
             itemCount: domains.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    
-                    Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(51, 34, 104, 1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(Icons.circle, size: 12, color: Colors.white),
-                    ),
-                    const SizedBox(width: 16),
-                    
-                    Expanded(
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+              return GestureDetector(
+                onTap: () {
+                  onDomainSelected(index);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(51, 34, 104, 1),
+                          shape: BoxShape.circle,
                         ),
-                        elevation: 4,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                domains[index]["title"]!,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 24,
-                                  color: Colors.black
+                        child: const Icon(Icons.circle,
+                            size: 12, color: Colors.white),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 4,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  domains[index]["title"]!,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 24,
+                                      color: Colors.black),
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                domains[index]["description"]!,
-                                style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w500, color: Colors.black),
-                              ),
-                            ],
+                                const SizedBox(height: 8),
+                                Text(
+                                  domains[index]["description"]!,
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             },
@@ -129,7 +148,8 @@ class ThreadPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Color.fromRGBO(51, 34, 104, 1)
+    final paint = Paint()
+      ..color = Color.fromRGBO(51, 34, 104, 1)
       ..strokeWidth = 5;
 
     final double spacing = size.height / (itemCount + 1);
@@ -149,17 +169,26 @@ class ThreadPainter extends CustomPainter {
 }
 
 class DomainPhoto extends StatelessWidget {
-  const DomainPhoto({super.key});
+  final int selectedIndex;
+  const DomainPhoto({required this.selectedIndex, super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Images = [
+      SvgPicture.asset("assets/images/1.svg"),
+      SvgPicture.asset("assets/images/2.svg"),
+      SvgPicture.asset("assets/images/3.svg"),
+      SvgPicture.asset("assets/images/4.svg"),
+      SvgPicture.asset("assets/images/5.svg"),
+    ];
+
     return Container(
       width: double.infinity,
       color: const Color.fromRGBO(19, 20, 23, 1),
       child: Column(
         children: [
           Align(
-            alignment: Alignment.topLeft,     
+            alignment: Alignment.topLeft,
             child: Padding(
               padding: const EdgeInsets.only(left: 20, top: 20, bottom: 40),
               child: Text(
@@ -174,27 +203,7 @@ class DomainPhoto extends StatelessWidget {
           ),
           Stack(
             children: [
-              
-              Transform.rotate(
-                angle: -0.12,
-                child: SvgPicture.asset("assets/images/5.svg"),
-              ),
-              Transform.rotate(
-                angle: -0.09,
-                child: SvgPicture.asset("assets/images/4.svg"),
-              ),
-              Transform.rotate(
-                angle: -0.06,
-                child: SvgPicture.asset("assets/images/3.svg"),
-              ),
-              Transform.rotate(
-                angle: -0.03,
-                child: SvgPicture.asset("assets/images/2.svg"),
-              ),
-              Transform.rotate(
-                angle: 0,
-                child: SvgPicture.asset("assets/images/1.svg"),
-              ),
+              Images[selectedIndex]
             ],
           ),
         ],
@@ -202,4 +211,3 @@ class DomainPhoto extends StatelessWidget {
     );
   }
 }
-
