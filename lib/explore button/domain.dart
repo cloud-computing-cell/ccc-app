@@ -15,15 +15,20 @@ class _DomainState extends State<Domain> {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(flex: 3, child: DomainPhoto(selectedIndex: selectedIndex)),
           Expanded(
-              flex: 2,
-              child: DomainDetails(
-                onDomainSelected: (index) {
+              flex: 3,
+              child: DomainPhoto(
+                selectedIndex: selectedIndex,
+                onPhotoTapped: (index) {
                   setState(() {
                     selectedIndex = index;
                   });
                 },
+              )),
+          Expanded(
+              flex: 2,
+              child: DomainDetails(
+                selectedIndex: selectedIndex,
               )),
         ],
       ),
@@ -32,8 +37,8 @@ class _DomainState extends State<Domain> {
 }
 
 class DomainDetails extends StatelessWidget {
-  final void Function(int) onDomainSelected;
-  const DomainDetails({required this.onDomainSelected, super.key});
+  final int selectedIndex;
+  const DomainDetails({required this.selectedIndex, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +69,7 @@ class DomainDetails extends StatelessWidget {
             "UI - (User Interface) and  UX - (User Experience) design  are  two  essential  components  of creating a digital product, such as a website or mobile app. They work together to ensure that the product is not only visually appeal but also easy and enjoyable to use."
       },
     ];
-
+    final domain = domains[selectedIndex];
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.all(16),
@@ -75,65 +80,49 @@ class DomainDetails extends StatelessWidget {
               painter: ThreadPainter(itemCount: domains.length),
             ),
           ),
-          ListView.builder(
-            itemCount: domains.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  onDomainSelected(index);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 24,
-                        height: 24,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(51, 34, 104, 1),
-                          shape: BoxShape.circle,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(51, 34, 104, 1),
+                    shape: BoxShape.circle,
+                  ),
+                  child:
+                      const Icon(Icons.circle, size: 12, color: Colors.white),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          domain["title"]!,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 24,
+                              color: Colors.black),
                         ),
-                        child: const Icon(Icons.circle,
-                            size: 12, color: Colors.white),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          elevation: 4,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  domains[index]["title"]!,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 24,
-                                      color: Colors.black),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  domains[index]["description"]!,
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black),
-                                ),
-                              ],
-                            ),
-                          ),
+                        const SizedBox(height: 8),
+                        Text(
+                          domain["description"]!,
+                          style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              );
-            },
+              ],
+            ),
           ),
         ],
       ),
@@ -155,7 +144,6 @@ class ThreadPainter extends CustomPainter {
     final double spacing = size.height;
 
     for (int i = 0; i < itemCount; i++) {
-      
       canvas.drawLine(
         Offset(12, 0),
         Offset(12, spacing),
@@ -170,7 +158,10 @@ class ThreadPainter extends CustomPainter {
 
 class DomainPhoto extends StatelessWidget {
   final int selectedIndex;
-  const DomainPhoto({required this.selectedIndex, super.key});
+  final void Function(int) onPhotoTapped;
+
+  const DomainPhoto(
+      {required this.selectedIndex, required this.onPhotoTapped, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -201,10 +192,15 @@ class DomainPhoto extends StatelessWidget {
               ),
             ),
           ),
-          Stack(
-            children: [
-              Images[selectedIndex]
-            ],
+          GestureDetector(
+            onTap: () {
+              int nextIndex = (selectedIndex + 1) % Images.length;
+              onPhotoTapped(nextIndex);
+            },
+            child: Stack(
+              alignment: Alignment.center,
+              children: [Images[selectedIndex]],
+            ),
           ),
         ],
       ),
