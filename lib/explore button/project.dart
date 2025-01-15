@@ -18,7 +18,6 @@ class _ProjectState extends State<Project> {
     'assets/images/5.svg',
     'assets/images/6.svg',
     'assets/images/7.svg',
-    
   ];
   @override
   Widget build(BuildContext context) {
@@ -39,7 +38,9 @@ class _ProjectState extends State<Project> {
                       color: Colors.white,
                       fontWeight: FontWeight.w600),
                 )),
-                SizedBox(height: 5,),
+            SizedBox(
+              height: 5,
+            ),
             Align(
                 alignment: Alignment.center,
                 child: Text(
@@ -61,7 +62,7 @@ class _ProjectState extends State<Project> {
                           fontSize: 14,
                           color: Color.fromRGBO(139, 139, 139, 1),
                           fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.justify,
+                      textAlign: TextAlign.justify,
                     )),
                     Container(
                       width: 130,
@@ -72,26 +73,23 @@ class _ProjectState extends State<Project> {
                 ),
               ),
             ),
-            SizedBox(height: 20,),
-             CarouselSlider(
-              
-              
+            SizedBox(
+              height: 20,
+            ),
+            CarouselSlider(
               options: CarouselOptions(
-             
                 enlargeCenterPage: true,
-                
                 aspectRatio: 1.0,
                 viewportFraction: 0.8,
                 scrollPhysics: BouncingScrollPhysics(),
               ),
-              items: imgList.map((item) => Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: SvgPicture.asset(item),
-              )).toList(),
-             ),
-             
-        
-        
+              items: imgList
+                  .map((item) => Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        child: SvgPicture.asset(item),
+                      ))
+                  .toList(),
+            ),
           ],
         ),
       ),
