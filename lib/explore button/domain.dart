@@ -97,8 +97,7 @@ class DomainDetails extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
+                  child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -117,6 +116,7 @@ class DomainDetails extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
+                        SizedBox(height: 80,)
                       ],
                     ),
                   ),
@@ -166,12 +166,13 @@ class DomainPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Images = [
-      SvgPicture.asset("assets/images/1.svg"),
-      SvgPicture.asset("assets/images/2.svg"),
-      SvgPicture.asset("assets/images/3.svg"),
-      SvgPicture.asset("assets/images/4.svg"),
-      SvgPicture.asset("assets/images/5.svg"),
+      Image.network("https://s3-alpha-sig.figma.com/img/c449/3101/c3bd75023fa32b67ecc64c0048169f98?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=D2GdpEdmgvPpKhAMVrgG1e3WSlGCAMlFNfcBZOsm02I-0EnNC8JS9TTaQJ5B5f6cUChfjvXipo2~MsVcUsHhnzudWPWBXzJ4M5y~ud2YQiL~kpRcLK7dPRb5qCZ3vMbyEaVhze9KCQLsa5vpiueVw8p8huNs2DvW9Ppt9-xPd8ufa-P3R~kSXtXutikihrZOIGYEFo8T1BrJ66lwB-xOExFnkM0u-lLIgVtTlbzYT3U8FMjy4bc6m4IslsjzrUWD9g5jKxcOdx3CEnH-bnqhfhfOB7Q4yaaJKl4Qx6xf9AjiP3v9O8p8TZcM4YW3cCFBI~lQsqgQOwZuuWvDclwvng__",fit: BoxFit.cover,),
+      Image.network("https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=gCx8fjQT6Hfr-ir7bhuOvs1Tv7ReV6u3W2dCn2~FTWv8eLr9OY2GJwmZgpi6QXIad7mAOETZOFSfzVuQ2x~6m4LLLROglq0138KsIB-skA3CZAigUkll9CSb7ycoW1Qmkxj0hfu2sqQBT4Zlf7w4EO2ungcsJawSTcG2qcDwPrmDTgWQA1uKHsAkhsBRNtSN2kMD-nVcsC~Ad30hZrSXPkZuMUVPipb~I44v1A4EwJqegyNkd42~CCKG4iF43pwSSCPnBlKDLrLxA8OwCz0xQl1~JVp-VQG5Ant-TkLwSB93m-S4mb~WOzZhHV0RyTRFRfMrNvHZRJIsY78nGaJ2oA__",fit: BoxFit.cover,),
+      Image.network("https://s3-alpha-sig.figma.com/img/d8ad/f5e6/419890217b37826177955c0bedfe9e8a?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mk-XbMBi1sdZeHhYrx42BtcsPxC4~OZh4g2xYS1q5DWPcpGR0LjMz2Zj~rpV4GM~qtiRhywXGWNbiJ~OuEEhbAN7yJJQ7VYg-pPQRFpt9EfDLMAeJDSs31khpVuABACvcSEIuyA9O2jbYXwxFQzYapSqwbYYNPYqOXdYthTvwiK5RehX-aABuNPys7ULfwb9jkMPEQInYXOP1iYnytasxB0RFykxgTRIMYUuurFHXaOFyhvx-hvG3lpoSFMG0CpgzR75IGLHH9EeAhhadPHx7gF8QJJSZzkq-K3Fx11kYnMh9Zp~wjK4le7hdf4MBRGbqPN0EKuw-m6b810447abyA__",fit: BoxFit.cover,),
+      Image.network("https://s3-alpha-sig.figma.com/img/8a8d/3cac/6a6d0843ff74243b990a0c45162d887b?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=BgSsUfmOb1GMHd8dcUXXbL5djNDooHLChMWrZSuJdUBx13NRi3RNDs0pmYAWNRahJEiKjDNnSSiCbWU0kQoJTqA18TuqJ2Zz2rMc2lyy1GhdSUzBz1OoqM2Qgr-7hCkDZ41bd5XWdMzZELNEX3~4I8ZvYmCkUzGYFp6md27XrUKAYk6n5YehsQypjr37bYZO~VSG2mvr413xLzo5CJaIFkprbKkRCGyKzC428HqooWur2WwoxmddN7wzE--e7D4mYZ7cvHQ15jQ5UaBHtOorrMPl5G488Z5QClIY8137w16bJmiA5CSX-b6kTEBC3c89YujS1tcE8ChYmK1FLZXVIQ__",fit: BoxFit.cover,),
+      Image.network("https://s3-alpha-sig.figma.com/img/d592/7ed6/5ab14d8a733d474385f49c5e72a701b2?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ZQYSqoUXiZ7vReoCjvP5P1xbLVziWC1Ou-OSrC5678ic5Gyl17aA5cE3TZudM2KsfP~IsOEMKtJFQeYu~K7b6tTnO-HqmTHOX7O1YNqTeHCBh1X9WFoVqaOX25A7K~m9ezhOKOJhaydP9YS9~XfAHYp~~dlKf~s-zJSsEx96mlLJeCL~Pk4O74sNdGs7Jwe8tXePDyOyYzZjpC-hNYAW8VqmN9fdPJApslOv7ORWQgxgPXtvFj6ZPEqb1ufX-o5ArKxq464aNUVLuoh8jaDbJbnd7enQIz3o3yAtsXh~oBkHqGIoT6eigwi-s3I5v6ieMrPqWPAZANPPMEqG3qwcUA__",fit: BoxFit.cover,),
     ];
+    final height = MediaQuery.of(context).size.height;
 
     return Container(
       width: double.infinity,
@@ -197,9 +198,18 @@ class DomainPhoto extends StatelessWidget {
               int nextIndex = (selectedIndex + 1) % Images.length;
               onPhotoTapped(nextIndex);
             },
-            child: Stack(
-              alignment: Alignment.center,
-              children: [Images[selectedIndex]],
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30)
+              ),
+              width: double.infinity,
+              height: height/2 -120,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Images[selectedIndex],
+                  ],
+              ),
             ),
           ),
         ],

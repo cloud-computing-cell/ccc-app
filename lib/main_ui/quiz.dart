@@ -21,7 +21,7 @@ class _QuizState extends State<Quiz> {
           SingleChildScrollView(
             child: Column(
               children: [
-                SvgPicture.asset("assets/images/quiz.svg")
+                SvgPicture.asset("assets/images/quizz.svg")
               ],
             ),
           ),

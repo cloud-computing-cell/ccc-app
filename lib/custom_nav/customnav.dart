@@ -11,7 +11,7 @@ class Customnav extends StatefulWidget {
 
 class _CustomnavState extends State<Customnav> {
   int selectedIndex = 0;
-   bool showSecondNavBar = false;
+  bool showSecondNavBar = false;
 
   void onTap(int index) {
     setState(() {
@@ -26,42 +26,40 @@ class _CustomnavState extends State<Customnav> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       width: size.width,
-       height: showSecondNavBar ? 160 : 80,
+      height: showSecondNavBar ? 160 : 80,
       //  height: showSecondNavBar ? 145 : 65,
       child: Stack(
         children: [
-                 if (showSecondNavBar)
-         Positioned.fill(
-          top: 15,
-           child: Padding(
-             padding: const EdgeInsets.symmetric(horizontal: 20),
-             child: Container(
-              width: double.infinity,
-              height: 160,
-               color: Colors.black,
-             ),
-           ),
-         ),
-
+          if (showSecondNavBar)
+            Positioned.fill(
+              top: 15,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  width: double.infinity,
+                  height: 160,
+                  color: Colors.black,
+                ),
+              ),
+            ),
           Positioned(
-            top: showSecondNavBar?80:0,
+            top: showSecondNavBar ? 80 : 0,
             child: CustomPaint(
               size: Size(size.width, 80),
               painter: BNBcustomPainter(),
             ),
           ),
-         
           Positioned.fill(
-            top: showSecondNavBar?80: 0,
+            top: showSecondNavBar ? 80 : 0,
             left: 0,
             right: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildIcon(Icons.home_outlined, 0 , "Home"),
+                _buildIcon(Icons.home_outlined, 0, "Home"),
                 _buildIcon(Icons.event, 1, "Events"),
                 SizedBox(width: size.width * 0.20),
-                _buildIcon(Icons.group_add_outlined, 2,"Team"),
+                _buildIcon(Icons.group_add_outlined, 2, "Team"),
                 _buildIcon(Icons.quiz_outlined, 3, "Quiz"),
               ],
             ),
@@ -74,12 +72,12 @@ class _CustomnavState extends State<Customnav> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
-
                   height: 65,
                   decoration: BoxDecoration(
-                  color: Colors.black,
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
-                  ),
+                      color: Colors.black,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -93,8 +91,8 @@ class _CustomnavState extends State<Customnav> {
                 ),
               ),
             ),
-             Positioned(
-            top: showSecondNavBar?80:0,
+          Positioned(
+            top: showSecondNavBar ? 80 : 0,
             left: 0,
             right: 0,
             child: Center(
@@ -109,14 +107,14 @@ class _CustomnavState extends State<Customnav> {
                   },
                   backgroundColor: Colors.white,
                   child: Transform.scale(
-                    scale: 1.4,
-                
-                    child: SvgPicture.asset("assets/images/explore.svg",fit: BoxFit.cover,)),
+                      scale: 1.4,
+                      child: SvgPicture.asset(
+                        "assets/images/explore.svg",
+                        fit: BoxFit.cover,
+                      )),
                   shape: const CircleBorder(),
-                  
                 ),
               ),
-              
             ),
           ),
         ],
@@ -128,14 +126,12 @@ class _CustomnavState extends State<Customnav> {
     final isSelected = selectedIndex == index;
     return GestureDetector(
       onTap: () {
-      onTap(index);
-                    setState(() {
-                      if(showSecondNavBar){
-                        showSecondNavBar=!showSecondNavBar;
-                      }
-                    });
-                  
-        
+        onTap(index);
+        setState(() {
+          if (showSecondNavBar) {
+            showSecondNavBar = !showSecondNavBar;
+          }
+        });
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -150,7 +146,8 @@ class _CustomnavState extends State<Customnav> {
             name,
             style: TextStyle(
               fontSize: 12,
-              color: isSelected ? Colors.white : Color.fromRGBO(116, 123, 131, 1),
+              color:
+                  isSelected ? Colors.white : Color.fromRGBO(116, 123, 131, 1),
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
@@ -160,16 +157,18 @@ class _CustomnavState extends State<Customnav> {
   }
 }
 
-
 class BNBcustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = const Color.fromRGBO(29, 31, 36, 1)..style = PaintingStyle.fill;
+    Paint paint = Paint()
+      ..color = const Color.fromRGBO(29, 31, 36, 1)
+      ..style = PaintingStyle.fill;
 
     Path path = Path()..moveTo(0, 0);
     path.quadraticBezierTo(size.width * 0.20, 0, size.width * 0.35, 0);
     path.quadraticBezierTo(size.width * 0.40, 0, size.width * 0.40, 20);
-    path.arcToPoint(Offset(size.width * 0.60, 20), radius: const Radius.circular(10), clockwise: false);
+    path.arcToPoint(Offset(size.width * 0.60, 20),
+        radius: const Radius.circular(10), clockwise: false);
     path.quadraticBezierTo(size.width * 0.60, 0, size.width * 0.65, 0);
     path.quadraticBezierTo(size.width * 0.80, 0, size.width, 0);
     path.lineTo(size.width, size.height);
@@ -180,7 +179,7 @@ class BNBcustomPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate){
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return false;
   }
 }

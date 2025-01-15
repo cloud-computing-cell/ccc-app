@@ -69,8 +69,7 @@ class _HomeState extends State<Home> {
                   child: Container(
                     width: double.infinity,
                     height: 200,
-                    child: Image.network("https://s3-alpha-sig.figma.com/img/bd0f/e85c/75a18adc7300adcb1c190a2a281a2549?Expires=1736726400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=glNgLp7p27ovkQkeK28dzFBDy67gvEOx-cd6-RSAYq~4ybI-eO5E8caLAOgdtAen~yvmy86jmSnX0F5WKBXBz1fwsb2iSEcczS-J0em3q2RHzo5CpS8JwJWbKiH8hqbc3~kKR0JM8EoFG-m7kKzRnyC1mxxwPuEnizaAiGDdX5GVn5cDaYr8FSTzTmeG8SprqLGuIZ7imIVosxfEZMz7iMSUB5xfFGyhLeqQygi7K0g5j~A4sCatZWO~rLoCbGwvvMAZ2FncnOK~o~yRWBtjdl-1-CQ10fKJHye3DIC3oZF8WOPvRZURIzvlByAO9kqJdRLHPyVg6Ky4AAsqGnYH0A__"),
-                  ),
+                    child: Image.network("https://s3-alpha-sig.figma.com/img/bd0f/e85c/75a18adc7300adcb1c190a2a281a2549?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=AMOXW7OnsYWGE5FPHEdHsP9j326at0cwKX0aUYOOoFGM-Ee84dB~RIJVm9zQ9wvDofFrmYnSVlQQT5ogbjP4KIXYc5GG3NZAbCHRQ66dC1Eqw9sNRG8PtWOVtP4kfga-fdUAG0CYJ2vCFRHVWCIjspIA0ZAOE5~ZxOzmWbaBft72KhuxB~r1UpS0bnlb3AqGHIRR8vhELfg2OQuig7AbPAerK4klXDBhIsGdzV036pCR-CbohFvYG7DPInBqe3m107N5Q289Xc5hs-7X8IPZNnf~E1L8Y-kXl7T3tEGdcxM7aOB42VPwiNP6TesB8AlPErxA~uxNol3L2y3RbsMdQg__"),),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 40, bottom: 8, top: 10),

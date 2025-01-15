@@ -5,15 +5,16 @@ import 'package:ccc_app/explore%20button/project.dart';
 import 'package:ccc_app/explore%20button/register.dart';
 import 'package:ccc_app/main_ui/event.dart';
 import 'package:ccc_app/main_ui/home.dart';
+import 'package:ccc_app/main_ui/more.dart';
 import 'package:ccc_app/main_ui/quiz.dart';
 import 'package:ccc_app/main_ui/team.dart';
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
+void main() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Main(),
-      
     ),
   );
 }
@@ -26,19 +27,11 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-  int currentindex =0;
+  int currentindex = 0;
 
   @override
   Widget build(BuildContext context) {
-    // final nav =[
-    //   Icon(Icons.home , size: 30, color: Color.fromRGBO(51, 34, 104, 1),),
-    //   Icon(Icons.event , size: 30,color: Color.fromRGBO(51, 34, 104, 1),),
-    //   Icon(Icons.holiday_village , size: 30,color: Color.fromRGBO(51, 34, 104, 1),),
-    //   Icon(Icons.quiz_outlined , size: 30,color: Color.fromRGBO(51, 34, 104, 1),),
-    //   Icon(Icons.more_vert , size: 30,color: Color.fromRGBO(51, 34, 104, 1),),
-
-    // ];
-    final screen =[
+    final screen = [
       Home(),
       MyEventPage(),
       Team(),
@@ -47,30 +40,21 @@ class _MainState extends State<Main> {
       Connectus(),
       Register(),
       Domain(),
-            
     ];
-    // final secNavBar =[
-     
-            
-    // ];
-
+   
     return SafeArea(
-      
       child: Scaffold(
-         extendBody: true,
+        extendBody: true,
         backgroundColor: const Color.fromRGBO(19, 20, 23, 1),
-        
         body: screen[currentindex],
-      
         bottomNavigationBar: Customnav(
-
-            onItemSelected: (index) {
-                setState(() {
+          onItemSelected: (index) {
+            setState(() {
               currentindex = index;
-               });
-              },
+            });
+          },
         ),
       ),
     );
-}
+  }
 }
