@@ -222,6 +222,7 @@ class DomainPhoto extends StatelessWidget {
             height: height / 2.5,
             child: TinderSwapCard(
               swipeUp: true,
+              animDuration: 300,
               swipeDown: true,
               orientation: AmassOrientation.bottom,
               totalNum: 100000,
@@ -237,7 +238,7 @@ class DomainPhoto extends StatelessWidget {
                   onTap: () => onPhotoTapped(imageIndex),
                   child: Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(15),
                     ),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     child: images[imageIndex],
