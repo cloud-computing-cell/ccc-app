@@ -20,20 +20,29 @@ class _MyEventPageState extends State<MyEventPage> {
   ];
   final events = [
     SvgPicture.asset("assets/images/devclash.svg"),
-    SvgPicture.asset("assets/images/devclash.svg"),
-    SvgPicture.asset("assets/images/devclash.svg"),
-    SvgPicture.asset("assets/images/devclash.svg"),
-    SvgPicture.asset("assets/images/devclash.svg"),
+    SvgPicture.asset("assets/images/spocc.svg"),
+    SvgPicture.asset("assets/images/hackoverflow.svg"),
+    SvgPicture.asset("assets/images/NIMBUS.svg"),
+    SvgPicture.asset("assets/images/GRAPHICON.svg"),
   ];
 
   int myCurrentIndex = 0;
 
   final List<String> paragraphTexts = [
-    'This is paragraph 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.',
-    'This is paragraph 2. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.',
-    'This is paragraph 3. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
-    'This is paragraph 4. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.',
-    'This is paragraph 5. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?',
+    'To Unleash your creativity, solve challenges, and make your mark in the world of development!”⭐Step into the world of innovation with DevClash , organized by Cloud Computing Cell. A blend of knowledge ,creativity and excitement is what awaits you. Whether you are passionate about app development or web designing, this is your chance to shine and learn like never before.Get ready to test your skills in two thrilling rounds. First, the Elimination Round will challenge your knowledge, selecting the top 7 app and web teams each that will qualify for the Development Round, where you’ll craft app or web pages based on provided designs.🌟 Grand Prizes: Cash prizes for the top teams in both app and web category!⭐PRIZE POOL: Rs. 6000⭐This isnt just a competition; its an experience of growth and innovation. Let your talent connect with like-minded tech enthusiasts and make this even',
+    'To Unleash your creativity, solve challenges, and make your mark in the world of development!”⭐Step into the world of innovation with DevClash , organized by Cloud Computing Cell. A blend of knowledge ,creativity and excitement is what awaits you. Whether you are passionate about app development or web designing, this is your chance to shine and learn like never before.Get ready to test your skills in two thrilling rounds. First, the Elimination Round will challenge your knowledge, selecting the top 7 app and web teams each that will qualify for the Development Round, where you’ll craft app or web pages based on provided designs.🌟 Grand Prizes: Cash prizes for the top teams in both app and web category!⭐PRIZE POOL: Rs. 6000⭐This isnt just a competition; its an experience of growth and innovation. Let your talent connect with like-minded tech enthusiasts and make this even',
+    'To Unleash your creativity, solve challenges, and make your mark in the world of development!”⭐Step into the world of innovation with DevClash , organized by Cloud Computing Cell. A blend of knowledge ,creativity and excitement is what awaits you. Whether you are passionate about app development or web designing, this is your chance to shine and learn like never before.Get ready to test your skills in two thrilling rounds. First, the Elimination Round will challenge your knowledge, selecting the top 7 app and web teams each that will qualify for the Development Round, where you’ll craft app or web pages based on provided designs.🌟 Grand Prizes: Cash prizes for the top teams in both app and web category!⭐PRIZE POOL: Rs. 6000⭐This isnt just a competition; its an experience of growth and innovation. Let your talent connect with like-minded tech enthusiasts and make this even',
+    'To Unleash your creativity, solve challenges, and make your mark in the world of development!”⭐Step into the world of innovation with DevClash , organized by Cloud Computing Cell. A blend of knowledge ,creativity and excitement is what awaits you. Whether you are passionate about app development or web designing, this is your chance to shine and learn like never before.Get ready to test your skills in two thrilling rounds. First, the Elimination Round will challenge your knowledge, selecting the top 7 app and web teams each that will qualify for the Development Round, where you’ll craft app or web pages based on provided designs.🌟 Grand Prizes: Cash prizes for the top teams in both app and web category!⭐PRIZE POOL: Rs. 6000⭐This isnt just a competition; its an experience of growth and innovation. Let your talent connect with like-minded tech enthusiasts and make this even',
+    'To Unleash your creativity, solve challenges, and make your mark in the world of development!”⭐Step into the world of innovation with DevClash , organized by Cloud Computing Cell. A blend of knowledge ,creativity and excitement is what awaits you. Whether you are passionate about app development or web designing, this is your chance to shine and learn like never before.Get ready to test your skills in two thrilling rounds. First, the Elimination Round will challenge your knowledge, selecting the top 7 app and web teams each that will qualify for the Development Round, where you’ll craft app or web pages based on provided designs.🌟 Grand Prizes: Cash prizes for the top teams in both app and web category!⭐PRIZE POOL: Rs. 6000⭐This isnt just a competition; its an experience of growth and innovation. Let your talent connect with like-minded tech enthusiasts and make this even',
+    
+
+  ];
+  final colorEvent=[
+    Color.fromRGBO(130, 120, 215, 1),
+    Color.fromRGBO(140, 226, 113, 1),
+    Color.fromRGBO(120, 201, 215, 1),
+    Color.fromRGBO(215, 120, 185, 1),
+    Color.fromRGBO(226, 133, 46, 1),
   ];
 
   final List<List<Widget>> paragraphImages = [
@@ -66,8 +75,10 @@ class _MyEventPageState extends State<MyEventPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double widthsize = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: const Color.fromRGBO(19, 20, 23, 1),
+      
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -121,29 +132,41 @@ class _MyEventPageState extends State<MyEventPage> {
             ),
             const SizedBox(height: 10),
             for (int i = 0; i < paragraphTexts.length; i++) ...[
+              
+              Transform.translate(
+                offset: Offset( -widthsize * 0.22, 13),
+                child: SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.27,
+                  height: 20,
+                  child: events[i],
+                ),
+              ),
               GestureDetector(
                 onTap: () => toggleExpansion(i),
-                child: ClipPath(
-                  clipper: MiddleIndentClipper(expandedList[i]),
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                    padding: const EdgeInsets.all(10),
-                    color: Colors.white,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          paragraphTexts[i],
-                          // maxLines: expandedList[i] ? 100 : 3,
-                          maxLines: expandedList[i] ? null : 3,
-                          // overflow: TextOverflow.ellipsis,
-                          overflow: expandedList[i] ? TextOverflow.visible : TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.black87,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: ClipPath(
+                    clipper: MiddleIndentClipper(expandedList[i]),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      padding: const EdgeInsets.all(10),
+                      color: colorEvent[i],
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            paragraphTexts[i],
+                            // maxLines: expandedList[i] ? 100 : 3,
+                            maxLines: expandedList[i] ? null : 3,
+                            // overflow: TextOverflow.ellipsis,
+                            overflow: expandedList[i] ? TextOverflow.visible : TextOverflow.ellipsis,
+                            style:TextStyle(
+                              fontSize: 12,
+                              color:  i== 2 || i==1 ? Colors.black : Colors.white,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
