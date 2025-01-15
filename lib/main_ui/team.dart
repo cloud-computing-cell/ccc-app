@@ -274,30 +274,30 @@ class _TeamState extends State<Team> {
                                               IconButton(
                                                   onPressed: () {
                                                     openSocialMedia(
-                                                        "https://github.com/");
+                                                        member["github"]);
                                                   },
                                                   icon: SvgPicture.asset(
-                                                      "assets/images/git.svg",
+                                                      "assets/images/github.svg",
                                                       height: 15,
                                                       width: 10)),
                                               IconButton(
                                                   onPressed: () {
                                                     openSocialMedia(
-                                                        "https://linkedin.com/");
+                                                        member["linkedin"]);
                                                   },
                                                   icon: SvgPicture.asset(
-                                                      "assets/images/link.svg",
+                                                      "assets/images/linkedin.svg",
                                                       height: 15,
                                                       width: 15)),
                                               IconButton(
                                                   onPressed: () {
                                                     openSocialMedia(
-                                                        "https://twitter.com/");
+                                                        member["instagram"]);
                                                   },
                                                   icon: SvgPicture.asset(
-                                                      "assets/images/twitter.svg",
-                                                      height: 10,
-                                                      width: 10)),
+                                                      "assets/images/instagram.svg",
+                                                      height: 15,
+                                                      width: 15)),
                                             ],
                                           ),
                                         ),
