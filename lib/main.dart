@@ -5,6 +5,7 @@ import 'package:ccc_app/explore%20button/project.dart';
 import 'package:ccc_app/explore%20button/register.dart';
 import 'package:ccc_app/main_ui/event.dart';
 import 'package:ccc_app/main_ui/home.dart';
+import 'package:ccc_app/main_ui/more.dart';
 // import 'package:ccc_app/main_ui/more.dart';
 import 'package:ccc_app/main_ui/quiz.dart';
 import 'package:ccc_app/main_ui/team.dart';
@@ -35,7 +36,7 @@ class _MainState extends State<Main> {
       Home(),
       MyEventPage(),
       Team(),
-      Quiz(),
+      teamsectioncheck(),
       Project(),
       Connectus(),
       Register(),

@@ -212,96 +212,125 @@ class _TeamState extends State<Team> {
                                 itemBuilder: (BuildContext context, int index) {
                                   var member = teamData[index];
                                   return Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2 -
-                                            10,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.45, // Adjust width dynamically
                                     height: 197,
                                     decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                          selectedYear == "4th"
-                                              ? "assets/images/4th.svg"
-                                              : selectedYear == "3rd"
-                                                  ? "assets/images/card3.svg"
-                                                  : "assets/images/card2.svg",
-                                          fit: BoxFit.cover,
-                                          height: 197,
-                                          width: 150,
-                                        ),
-                                        Positioned(
-                                          top: 30,
-                                          child: CircleAvatar(
-                                            radius: 35,
-                                            child: ClipOval(
-                                                child: Image.network(
-                                                    member["profile"])),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          bottom: 70,
-                                          child: Text(
-                                            member["domain"],
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w600,
-                                              color: Color.fromRGBO(
-                                                  130, 130, 130, 1),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: LayoutBuilder(
+                                      builder: (context, constraints) {
+                                        return Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            SvgPicture.asset(
+                                              selectedYear == "4th"
+                                                  ? "assets/images/4th.svg"
+                                                  : selectedYear == "3rd"
+                                                      ? "assets/images/card3.svg"
+                                                      : "assets/images/card2.svg",
+                                              fit: BoxFit.cover,
+                                              height: constraints.maxHeight,
+                                              width: constraints.maxWidth,
                                             ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          bottom: 50,
-                                          child: Text(
-                                            member["name"],
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w700,
-                                              color:
-                                                  Color.fromRGBO(21, 14, 43, 1),
+                                            Positioned(
+                                              top: constraints.maxHeight * 0.15,
+                                              child: CircleAvatar(
+                                                radius:
+                                                    constraints.maxWidth * 0.15,
+                                                child: ClipOval(
+                                                  child: Image.network(
+                                                      member["profile"],
+                                                      fit: BoxFit.cover),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          bottom: 10,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              IconButton(
-                                                  onPressed: () {
-                                                    openSocialMedia(
-                                                        member["github"]);
-                                                  },
-                                                  icon: SvgPicture.asset(
+                                            Positioned(
+                                              bottom:
+                                                  constraints.maxHeight * 0.35,
+                                              child: Text(
+                                                member["domain"],
+                                                style: TextStyle(
+                                                  fontSize:
+                                                      constraints.maxWidth *
+                                                          0.06,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color.fromRGBO(
+                                                      130, 130, 130, 1),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              bottom:
+                                                  constraints.maxHeight * 0.25,
+                                              child: Text(
+                                                member["name"],
+                                                style: TextStyle(
+                                                  fontSize:
+                                                      constraints.maxWidth *
+                                                          0.07,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Color.fromRGBO(
+                                                      21, 14, 43, 1),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              bottom:
+                                                  constraints.maxHeight * 0.05,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () =>
+                                                        openSocialMedia(
+                                                            member["github"]),
+                                                    icon: SvgPicture.asset(
                                                       "assets/images/github.svg",
-                                                      height: 15,
-                                                      width: 10)),
-                                              IconButton(
-                                                  onPressed: () {
-                                                    openSocialMedia(
-                                                        member["linkedin"]);
-                                                  },
-                                                  icon: SvgPicture.asset(
+                                                      height:
+                                                          constraints.maxWidth *
+                                                              0.08,
+                                                      width:
+                                                          constraints.maxWidth *
+                                                              0.08,
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () =>
+                                                        openSocialMedia(
+                                                            member["linkedin"]),
+                                                    icon: SvgPicture.asset(
                                                       "assets/images/linkedin.svg",
-                                                      height: 15,
-                                                      width: 15)),
-                                              IconButton(
-                                                  onPressed: () {
-                                                    openSocialMedia(
-                                                        member["instagram"]);
-                                                  },
-                                                  icon: SvgPicture.asset(
+                                                      height:
+                                                          constraints.maxWidth *
+                                                              0.08,
+                                                      width:
+                                                          constraints.maxWidth *
+                                                              0.08,
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () =>
+                                                        openSocialMedia(member[
+                                                            "instagram"]),
+                                                    icon: SvgPicture.asset(
                                                       "assets/images/instagram.svg",
-                                                      height: 15,
-                                                      width: 15)),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
+                                                      height:
+                                                          constraints.maxWidth *
+                                                              0.08,
+                                                      width:
+                                                          constraints.maxWidth *
+                                                              0.08,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
                                     ),
                                   );
                                 });

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scrumlab_flutter_tindercard/scrumlab_flutter_tindercard.dart';
 
 class Domain extends StatefulWidget {
@@ -183,11 +184,17 @@ class DomainPhoto extends StatefulWidget {
 class _DomainPhotoState extends State<DomainPhoto> {
   final CardController controller = CardController();
   final List<String> images = [
-    "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
-    "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
-    "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
-    "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
-    "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
+    
+    "assets/images/explore.svg",
+    "assets/images/explore.svg",
+    "assets/images/explore.svg",
+    "assets/images/explore.svg",
+    "assets/images/explore.svg",
+    // "assets/images/cl.svg",
+    // "assets/images/cl.svg",
+    // "assets/images/cl.svg",
+    // "assets/images/cl.svg",
+
   ];
 
   @override
@@ -211,7 +218,7 @@ class _DomainPhotoState extends State<DomainPhoto> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             clipBehavior: Clip.antiAliasWithSaveLayer,
             child:
-                Image.network(images[index % images.length], fit: BoxFit.cover),
+                SvgPicture.asset(images[index % images.length], fit: BoxFit.cover),
           );
         },
         cardController: controller,
@@ -229,7 +236,8 @@ class domainhead extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(19, 20, 23, 1),
+      // backgroundColor: const Color.fromRGBO(19, 20, 23, 1),
+      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
         body: Column(
           children: [
             Padding(
@@ -237,7 +245,7 @@ class domainhead extends StatelessWidget {
               child: Text(
                     "Technical Domains",
                     style: TextStyle(
-                fontSize: 30, fontWeight: FontWeight.w700, color: Colors.white),
+                fontSize: 30, fontWeight: FontWeight.w700, color: Colors.black),
                   ),
             ),
           ],

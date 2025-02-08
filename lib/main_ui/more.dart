@@ -1,219 +1,349 @@
+import 'package:ccc_app/apiservices/apiservices.dart';
+import 'package:ccc_app/background%20Animation/bganimation.dart';
 import 'package:flutter/material.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-
-class SplashScreen extends StatefulWidget {
+class teamsectioncheck extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<teamsectioncheck> createState() => _teamsectioncheckState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<Offset> _animation;
+class _teamsectioncheckState extends State<teamsectioncheck> {
+  late Future team;
+  String selectedYear = "4th";
 
   @override
   void initState() {
     super.initState();
-
-    _animationController = AnimationController(
-      duration: const Duration(seconds: 4),
-      vsync: this,
-    )..repeat(reverse: false);
-
-    _animation = Tween<Offset>(
-      begin: Offset(0.0, 1.0), 
-      end: Offset(1.0, -0.5),  
-    ).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
-    );
-
-    _navigateToHomePage();
+    team = fetchTeamData(selectedYear);
   }
 
-  _navigateToHomePage() async {
-    await Future.delayed(const Duration(seconds: 4));
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
+  Future fetchTeamData(String year) {
+    switch (year) {
+      case "4th":
+        return getTeamDataForFourthYear();
+      case "3rd":
+        return getTeamDataForThirdYear();
+      case "2nd":
+        return getTeamDataForSecondYear();
+      default:
+        return getTeamDataForFourthYear();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromRGBO(19, 20, 23, 1),
       body: Stack(
         children: [
-          SlideTransition(
-            position: _animation,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.blue.withOpacity(0.5),
-                    Colors.transparent,
-                  ],
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                ),
-              ),
-            ),
-          ),
-          const Center(
-            child: SizedBox.shrink(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
-  late final AnimationController _gradientController;
-  late Animation<Alignment> _gradientAlignmentAnimation;
-
-  bool _showImage = true;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _gradientController = AnimationController(
-      duration: const Duration(seconds: 6),
-      vsync: this,
-    )..repeat(reverse: true);
-
-    _gradientAlignmentAnimation = TweenSequence<Alignment>([
-      TweenSequenceItem(
-        tween: AlignmentTween(
-          begin: Alignment.bottomCenter,
-          end: Alignment.centerRight,
-        ),
-        weight: 1,
-      ),
-      TweenSequenceItem(
-        tween: AlignmentTween(
-          begin: Alignment.centerRight,
-          end: Alignment.topCenter,
-        ),
-        weight: 1,
-      ),
-      TweenSequenceItem(
-        tween: AlignmentTween(
-          begin: Alignment.topCenter,
-          end: Alignment.centerLeft,
-        ),
-        weight: 1,
-      ),
-      TweenSequenceItem(
-        tween: AlignmentTween(
-          begin: Alignment.centerLeft,
-          end: Alignment.bottomCenter,
-        ),
-        weight: 1,
-      ),
-    ]).animate(CurvedAnimation(parent: _gradientController, curve: Curves.easeInOut));
-
-    Future.delayed(const Duration(seconds: 3), () {
-      setState(() {
-        _showImage = false;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _gradientController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const SizedBox.shrink(),
-      ),
-      body: Stack(
-        children: [
-          AnimatedBuilder(
-            animation: _gradientController,
-            builder: (context, child) {
-              return Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 10.0,
-                    style: BorderStyle.solid,
-                    color: Colors.transparent,
-                  ),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.blue.withOpacity(0.4),
-                      Colors.transparent,
-                    ],
-                    begin: _gradientAlignmentAnimation.value,
-                    end: Alignment.center,
-                  ),
-                ),
-              );
-            },
-          ),
-          Center(
+          CircleRotationAnimation(),
+          SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (_showImage)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                    child: Image.asset(
-                      'assets/home frame.png',
-                      width: 150,
-                      height: 150,
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 10),
+                      child: Container(
+                          width: double.infinity,
+                          height: 200,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  image: AssetImage("assets/images/team.jpg"),
+                                  fit: BoxFit.cover))),
                     ),
-                  ),
-                AnimatedTextKit(
-                  animatedTexts: [
-                    TyperAnimatedText(
-                      "CLOUD  COMPUTING",
-                      textStyle: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(height: 10),
+                    Text(
+                      'OUR TEAM MEMBERS',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700,
                         color: Colors.white,
                       ),
-                      speed: const Duration(milliseconds: 100),
                     ),
-                  ],
-                  isRepeatingAnimation: true,
-                  totalRepeatCount: 3,
-                ),
-                AnimatedTextKit(
-                  animatedTexts: [
-                    TyperAnimatedText(
-                      "CELL",
-                      textStyle: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Text(
+                        '"Collaboration turns dreams into reality, achieving greatness as one."',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      speed: const Duration(milliseconds: 100),
                     ),
+                    SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedYear = "4th";
+                              team = fetchTeamData(selectedYear);
+                            });
+                          },
+                          child: Text(
+                            "4th Year",
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: selectedYear == "4th"
+                                    ? Color.fromRGBO(245, 163, 10, 1)
+                                    : Color.fromRGBO(145, 145, 145, 1)),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedYear = "3rd";
+                              team = fetchTeamData(selectedYear);
+                            });
+                          },
+                          child: Text(
+                            "3rd Year",
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: selectedYear == "3rd"
+                                    ? Color.fromRGBO(110, 69, 172, 1)
+                                    : Color.fromRGBO(145, 145, 145, 1)),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedYear = "2nd";
+                              team = fetchTeamData(selectedYear);
+                            });
+                          },
+                          child: Text(
+                            "2nd Year",
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: selectedYear == "2nd"
+                                    ? Color.fromRGBO(102, 224, 206, 1)
+                                    : Color.fromRGBO(145, 145, 145, 1)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    FutureBuilder(
+                        future: team,
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Stack(
+                              children: [
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Container(
+                                          width: 150,
+                                          height: 197,
+                                          child: SvgPicture.asset(
+                                              "assets/images/loader.svg"),
+                                        ),
+                                        SizedBox(
+                                          width: 2,
+                                        ),
+                                        Container(
+                                          width: 150,
+                                          height: 197,
+                                          child: SvgPicture.asset(
+                                              "assets/images/loader.svg"),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Container(
+                                          width: 150,
+                                          height: 197,
+                                          child: SvgPicture.asset(
+                                              "assets/images/loader.svg"),
+                                        ),
+                                        SizedBox(
+                                          width: 2,
+                                        ),
+                                        Container(
+                                          width: 150,
+                                          height: 197,
+                                          child: SvgPicture.asset(
+                                              "assets/images/loader.svg"),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                          }
+                          if (snapshot.hasError) {
+                            return Center(
+                                child: Text("Error: ${snapshot.error}"));
+                          }
+                          if (snapshot.hasData) {
+                            var teamData = snapshot.data!;
+                            return GridView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 0,
+                                  mainAxisSpacing: 10,
+                                ),
+                                itemCount: teamData.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  var member = teamData[index];
+                                  return Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.45, // Adjust width dynamically
+                                    height: 197,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: LayoutBuilder(
+                                      builder: (context, constraints) {
+                                        return Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            SvgPicture.asset(
+                                              selectedYear == "4th"
+                                                  ? "assets/images/4th.svg"
+                                                  : selectedYear == "3rd"
+                                                      ? "assets/images/card3.svg"
+                                                      : "assets/images/card2.svg",
+                                              fit: BoxFit.cover,
+                                              height: constraints.maxHeight,
+                                              width: constraints.maxWidth,
+                                            ),
+                                            Positioned(
+                                              top: constraints.maxHeight * 0.15,
+                                              child: CircleAvatar(
+                                                radius:
+                                                    constraints.maxWidth * 0.15,
+                                                child: ClipOval(
+                                                  child: Image.network(
+                                                      member["profile"],
+                                                      fit: BoxFit.cover),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              bottom:
+                                                  constraints.maxHeight * 0.35,
+                                              child: Text(
+                                                member["domain"],
+                                                style: TextStyle(
+                                                  fontSize:
+                                                      constraints.maxWidth *
+                                                          0.06,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color.fromRGBO(
+                                                      130, 130, 130, 1),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              bottom:
+                                                  constraints.maxHeight * 0.25,
+                                              child: Text(
+                                                member["name"],
+                                                style: TextStyle(
+                                                  fontSize:
+                                                      constraints.maxWidth *
+                                                          0.07,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Color.fromRGBO(
+                                                      21, 14, 43, 1),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              bottom:
+                                                  constraints.maxHeight * 0.05,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () =>
+                                                        openSocialMedia(
+                                                            member["github"]),
+                                                    icon: SvgPicture.asset(
+                                                      "assets/images/github.svg",
+                                                      height:
+                                                          constraints.maxWidth *
+                                                              0.08,
+                                                      width:
+                                                          constraints.maxWidth *
+                                                              0.08,
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () =>
+                                                        openSocialMedia(
+                                                            member["linkedin"]),
+                                                    icon: SvgPicture.asset(
+                                                      "assets/images/linkedin.svg",
+                                                      height:
+                                                          constraints.maxWidth *
+                                                              0.08,
+                                                      width:
+                                                          constraints.maxWidth *
+                                                              0.08,
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () =>
+                                                        openSocialMedia(member[
+                                                            "instagram"]),
+                                                    icon: SvgPicture.asset(
+                                                      "assets/images/instagram.svg",
+                                                      height:
+                                                          constraints.maxWidth *
+                                                              0.08,
+                                                      width:
+                                                          constraints.maxWidth *
+                                                              0.08,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  );
+                                });
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.white),
+                              ),
+                            );
+                          }
+                        }),
                   ],
-                  isRepeatingAnimation: true,
-                  totalRepeatCount: 3,
                 ),
               ],
             ),
@@ -221,5 +351,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         ],
       ),
     );
+  }
+
+  void openSocialMedia(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
