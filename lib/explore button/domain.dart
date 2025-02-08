@@ -20,10 +20,12 @@ class _DomainState extends State<Domain> {
             flex: 3,
             child: DomainPhoto(
               selectedIndex: selectedIndex,
-              onPhotoTapped: (index) {
-                setState(() {
-                  selectedIndex = index;
-                });
+              onPhotoChanged: (index) {
+                if (index != selectedIndex) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                }
               },
             ),
           ),
@@ -49,38 +51,37 @@ class DomainDetails extends StatelessWidget {
       {
         "title": "App Development",
         "description":
-            "App development involves designing, building, and maintaining software applications that run on various devices, including smartphones, tabs, etc. These apps are created to fulfill specific needs, such as enabling communicate, improving productivity, or providing entertainment."
+            "App development involves designing, building, and maintaining software applications that run on various devices, including smartphones, tabs, etc."
       },
       {
         "title": "Web Development",
         "description":
-            "Web development is the process of creating and maintaining websites or web application that are  accessible  through the  internet. It involves coding, designing, and structuring web pages to deliver a functional and engaging user experience"
+            "Web development is the process of creating and maintaining websites or web applications that are accessible through the internet."
       },
       {
         "title": "Cloud Computing",
         "description":
-            "Cloud computing is the delivery of computing services  —  such as storage , processing , databases, networking, and software over the internet. It enable users to access resources on-demand without needs to own physical hardware."
+            "Cloud computing is the delivery of computing services—such as storage, processing, databases, networking, and software over the internet."
       },
       {
         "title": "Machine Learning",
         "description":
-            "Machine Learning (ML) is a branch of artificial intelligence (AI) that focuses on developing systems capable of learning and improving from experience without being explicitly programmed."
+            "Machine Learning (ML) is a branch of artificial intelligence (AI) that focuses on developing systems capable of learning and improving from experience."
       },
       {
         "title": "UI/UX Design",
         "description":
-            "UI - (User Interface) and  UX - (User Experience) design  are  two  essential  components  of creating a digital product, such as a website or mobile app. They work together to ensure that the product is not only visually appeal but also easy and enjoyable to use."
+            "UI (User Interface) and UX (User Experience) design work together to ensure that a digital product is both visually appealing and easy to use."
       },
     ];
 
-    final domain = domains[selectedIndex];
+    final domain = domains[selectedIndex % domains.length];
 
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.all(16),
       child: Stack(
         children: [
-          // Draws a custom vertical thread-like background
           Positioned.fill(
             child: CustomPaint(
               painter: ThreadPainter(itemCount: domains.length),
@@ -91,7 +92,6 @@ class DomainDetails extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Circle Icon
                 Container(
                   width: 24,
                   height: 24,
@@ -99,10 +99,10 @@ class DomainDetails extends StatelessWidget {
                     color: Color.fromRGBO(51, 34, 104, 1),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.circle, size: 12, color: Colors.white),
+                  child:
+                      const Icon(Icons.circle, size: 12, color: Colors.white),
                 ),
                 const SizedBox(width: 16),
-                // Title and Description
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
@@ -165,51 +165,42 @@ class ThreadPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-class DomainPhoto extends StatelessWidget {
+class DomainPhoto extends StatefulWidget {
   final int selectedIndex;
-  final void Function(int) onPhotoTapped;
+  final void Function(int) onPhotoChanged;
 
   const DomainPhoto({
     required this.selectedIndex,
-    required this.onPhotoTapped,
+    required this.onPhotoChanged,
     super.key,
   });
 
   @override
+  _DomainPhotoState createState() => _DomainPhotoState();
+}
+
+class _DomainPhotoState extends State<DomainPhoto> {
+  final CardController controller = CardController();
+
+  @override
   Widget build(BuildContext context) {
-    final images = [
-      Image.network(
-        "https://s3-alpha-sig.figma.com/img/c449/3101/c3bd75023fa32b67ecc64c0048169f98?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=D2GdpEdmgvPpKhAMVrgG1e3WSlGCAMlFNfcBZOsm02I-0EnNC8JS9TTaQJ5B5f6cUChfjvXipo2~MsVcUsHhnzudWPWBXzJ4M5y~ud2YQiL~kpRcLK7dPRb5qCZ3vMbyEaVhze9KCQLsa5vpiueVw8p8huNs2DvW9Ppt9-xPd8ufa-P3R~kSXtXutikihrZOIGYEFo8T1BrJ66lwB-xOExFnkM0u-lLIgVtTlbzYT3U8FMjy4bc6m4IslsjzrUWD9g5jKxcOdx3CEnH-bnqhfhfOB7Q4yaaJKl4Qx6xf9AjiP3v9O8p8TZcM4YW3cCFBI~lQsqgQOwZuuWvDclwvng__",
-        fit: BoxFit.cover,
-      ),
-      Image.network(
-        "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=gCx8fjQT6Hfr-ir7bhuOvs1Tv7ReV6u3W2dCn2~FTWv8eLr9OY2GJwmZgpi6QXIad7mAOETZOFSfzVuQ2x~6m4LLLROglq0138KsIB-skA3CZAigUkll9CSb7ycoW1Qmkxj0hfu2sqQBT4Zlf7w4EO2ungcsJawSTcG2qcDwPrmDTgWQA1uKHsAkhsBRNtSN2kMD-nVcsC~Ad30hZrSXPkZuMUVPipb~I44v1A4EwJqegyNkd42~CCKG4iF43pwSSCPnBlKDLrLxA8OwCz0xQl1~JVp-VQG5Ant-TkLwSB93m-S4mb~WOzZhHV0RyTRFRfMrNvHZRJIsY78nGaJ2oA__",
-        fit: BoxFit.cover,
-      ),
-      Image.network(
-        "https://s3-alpha-sig.figma.com/img/d8ad/f5e6/419890217b37826177955c0bedfe9e8a?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mk-XbMBi1sdZeHhYrx42BtcsPxC4~OZh4g2xYS1q5DWPcpGR0LjMz2Zj~rpV4GM~qtiRhywXGWNbiJ~OuEEhbAN7yJJQ7VYg-pPQRFpt9EfDLMAeJDSs31khpVuABACvcSEIuyA9O2jbYXwxFQzYapSqwbYYNPYqOXdYthTvwiK5RehX-aABuNPys7ULfwb9jkMPEQInYXOP1iYnytasxB0RFykxgTRIMYUuurFHXaOFyhvx-hvG3lpoSFMG0CpgzR75IGLHH9EeAhhadPHx7gF8QJJSZzkq-K3Fx11kYnMh9Zp~wjK4le7hdf4MBRGbqPN0EKuw-m6b810447abyA__",
-        fit: BoxFit.cover,
-      ),
-      Image.network(
-        "https://s3-alpha-sig.figma.com/img/8a8d/3cac/6a6d0843ff74243b990a0c45162d887b?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=BgSsUfmOb1GMHd8dcUXXbL5djNDooHLChMWrZSuJdUBx13NRi3RNDs0pmYAWNRahJEiKjDNnSSiCbWU0kQoJTqA18TuqJ2Zz2rMc2lyy1GhdSUzBz1OoqM2Qgr-7hCkDZ41bd5XWdMzZELNEX3~4I8ZvYmCkUzGYFp6md27XrUKAYk6n5YehsQypjr37bYZO~VSG2mvr413xLzo5CJaIFkprbKkRCGyKzC428HqooWur2WwoxmddN7wzE--e7D4mYZ7cvHQ15jQ5UaBHtOorrMPl5G488Z5QClIY8137w16bJmiA5CSX-b6kTEBC3c89YujS1tcE8ChYmK1FLZXVIQ__",
-        fit: BoxFit.cover,
-      ),
-      Image.network(
-        "https://s3-alpha-sig.figma.com/img/d592/7ed6/5ab14d8a733d474385f49c5e72a701b2?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ZQYSqoUXiZ7vReoCjvP5P1xbLVziWC1Ou-OSrC5678ic5Gyl17aA5cE3TZudM2KsfP~IsOEMKtJFQeYu~K7b6tTnO-HqmTHOX7O1YNqTeHCBh1X9WFoVqaOX25A7K~m9ezhOKOJhaydP9YS9~XfAHYp~~dlKf~s-zJSsEx96mlLJeCL~Pk4O74sNdGs7Jwe8tXePDyOyYzZjpC-hNYAW8VqmN9fdPJApslOv7ORWQgxgPXtvFj6ZPEqb1ufX-o5ArKxq464aNUVLuoh8jaDbJbnd7enQIz3o3yAtsXh~oBkHqGIoT6eigwi-s3I5v6ieMrPqWPAZANPPMEqG3qwcUA__",
-        fit: BoxFit.cover,
-      ),
+    final List<String> images = [
+      "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
+      "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
+      "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
+      "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
+      "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
     ];
 
     final height = MediaQuery.of(context).size.height;
-    final CardController controller = CardController();
 
     return Scaffold(
       backgroundColor: const Color.fromRGBO(19, 20, 23, 1),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: const Text(
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Text(
               "Technical Domains",
               style: TextStyle(
                 fontSize: 30,
@@ -222,7 +213,7 @@ class DomainPhoto extends StatelessWidget {
             height: height / 2.5,
             child: TinderSwapCard(
               swipeUp: true,
-              animDuration: 300,
+              animDuration: 400,
               swipeDown: true,
               orientation: AmassOrientation.bottom,
               totalNum: 100000,
@@ -234,22 +225,23 @@ class DomainPhoto extends StatelessWidget {
               minWidth: MediaQuery.sizeOf(context).width * 0.8,
               cardBuilder: (context, index) {
                 int imageIndex = index % images.length;
-                return GestureDetector(
-                  onTap: () => onPhotoTapped(imageIndex),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: images[imageIndex],
+                return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  child: Image.network(
+                    images[imageIndex],
+                    fit: BoxFit.cover,
                   ),
                 );
               },
               cardController: controller,
-              swipeUpdateCallback:
-                  (DragUpdateDetails details, Alignment align) {},
               swipeCompleteCallback:
-                  (CardSwipeOrientation orientation, int index) {},
+                  (CardSwipeOrientation orientation, int index) {
+                int newIndex = (index + 1) % images.length;
+                widget.onPhotoChanged(newIndex);
+              },
             ),
           ),
         ],

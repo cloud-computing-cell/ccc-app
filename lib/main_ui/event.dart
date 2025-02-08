@@ -57,6 +57,12 @@ class _MyEventPageState extends State<MyEventPage> {
     ],
     [
       SvgPicture.asset('assets/images/2.svg', width: 100),
+      SvgPicture.asset('assets/images/2.svg', width: 100),
+      SvgPicture.asset('assets/images/2.svg', width: 100),
+      SvgPicture.asset('assets/images/2.svg', width: 100),
+      SvgPicture.asset('assets/images/2.svg', width: 100),
+      SvgPicture.asset('assets/images/2.svg', width: 100),
+      SvgPicture.asset('assets/images/2.svg', width: 100),
     ],
     [
       SvgPicture.asset('assets/images/1.svg', width: 100),
