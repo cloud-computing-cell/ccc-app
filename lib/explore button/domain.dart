@@ -17,7 +17,11 @@ class _DomainState extends State<Domain> {
       body: Column(
         children: [
           Expanded(
-            flex: 3,
+            flex: 1,
+            child: domainhead(),
+          ),
+          Expanded(
+            flex: 8,
             child: DomainPhoto(
               selectedIndex: selectedIndex,
               onPhotoChanged: (index) {
@@ -30,7 +34,7 @@ class _DomainState extends State<Domain> {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 5,
             child: DomainDetails(
               selectedIndex: selectedIndex,
             ),
@@ -169,11 +173,8 @@ class DomainPhoto extends StatefulWidget {
   final int selectedIndex;
   final void Function(int) onPhotoChanged;
 
-  const DomainPhoto({
-    required this.selectedIndex,
-    required this.onPhotoChanged,
-    super.key,
-  });
+  const DomainPhoto(
+      {required this.selectedIndex, required this.onPhotoChanged, super.key});
 
   @override
   _DomainPhotoState createState() => _DomainPhotoState();
@@ -181,71 +182,65 @@ class DomainPhoto extends StatefulWidget {
 
 class _DomainPhotoState extends State<DomainPhoto> {
   final CardController controller = CardController();
+  final List<String> images = [
+    "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
+    "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
+    "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
+    "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
+    "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final List<String> images = [
-      "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
-      "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
-      "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
-      "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
-      "https://s3-alpha-sig.figma.com/img/9836/bfec/2a114ce9e4bad448e1755d3ee9022be0?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qBO9NmKg2jb6KA7enUualI-utPhRA85SvKp9DLncBfehVf7Ukoj~qgXpl2N6uggX-sk7170SNnvq3aPjo3POJUlCuOkXfYvqba7YxTdYro8JYz2omAr01wJgnInBLssxbya43pzAgra4-yrmyaloyz8vvnGSnn8KeJxnYBQEl1nOCCQnWSWofoqaHKmhzo-1jtg23Z2BfRKwml6ktV5srGGt-Op62F4U-erN390XCoDwR3ilx2EkrtbyRVcEvzXlrEk2crhP8hAPai6bQoKiJrrU0wYdsmePfhsuOgZsOG4~8In03s13tvAjGUL-4AlNF8jglzoTJIptS8ZVGL8-Hg__",
-    ];
-
-    final height = MediaQuery.of(context).size.height;
-
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(19, 20, 23, 1),
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Text(
-              "Technical Domains",
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: height / 2.5,
-            child: TinderSwapCard(
-              swipeUp: true,
-              animDuration: 400,
-              swipeDown: true,
-              orientation: AmassOrientation.bottom,
-              totalNum: 100000,
-              stackNum: 3,
-              swipeEdge: 4.0,
-              maxHeight: MediaQuery.sizeOf(context).width * 0.9,
-              minHeight: MediaQuery.sizeOf(context).width * 0.8,
-              maxWidth: MediaQuery.sizeOf(context).width * 0.9,
-              minWidth: MediaQuery.sizeOf(context).width * 0.8,
-              cardBuilder: (context, index) {
-                int imageIndex = index % images.length;
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: Image.network(
-                    images[imageIndex],
-                    fit: BoxFit.cover,
-                  ),
-                );
-              },
-              cardController: controller,
-              swipeCompleteCallback:
-                  (CardSwipeOrientation orientation, int index) {
-                int newIndex = (index + 1) % images.length;
-                widget.onPhotoChanged(newIndex);
-              },
-            ),
-          ),
-        ],
+    return Container(
+      color: const Color.fromRGBO(19, 20, 23, 1),
+      height: MediaQuery.of(context).size.height / 2.5,
+      child: TinderSwapCard(
+        swipeUp: true,
+        swipeDown: true,
+        totalNum: 1000000,
+        stackNum: 4,
+        swipeEdge: 4.0,
+        maxHeight: MediaQuery.sizeOf(context).width * 0.9,
+        minHeight: MediaQuery.sizeOf(context).width * 0.8,
+        maxWidth: MediaQuery.sizeOf(context).width * 0.9,
+        minWidth: MediaQuery.sizeOf(context).width * 0.8,
+        cardBuilder: (context, index) {
+          return Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child:
+                Image.network(images[index % images.length], fit: BoxFit.cover),
+          );
+        },
+        cardController: controller,
+        swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
+          widget.onPhotoChanged((index + 1) % images.length);
+        },
       ),
     );
+  }
+}
+
+class domainhead extends StatelessWidget {
+  const domainhead({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color.fromRGBO(19, 20, 23, 1),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8,top: 8),
+              child: Text(
+                    "Technical Domains",
+                    style: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.w700, color: Colors.white),
+                  ),
+            ),
+          ],
+        ));
   }
 }
