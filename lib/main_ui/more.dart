@@ -213,7 +213,7 @@ class _teamsectioncheckState extends State<teamsectioncheck> {
                                   var member = teamData[index];
                                   return Container(
                                     width: MediaQuery.of(context).size.width *
-                                        0.45, // Adjust width dynamically
+                                        0.45,
                                     height: 197,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),

@@ -12,6 +12,16 @@ class Customnav extends StatefulWidget {
 class _CustomnavState extends State<Customnav> {
   int selectedIndex = 0;
   bool showSecondNavBar = false;
+  final iconn =[
+    "assets/images/home.svg",
+    "assets/images/event.svg",
+    "assets/images/teamicon.svg",
+    "assets/images/quizicon.svg",
+    "assets/images/projecticon.svg",
+    "assets/images/connecticon.svg",
+    "assets/images/registericon.svg",
+    "assets/images/domainicon.svg",
+  ];
 
   void onTap(int index) {
     setState(() {
@@ -56,11 +66,11 @@ class _CustomnavState extends State<Customnav> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildIcon(Icons.home_outlined, 0, "Home"),
-                _buildIcon(Icons.event, 1, "Events"),
+                _buildIcon(iconn[0], 0, "Home"),
+                _buildIcon(iconn[1], 1, "Events"),
                 SizedBox(width: size.width * 0.20),
-                _buildIcon(Icons.group_add_outlined, 2, "Team"),
-                _buildIcon(Icons.quiz_outlined, 3, "Quiz"),
+                _buildIcon(iconn[2], 2, "Team"),
+                _buildIcon(iconn[3], 3, "Quiz"),
               ],
             ),
           ),
@@ -81,11 +91,11 @@ class _CustomnavState extends State<Customnav> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildIcon(Icons.explore, 4, "Projects"),
-                      _buildIcon(Icons.phone, 5, "Contact"),
+                      _buildIcon(iconn[4], 4, "Projects"),
+                      _buildIcon(iconn[5], 5, "Contact"),
                       SizedBox(width: size.width * 0.06),
-                      _buildIcon(Icons.contact_page_rounded, 6, "Register"),
-                      _buildIcon(Icons.info_outline, 7, "Domain"),
+                      _buildIcon(iconn[5], 6, "Register"),
+                      _buildIcon(iconn[6], 7, "Domain"),
                     ],
                   ),
                 ),
@@ -122,7 +132,7 @@ class _CustomnavState extends State<Customnav> {
     );
   }
 
-  Widget _buildIcon(IconData icon, int index, String name) {
+  Widget _buildIcon(String icon, int index, String name) {
     final isSelected = selectedIndex == index;
     return GestureDetector(
       onTap: () {
@@ -136,11 +146,12 @@ class _CustomnavState extends State<Customnav> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            color: isSelected ? Colors.white : Color.fromRGBO(116, 123, 131, 1),
-            size: isSelected ? 35 : 30,
-          ),
+          SizedBox(
+          width: isSelected ? 35 : 30,
+          height: isSelected ? 35 : 30,
+          
+          child: SvgPicture.asset(icon, color: isSelected ? Colors.white : Color.fromRGBO(116, 123, 131, 1),),
+        ),
           const SizedBox(height: 2),
           Text(
             name,
