@@ -64,7 +64,7 @@ class _ProjectState extends State<Project> {
                           fontWeight: FontWeight.w600),
                       textAlign: TextAlign.justify,
                     )),
-                    Container(
+                    SizedBox(
                       width: 130,
                       height: 130,
                       child: SvgPicture.asset("assets/images/projectbg.svg"),

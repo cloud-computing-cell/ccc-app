@@ -184,17 +184,11 @@ class DomainPhoto extends StatefulWidget {
 class _DomainPhotoState extends State<DomainPhoto> {
   final CardController controller = CardController();
   final List<String> images = [
-    
-    "assets/images/explore.svg",
-    "assets/images/explore.svg",
-    "assets/images/explore.svg",
-    "assets/images/explore.svg",
-    "assets/images/explore.svg",
-    // "assets/images/cl.svg",
-    // "assets/images/cl.svg",
-    // "assets/images/cl.svg",
-    // "assets/images/cl.svg",
-
+    "assets/images/app.png",
+    "assets/images/web.png",
+    "assets/images/cloud.png",
+    "assets/images/ML.png",
+    "assets/images/ui.png",
   ];
 
   @override
@@ -218,7 +212,7 @@ class _DomainPhotoState extends State<DomainPhoto> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             clipBehavior: Clip.antiAliasWithSaveLayer,
             child:
-                SvgPicture.asset(images[index % images.length], fit: BoxFit.cover),
+                Image.asset(images[index % images.length], fit: BoxFit.cover),
           );
         },
         cardController: controller,
@@ -236,16 +230,16 @@ class domainhead extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color.fromRGBO(19, 20, 23, 1),
-      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+      backgroundColor: const Color.fromRGBO(19, 20, 23, 1),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8,top: 8),
+            SizedBox(height: 8,),
+            Align(
+              alignment: Alignment.center,
               child: Text(
                     "Technical Domains",
                     style: TextStyle(
-                fontSize: 30, fontWeight: FontWeight.w700, color: Colors.black),
+                fontSize: 30, fontWeight: FontWeight.w700, color: Colors.white),
                   ),
             ),
           ],

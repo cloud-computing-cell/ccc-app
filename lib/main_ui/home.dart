@@ -31,8 +31,7 @@ class _HomeState extends State<Home> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage("assets/images/ccclogo.png"),
-                                fit: BoxFit.cover)
-                                ),
+                                fit: BoxFit.cover)),
                       ),
                       SizedBox(
                         width: 20,
@@ -66,10 +65,11 @@ class _HomeState extends State<Home> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 110, right: 40),
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
                     height: 200,
-                    child: Image.network("https://s3-alpha-sig.figma.com/img/bd0f/e85c/75a18adc7300adcb1c190a2a281a2549?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=AMOXW7OnsYWGE5FPHEdHsP9j326at0cwKX0aUYOOoFGM-Ee84dB~RIJVm9zQ9wvDofFrmYnSVlQQT5ogbjP4KIXYc5GG3NZAbCHRQ66dC1Eqw9sNRG8PtWOVtP4kfga-fdUAG0CYJ2vCFRHVWCIjspIA0ZAOE5~ZxOzmWbaBft72KhuxB~r1UpS0bnlb3AqGHIRR8vhELfg2OQuig7AbPAerK4klXDBhIsGdzV036pCR-CbohFvYG7DPInBqe3m107N5Q289Xc5hs-7X8IPZNnf~E1L8Y-kXl7T3tEGdcxM7aOB42VPwiNP6TesB8AlPErxA~uxNol3L2y3RbsMdQg__"),),
+                    child: SvgPicture.asset("assets/images/Rectangle.svg"),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 40, bottom: 8, top: 10),
@@ -202,8 +202,7 @@ class _HomeState extends State<Home> {
                         right: 0,
                         child: CircleAvatar(
                           radius: 70,
-                          backgroundImage:
-                              AssetImage("assets/images/ccclogo.png"),
+                          child: Image.asset("assets/images/santoshsir.png", fit: BoxFit.cover,),
                         ),
                       )
                     ],
@@ -262,8 +261,7 @@ class _HomeState extends State<Home> {
                         right: 0,
                         child: CircleAvatar(
                           radius: 70,
-                          backgroundImage:
-                              AssetImage("assets/images/ccclogo.png"),
+                          child: Image.asset("assets/images/santoshsir.png", fit: BoxFit.cover,),
                         ),
                       )
                     ],
@@ -326,7 +324,7 @@ class _HomeState extends State<Home> {
                         left: 0,
                         right: -240,
                         child: ClipOval(
-                          child: Container(
+                          child: SizedBox(
                             height: 100,
                             width: 100,
                             child: SvgPicture.asset("assets/images/think.svg"),
@@ -378,7 +376,7 @@ class _HomeState extends State<Home> {
                           left: -240,
                           right: 0,
                           child: ClipOval(
-                            child: Container(
+                            child: SizedBox(
                               height: 100,
                               width: 100,
                               child:
@@ -430,7 +428,7 @@ class _HomeState extends State<Home> {
                         left: 0,
                         right: -240,
                         child: ClipOval(
-                          child: Container(
+                          child: SizedBox(
                             height: 100,
                             width: 100,
                             child: SvgPicture.asset("assets/images/deploy.svg"),

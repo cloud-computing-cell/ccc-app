@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CircleRotationAnimation extends StatefulWidget {
+  const CircleRotationAnimation({super.key});
+
   @override
   _CircleRotationAnimationState createState() =>
       _CircleRotationAnimationState();

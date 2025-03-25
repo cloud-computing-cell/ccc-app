@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 
 class Customnav extends StatefulWidget {
   final ValueChanged<int> onItemSelected;
-  const Customnav({Key? key, required this.onItemSelected}) : super(key: key);
+  const Customnav({super.key, required this.onItemSelected});
 
   @override
   State<Customnav> createState() => _CustomnavState();
@@ -116,13 +116,13 @@ class _CustomnavState extends State<Customnav> {
                     });
                   },
                   backgroundColor: Colors.white,
+                  shape: const CircleBorder(),
                   child: Transform.scale(
                       scale: 1.4,
                       child: SvgPicture.asset(
                         "assets/images/explore.svg",
                         fit: BoxFit.cover,
                       )),
-                  shape: const CircleBorder(),
                 ),
               ),
             ),

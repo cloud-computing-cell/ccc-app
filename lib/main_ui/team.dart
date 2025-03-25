@@ -5,6 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Team extends StatefulWidget {
+  const Team({super.key});
+
   @override
   State<Team> createState() => _TeamState();
 }
@@ -150,7 +152,7 @@ class _TeamState extends State<Team> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           width: 150,
                                           height: 197,
                                           child: SvgPicture.asset(
@@ -159,7 +161,7 @@ class _TeamState extends State<Team> {
                                         SizedBox(
                                           width: 2,
                                         ),
-                                        Container(
+                                        SizedBox(
                                           width: 150,
                                           height: 197,
                                           child: SvgPicture.asset(
@@ -171,7 +173,7 @@ class _TeamState extends State<Team> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           width: 150,
                                           height: 197,
                                           child: SvgPicture.asset(
@@ -180,7 +182,7 @@ class _TeamState extends State<Team> {
                                         SizedBox(
                                           width: 2,
                                         ),
-                                        Container(
+                                        SizedBox(
                                           width: 150,
                                           height: 197,
                                           child: SvgPicture.asset(
