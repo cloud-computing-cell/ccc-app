@@ -44,6 +44,13 @@ dependencies:
   smooth_page_indicator: ^1.2.0+3
   flutter_svg_provider: ^1.0.7
   scrumlab_flutter_tindercard: ^1.2.0
+  flutter_launcher_icons: ^0.14.3
+  get: ^4.7.2
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
 
 dev_dependencies:
   flutter_test:
