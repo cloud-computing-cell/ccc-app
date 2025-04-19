@@ -2,6 +2,7 @@ import 'package:ccc_app/components/custom_nav/customnav.dart';
 import 'package:ccc_app/constants/colors.dart';
 import 'package:ccc_app/controllers/navigation_controller.dart';
 import 'package:ccc_app/controllers/navigation_controllers.dart';
+import 'package:ccc_app/services/splash/splash_services.dart';
 import 'package:ccc_app/views/explore_button/connectus.dart';
 import 'package:ccc_app/views/explore_button/domain.dart';
 import 'package:ccc_app/views/explore_button/project.dart';
@@ -18,7 +19,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Main(),
+      home: SplashScreen(),
     ),
   );
 }

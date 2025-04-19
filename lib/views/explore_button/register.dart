@@ -19,16 +19,10 @@ class _RegisterState extends State<Register> {
           children: [
             Column(
               children: [
+                               
                 
-                Container(
-                  width: double.infinity,
-                  height: 235.44,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage("assets/images/annni.png"),fit: BoxFit.cover),
-                    // color: Colors.amber
-                  ),
-                ),
-                SvgPicture.asset("assets/images/reg.svg"),
+                
+                SvgPicture.asset("assets/images/registration.svg"),
                 
               
             

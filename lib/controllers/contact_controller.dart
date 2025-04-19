@@ -9,14 +9,14 @@ class ContactController extends GetxController {
   final phoneController = TextEditingController();
   final messageController = TextEditingController();
 
-  final formKey = GlobalKey<FormState>(); // for validation
+  final formKey = GlobalKey<FormState>();
 
   Future<void> submitContactForm() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
 
-    final String url = 'https://website-9egw.onrender.com/api/contact';
+    final String url = 'https://contact-2tvd.onrender.com/api/contact';
 
     final Map<String, String> data = {
       'name': nameController.text.trim(),
@@ -32,7 +32,7 @@ class ContactController extends GetxController {
         body: json.encode(data),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         Get.snackbar('Success', 'Your message has been sent!',
             snackPosition: SnackPosition.BOTTOM);
         clearFields();
