@@ -1,43 +1,26 @@
+import 'package:ccc_app/constants/colors.dart';
+import 'package:ccc_app/controllers/domain_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:scrumlab_flutter_tindercard/scrumlab_flutter_tindercard.dart';
 
-class Domain extends StatefulWidget {
+class Domain extends StatelessWidget {
   const Domain({super.key});
 
   @override
-  State<Domain> createState() => _DomainState();
-}
-
-class _DomainState extends State<Domain> {
-  int selectedIndex = 0;
-
-  @override
   Widget build(BuildContext context) {
+    final DomainController controller = Get.put(DomainController());
+
     return Scaffold(
       body: Column(
         children: [
-          Expanded(
-            flex: 1,
-            child: domainhead(),
-          ),
-          Expanded(
-            flex: 8,
-            child: DomainPhoto(
-              selectedIndex: selectedIndex,
-              onPhotoChanged: (index) {
-                if (index != selectedIndex) {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                }
-              },
-            ),
-          ),
+          const Expanded(flex: 1, child: DomainHead()),
+          Expanded(flex: 8, child: DomainPhoto()),
           Expanded(
             flex: 5,
-            child: DomainDetails(
-              selectedIndex: selectedIndex,
-            ),
+            child: Obx(() => DomainDetails(
+                  selectedIndex: controller.selectedIndex.value,
+                )),
           ),
         ],
       ),
@@ -169,19 +152,7 @@ class ThreadPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-class DomainPhoto extends StatefulWidget {
-  final int selectedIndex;
-  final void Function(int) onPhotoChanged;
-
-  const DomainPhoto(
-      {required this.selectedIndex, required this.onPhotoChanged, super.key});
-
-  @override
-  _DomainPhotoState createState() => _DomainPhotoState();
-}
-
-class _DomainPhotoState extends State<DomainPhoto> {
-  final CardController controller = CardController();
+class DomainPhoto extends StatelessWidget {
   final List<String> images = [
     "assets/images/app.png",
     "assets/images/web.png",
@@ -190,10 +161,16 @@ class _DomainPhotoState extends State<DomainPhoto> {
     "assets/images/ui.png",
   ];
 
+  final CardController controller = CardController();
+
+  DomainPhoto({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final DomainController domainController = Get.find();
+
     return Container(
-      color: const Color.fromRGBO(19, 20, 23, 1),
+      color: AppColors.primaryColor,
       height: MediaQuery.of(context).size.height / 2.5,
       child: TinderSwapCard(
         swipeUp: true,
@@ -207,41 +184,48 @@ class _DomainPhotoState extends State<DomainPhoto> {
         minWidth: MediaQuery.sizeOf(context).width * 0.8,
         cardBuilder: (context, index) {
           return Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
             clipBehavior: Clip.antiAliasWithSaveLayer,
-            child:
-                Image.asset(images[index % images.length], fit: BoxFit.cover),
+            child: Image.asset(
+              images[index % images.length],
+              fit: BoxFit.cover,
+            ),
           );
         },
         cardController: controller,
         swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
-          widget.onPhotoChanged((index + 1) % images.length);
+          domainController.updateIndex((index + 1) % images.length);
         },
       ),
     );
   }
 }
 
-class domainhead extends StatelessWidget {
-  const domainhead({super.key});
+class DomainHead extends StatelessWidget {
+  const DomainHead({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(19, 20, 23, 1),
-        body: Column(
-          children: [
-            SizedBox(height: 8,),
-            Align(
-              alignment: Alignment.center,
-              child: Text(
-                    "Technical Domains",
-                    style: TextStyle(
-                fontSize: 30, fontWeight: FontWeight.w700, color: Colors.white),
-                  ),
+      backgroundColor: AppColors.primaryColor,
+      body: Column(
+        children: const [
+          SizedBox(height: 8),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              "Technical Domains",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }

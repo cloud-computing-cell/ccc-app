@@ -1,5 +1,6 @@
 
 import 'package:ccc_app/components/background%20Animation/bganimation.dart';
+import 'package:ccc_app/constants/colors.dart';
 import 'package:ccc_app/services/apiservices/apiservices.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -38,7 +39,7 @@ class _TeamState extends State<Team> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(19, 20, 23, 1),
+      backgroundColor: AppColors.primaryColor,
       body: Stack(
         children: [
           CircleRotationAnimation(),

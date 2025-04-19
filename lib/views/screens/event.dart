@@ -1,3 +1,4 @@
+import 'package:ccc_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -84,7 +85,7 @@ class _MyEventPageState extends State<MyEventPage> {
     CardController controller;
     final double widthsize = MediaQuery.sizeOf(context).width;
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(19, 20, 23, 1),
+      backgroundColor: AppColors.primaryColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -119,38 +120,6 @@ class _MyEventPageState extends State<MyEventPage> {
               ),
               items: myitems,
             ),
-            // SizedBox(
-            // height: height / 2.5,
-            // child: TinderSwapCard(
-            //   swipeUp: true,
-            //   swipeDown: true,
-            //   orientation: AmassOrientation.bottom,
-            //   totalNum: 10000,
-            //   stackNum: 3,
-            //   swipeEdge: 4.0,
-            //   maxHeight: MediaQuery.sizeOf(context).height * 0.9,
-            //   minHeight: MediaQuery.sizeOf(context).height * 0.8,
-            //   maxWidth: MediaQuery.sizeOf(context).width * 0.9,
-            //   minWidth: MediaQuery.sizeOf(context).width * 0.8,
-            //   cardBuilder: (context, index) {
-            //     int imageIndex = index % myitems.length;
-            //     return Card(
-            //     shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(10)),
-            //     clipBehavior: Clip.antiAliasWithSaveLayer,
-            //     child: myitems[imageIndex],
-            //   );
-            //   },
-            //   cardController: controller = CardController(),
-            //   swipeUpdateCallback:
-            //       (DragUpdateDetails details, Alignment align) {
-            //     if (align.x < 0) {
-            //     } else if (align.x > 0) {}
-            //   },
-            //   swipeCompleteCallback:
-            //       (CardSwipeOrientation orientation, int index) {},
-            // ),
-            // ),
             buildUndicator(),
             Align(
               alignment: Alignment.topLeft,

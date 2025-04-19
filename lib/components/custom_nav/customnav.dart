@@ -1,18 +1,16 @@
+import 'package:ccc_app/controllers/navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
-class Customnav extends StatefulWidget {
+class Customnav extends StatelessWidget {
   final ValueChanged<int> onItemSelected;
-  const Customnav({super.key, required this.onItemSelected});
 
-  @override
-  State<Customnav> createState() => _CustomnavState();
-}
+  Customnav({super.key, required this.onItemSelected});
 
-class _CustomnavState extends State<Customnav> {
-  int selectedIndex = 0;
-  bool showSecondNavBar = false;
-  final iconn = [
+  final NavigationController navController = Get.find();
+
+  final List<String> iconn = [
     "assets/images/home.svg",
     "assets/images/event.svg",
     "assets/images/teamicon.svg",
@@ -23,125 +21,119 @@ class _CustomnavState extends State<Customnav> {
     "assets/images/domainicon.svg",
   ];
 
-  void onTap(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-    widget.onItemSelected(index);
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      width: size.width,
-      height: showSecondNavBar ? 160 : 80,
-      //  height: showSecondNavBar ? 145 : 65,
-      child: Stack(
-        children: [
-          if (showSecondNavBar)
-            Positioned.fill(
-              top: 15,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  width: double.infinity,
-                  height: 160,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          Positioned(
-            top: showSecondNavBar ? 80 : 0,
-            child: CustomPaint(
-              size: Size(size.width, 80),
-              painter: BNBcustomPainter(),
-            ),
-          ),
-          Positioned.fill(
-            top: showSecondNavBar ? 80 : 0,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildIcon(iconn[0], 0, "Home"),
-                _buildIcon(iconn[1], 1, "Events"),
-                SizedBox(width: size.width * 0.20),
-                _buildIcon(iconn[2], 2, "Team"),
-                _buildIcon(iconn[3], 3, "Quiz"),
-              ],
-            ),
-          ),
-          if (showSecondNavBar)
-            Positioned(
-              top: 15,
-              left: 0,
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Container(
-                  height: 65,
-                  decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildIcon(iconn[4], 4, "Projects"),
-                      _buildIcon(iconn[5], 5, "Contact"),
-                      SizedBox(width: size.width * 0.06),
-                      _buildIcon(iconn[5], 6, "Register"),
-                      _buildIcon(iconn[6], 7, "Domain"),
-                    ],
+
+    return Obx(() {
+      final isExpanded = navController.showSecondNavBar.value;
+      final selectedIndex = navController.selectedIndex.value;
+
+      return AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        width: size.width,
+        height: isExpanded ? 160 : 80,
+        child: Stack(
+          children: [
+            if (isExpanded)
+              Positioned.fill(
+                top: 15,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    width: double.infinity,
+                    height: 160,
+                    color: Colors.black,
                   ),
                 ),
               ),
+            Positioned(
+              top: isExpanded ? 80 : 0,
+              child: CustomPaint(
+                size: Size(size.width, 80),
+                painter: BNBcustomPainter(),
+              ),
             ),
-          Positioned(
-            top: showSecondNavBar ? 80 : 0,
-            left: 0,
-            right: 0,
-            child: Center(
-              heightFactor: 0.6,
-              child: Transform.scale(
-                scale: 1.3,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    setState(() {
-                      showSecondNavBar = !showSecondNavBar;
-                    });
-                  },
-                  backgroundColor: Colors.white,
-                  shape: const CircleBorder(),
-                  child: Transform.scale(
+            Positioned.fill(
+              top: isExpanded ? 80 : 0,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildIcon(iconn[0], 0, "Home", selectedIndex),
+                  _buildIcon(iconn[1], 1, "Events", selectedIndex),
+                  SizedBox(width: size.width * 0.20),
+                  _buildIcon(iconn[2], 2, "Team", selectedIndex),
+                  _buildIcon(iconn[3], 3, "Quiz", selectedIndex),
+                ],
+              ),
+            ),
+            if (isExpanded)
+              Positioned(
+                top: 15,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                    height: 65,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildIcon(iconn[4], 4, "Projects", selectedIndex),
+                        _buildIcon(iconn[5], 5, "Contact", selectedIndex),
+                        SizedBox(width: size.width * 0.06),
+                        _buildIcon(iconn[6], 6, "Register", selectedIndex),
+                        _buildIcon(iconn[7], 7, "Domain", selectedIndex),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            Positioned(
+              top: isExpanded ? 80 : 0,
+              left: 0,
+              right: 0,
+              child: Center(
+                heightFactor: 0.6,
+                child: Transform.scale(
+                  scale: 1.3,
+                  child: FloatingActionButton(
+                    onPressed: navController.toggleSecondNav,
+                    backgroundColor: Colors.white,
+                    shape: const CircleBorder(),
+                    child: Transform.scale(
                       scale: 1.4,
                       child: SvgPicture.asset(
                         "assets/images/explore.svg",
                         fit: BoxFit.cover,
-                      )),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 
-  Widget _buildIcon(String icon, int index, String name) {
+  Widget _buildIcon(String icon, int index, String name, int selectedIndex) {
     final isSelected = selectedIndex == index;
+
     return GestureDetector(
       onTap: () {
-        onTap(index);
-        setState(() {
-          if (showSecondNavBar) {
-            showSecondNavBar = !showSecondNavBar;
-          }
-        });
+        navController.changeIndex(index);
+        onItemSelected(index); // notify main screen
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -151,8 +143,9 @@ class _CustomnavState extends State<Customnav> {
             height: isSelected ? 35 : 30,
             child: SvgPicture.asset(
               icon,
-              color:
-                  isSelected ? Colors.white : Color.fromRGBO(116, 123, 131, 1),
+              color: isSelected
+                  ? Colors.white
+                  : const Color.fromRGBO(116, 123, 131, 1),
             ),
           ),
           const SizedBox(height: 2),
@@ -160,8 +153,9 @@ class _CustomnavState extends State<Customnav> {
             name,
             style: TextStyle(
               fontSize: 12,
-              color:
-                  isSelected ? Colors.white : Color.fromRGBO(116, 123, 131, 1),
+              color: isSelected
+                  ? Colors.white
+                  : const Color.fromRGBO(116, 123, 131, 1),
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
