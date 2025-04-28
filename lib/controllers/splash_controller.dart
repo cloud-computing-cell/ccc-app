@@ -23,8 +23,6 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
   @override
   void onInit() {
     super.onInit();
-
-    // Splash background color animation
     colorController = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
@@ -37,8 +35,7 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
       parent: colorController,
       curve: Curves.easeInOut,
     ));
-
-    // Gradient animations
+    
     gradientController1 = AnimationController(
       duration: const Duration(seconds: 3),
       vsync: this,
