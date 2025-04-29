@@ -8,7 +8,7 @@ import 'package:ccc_app/views/explore_button/domain.dart';
 import 'package:ccc_app/views/explore_button/project_screen.dart';
 import 'package:ccc_app/views/explore_button/register.dart';
 import 'package:ccc_app/views/screens/event.dart';
-import 'package:ccc_app/views/screens/home.dart';
+import 'package:ccc_app/views/screens/home_screen.dart';
 import 'package:ccc_app/views/screens/quiz.dart';
 import 'package:ccc_app/views/screens/team.dart';
 import 'package:flutter/material.dart';
