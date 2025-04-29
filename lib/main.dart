@@ -19,7 +19,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home:     Home(),
+      home:     SplashScreen(),
     ),
   );
 }
