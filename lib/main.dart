@@ -5,7 +5,7 @@ import 'package:ccc_app/controllers/navigation_controllers.dart';
 import 'package:ccc_app/services/splash/splash_services.dart';
 import 'package:ccc_app/views/explore_button/connectus.dart';
 import 'package:ccc_app/views/explore_button/domain.dart';
-import 'package:ccc_app/views/explore_button/project.dart';
+import 'package:ccc_app/views/explore_button/project_screen.dart';
 import 'package:ccc_app/views/explore_button/register.dart';
 import 'package:ccc_app/views/screens/event.dart';
 import 'package:ccc_app/views/screens/home.dart';
