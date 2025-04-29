@@ -21,7 +21,7 @@ class ProjectData {
       projectName: json['projectName'],
       madeBy: json['madeBy'],
       toolsUsed: List<String>.from(json['toolsUsed']),
-      githubLink: json['githublink'],
+      githubLink: json['githublin'],
     );
   }
 }
