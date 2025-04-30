@@ -13,7 +13,7 @@ import 'package:ccc_app/views/screens/quiz.dart';
 import 'package:ccc_app/views/screens/team.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ccc_app/views/screens/reg.dart';
+
 
 void main() {
   Get.put(NavigationController());
