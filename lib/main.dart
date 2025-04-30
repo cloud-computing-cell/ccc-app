@@ -14,6 +14,7 @@ import 'package:ccc_app/views/screens/team.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+
 void main() {
   Get.put(NavigationController());
   runApp(
