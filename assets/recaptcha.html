@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+  </head>
+  <body>
+    <form>
+      <div class="g-recaptcha"
+           data-sitekey="6Le3-QArAAAAADn9ym4vDs6qMQN3DpD0yZe183m-"
+           data-callback="onVerify">
+      </div>
+    </form>
+
+    <script>
+      function onVerify(token) {
+        window.location.href = "https://recaptcha.success/#" + token;
+      }
+    </script>
+  </body>
+</html>

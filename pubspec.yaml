@@ -46,6 +46,8 @@ dependencies:
   scrumlab_flutter_tindercard: ^1.2.0
   flutter_launcher_icons: ^0.14.3
   get: ^4.7.2
+  webview_flutter: ^4.11.0
+  flutter_easy_recaptcha_v2: ^0.1.0
 
 flutter_icons:
   android: true
@@ -79,6 +81,7 @@ flutter:
     - assets/images/
     - assets/sampleapi/
     - assets/gif/
+    - assets/recaptcha.html
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

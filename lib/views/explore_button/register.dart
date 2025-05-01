@@ -1,7 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+// main.dart
+import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:webview_flutter/webview_flutter.dart';
+
+void main() => runApp(const MaterialApp(home: Register()));
 
 class Register extends StatelessWidget {
   const Register({super.key});
@@ -11,10 +17,9 @@ class Register extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          
           Positioned.fill(
-            child: SvgPicture.asset(
-              'assets/Rectangle.svg',
+            child: Image.asset(
+              'assets/images/square.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -24,12 +29,12 @@ class Register extends StatelessWidget {
                 SizedBox(
                   height: 300,
                   width: double.infinity,
-                  child: SvgPicture.asset(
-                    'assets/header_image.svg',
+                  child: Image.asset(
+                    'assets/images/header_image.png',
                     fit: BoxFit.cover,
                   ),
                 ),
-                PositionedButton(),
+                const PositionedButton(),
                 const SizedBox(height: 8),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -96,183 +101,227 @@ class PositionedButton extends StatelessWidget {
   }
 }
 
-class RegistrationForm extends StatelessWidget {
+class RegistrationForm extends StatefulWidget {
   const RegistrationForm({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const CustomTextField(
-          label: 'Name',
-          hint: 'Enter your Full Name',
-          width: 314,
-          height: 55,
-          borderRadius: 8,
-          borderWidth: 0.3,
-          rotate: 0,
-        ),
-        const CustomTextField(
-          label: 'Student ID',
-          hint: 'Enter your Student Number',
-          width: 314,
-          height: 55,
-          borderRadius: 8,
-          borderWidth: 0.3,
-          rotate: 0,
-        ),
-        Center(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              CustomDropdown(label: 'Branch'),
-              SizedBox(width: 12),
-              CustomDropdown(label: 'Section'),
-            ],
-          ),
-        ),
-        const CustomTextField(
-          label: 'E-mail ID',
-          hint: 'Enter your College E-mail ID',
-          width: 314,
-          height: 55,
-          borderRadius: 8,
-          borderWidth: 0.3,
-          rotate: 0,
-        ),
-        const CustomTextField(
-          label: 'Mobile Number',
-          hint: 'Enter your Mobile Number',
-          width: 314,
-          height: 55,
-          borderRadius: 8,
-          borderWidth: 0.3,
-          rotate: 0,
-        ),
-      ],
-    );
-  }
+  State<RegistrationForm> createState() => _RegistrationFormState();
 }
 
-class CustomTextField extends StatelessWidget {
-  final String label;
-  final String hint;
-  final double? width;
-  final double? height;
-  final double? borderRadius;
-  final double? borderWidth;
-  final double? rotate;
+class _RegistrationFormState extends State<RegistrationForm> {
+  final _formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  final idController = TextEditingController();
+  final emailController = TextEditingController();
+  final mobileController = TextEditingController();
 
-  const CustomTextField({
-    required this.label,
-    required this.hint,
-    this.width,
-    this.height,
-    this.borderRadius,
-    this.borderWidth,
-    this.rotate,
-    super.key,
-  });
+  String? branch;
+  String? section;
+  String? residence;
+
+  Future<String?> showRecaptchaDialog(BuildContext context) async {
+    final controller = WebViewController();
+    final completer = Completer<String?>();
+
+    controller.setNavigationDelegate(
+      NavigationDelegate(
+        onNavigationRequest: (request) {
+          if (request.url.startsWith("https://recaptcha.success/#")) {
+            final token = request.url.split("#").last;
+            Navigator.of(context).pop();
+            completer.complete(token);
+            return NavigationDecision.prevent;
+          }
+          return NavigationDecision.navigate;
+        },
+      ),
+    );
+
+    controller.loadFlutterAsset('assets/recaptcha.html');
+
+    await showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        content: SizedBox(
+          width: 300,
+          height: 400,
+          child: WebViewWidget(controller: controller),
+        ),
+      ),
+    );
+
+    return completer.future;
+  }
+
+  Future<void> _submitForm() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    final token = await showRecaptchaDialog(context);
+    if (token == null) {
+      _showDialog("Error", "reCAPTCHA verification failed");
+      return;
+    }
+
+    final url = Uri.parse('https://registerbackend-4dz1.onrender.com/api/register/signup');
+    final body = {
+      'name': nameController.text,
+      'studentID': idController.text,
+      'branch': branch,
+      'section': section,
+      'email': emailController.text,
+      'mobile': mobileController.text,
+      'residence': residence,
+      'token': token,
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(body),
+      );
+
+      final data = json.decode(response.body);
+      if (response.statusCode == 200 && data['success'] == true) {
+        _showDialog('Success', 'Registered Successfully!');
+      } else {
+        _showDialog('Error', data['message'] ?? 'Registration failed');
+      }
+    } catch (e) {
+      _showDialog('Error', 'Something went wrong. Try again.');
+    }
+  }
+
+  void _showDialog(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text("OK"))],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    Widget field = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: const TextStyle(color: Colors.white)),
-        const SizedBox(height: 6),
-        SizedBox(
-          width: width,
-          height: height,
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: hint,
-              hintStyle: TextStyle(color: Colors.grey[400]),
-              filled: true,
-              fillColor: Colors.white.withOpacity(0.1),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 10),
-                borderSide: BorderSide(
-                  color: Colors.white.withOpacity(0.5),
-                  width: borderWidth ?? 0,
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          CustomTextField(
+            controller: nameController,
+            label: 'Name',
+            hint: 'Enter your Full Name',
+            width: 314,
+            height: 55,
+            borderRadius: 8,
+            borderWidth: 0.3,
+            rotate: 0,
+          ),
+          CustomTextField(
+            controller: idController,
+            label: 'Student ID',
+            hint: 'Enter your Student Number',
+            width: 314,
+            height: 55,
+            borderRadius: 8,
+            borderWidth: 0.3,
+            rotate: 0,
+          ),
+          Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomDropdown(
+                  label: 'Branch',
+                  value: branch,
+                  items: ['CSE', 'CSIT', 'IT', 'CSDS', 'AIML', 'CSH', 'ECE', 'EN', 'MECH', 'CIVIL'],
+                  onChanged: (val) => setState(() => branch = val),
                 ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 10),
-                borderSide: BorderSide(
-                  color: Colors.white.withOpacity(0.5),
-                  width: borderWidth ?? 0,
+                const SizedBox(width: 12),
+                CustomDropdown(
+                  label: 'Section',
+                  value: section,
+                  items: ['1', '2', '3', '4', '5', '6', '7'],
+                  onChanged: (val) => setState(() => section = val),
                 ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 10),
-                borderSide: BorderSide(
-                  color: Colors.blue,
-                  width: borderWidth ?? 0,
-                ),
+              ],
+            ),
+          ),
+          CustomTextField(
+            controller: emailController,
+            label: 'E-mail ID',
+            hint: 'Enter your College E-mail ID',
+            width: 314,
+            height: 55,
+            borderRadius: 8,
+            borderWidth: 0.3,
+            rotate: 0,
+          ),
+          CustomTextField(
+            controller: mobileController,
+            label: 'Mobile Number',
+            hint: 'Enter your Mobile Number',
+            width: 314,
+            height: 55,
+            borderRadius: 8,
+            borderWidth: 0.3,
+            rotate: 0,
+          ),
+          const SizedBox(height: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Residence Category',
+                style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
-            style: const TextStyle(color: Colors.white),
           ),
-        )
-      ],
-    );
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Transform.rotate(
-        angle: (rotate ?? 0) * pi / 180,
-        child: field,
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ResidenceRadio(
+                label: 'Hostler',
+                groupValue: residence,
+                onChanged: (val) => setState(() => residence = val),
+              ),
+              const SizedBox(width: 20),
+              ResidenceRadio(
+                label: 'Day Scholar',
+                groupValue: residence,
+                onChanged: (val) => setState(() => residence = val),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          const Text('Continue with next', style: TextStyle(color: Colors.white70)),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: 314,
+            height: 55,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+              onPressed: _submitForm,
+              child: const Text(
+                'Next',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+              ),
+            ),
+          ),
+          const SizedBox(height: 40),
+        ],
       ),
     );
   }
 }
 
-class CustomDropdown extends StatelessWidget {
-  final String label;
-  const CustomDropdown({required this.label, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Transform.rotate(
-        angle: 0,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(label, style: const TextStyle(color: Colors.white)),
-            const SizedBox(height: 6),
-            Container(
-              width: 150,
-              height: 55,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: Colors.white.withOpacity(0.5),
-                  width: 0.3,
-                ),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  value: null,
-                  hint: Text('Select', style: TextStyle(color: Colors.grey[400])),
-                  items: const [
-                    DropdownMenuItem(value: 'Option 1', child: Text('Option 1')),
-                    DropdownMenuItem(value: 'Option 2', child: Text('Option 2')),
-                  ],
-                  onChanged: (value) {},
-                  dropdownColor: const Color(0xFF2E1A47),
-                  iconEnabledColor: Colors.white,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+// CustomTextField, CustomDropdown, and ResidenceRadio widgets stay the same as in your code
+// Be sure to include assets/recaptcha.html as explained in the previous message
