@@ -1,0 +1,31 @@
+com.example.ccc_app-lifecycle-livedata-core-2.7.0-0 C:\Users\roohi\.gradle\caches\transforms-3\0787f9778f6f778b908bbd8e24bb70be\transformed\lifecycle-livedata-core-2.7.0\res
+com.example.ccc_app-jetified-window-1.2.0-1 C:\Users\roohi\.gradle\caches\transforms-3\13b132951ed95cb2e4d55cf9dd7146f2\transformed\jetified-window-1.2.0\res
+com.example.ccc_app-jetified-profileinstaller-1.3.1-2 C:\Users\roohi\.gradle\caches\transforms-3\3239bf73bef2da53552fe3241b349732\transformed\jetified-profileinstaller-1.3.1\res
+com.example.ccc_app-jetified-annotation-experimental-1.4.0-3 C:\Users\roohi\.gradle\caches\transforms-3\65e46a1947b2a9cabc95ce1195ec2212\transformed\jetified-annotation-experimental-1.4.0\res
+com.example.ccc_app-jetified-savedstate-1.2.1-4 C:\Users\roohi\.gradle\caches\transforms-3\69ff9cc061e60b4f85fc898c9b52e1c6\transformed\jetified-savedstate-1.2.1\res
+com.example.ccc_app-jetified-activity-1.8.1-5 C:\Users\roohi\.gradle\caches\transforms-3\7d4de49d56fbbf2729100393f1e438c2\transformed\jetified-activity-1.8.1\res
+com.example.ccc_app-jetified-window-java-1.2.0-6 C:\Users\roohi\.gradle\caches\transforms-3\97793ca3bb5a0c620e9823d62b451750\transformed\jetified-window-java-1.2.0\res
+com.example.ccc_app-fragment-1.7.1-7 C:\Users\roohi\.gradle\caches\transforms-3\97f4ad31011114f4cf9404c699ed2bce\transformed\fragment-1.7.1\res
+com.example.ccc_app-core-runtime-2.2.0-8 C:\Users\roohi\.gradle\caches\transforms-3\999d6c298e921cc661d61dd8e9dc2f54\transformed\core-runtime-2.2.0\res
+com.example.ccc_app-lifecycle-runtime-2.7.0-9 C:\Users\roohi\.gradle\caches\transforms-3\999e80164a42afc27928fea985697df1\transformed\lifecycle-runtime-2.7.0\res
+com.example.ccc_app-jetified-lifecycle-process-2.7.0-10 C:\Users\roohi\.gradle\caches\transforms-3\a394eddd10c8ffbdb090cb5277587cc5\transformed\jetified-lifecycle-process-2.7.0\res
+com.example.ccc_app-jetified-core-1.0.0-11 C:\Users\roohi\.gradle\caches\transforms-3\a6dde9178a4c65c3fbd8ec36a687670e\transformed\jetified-core-1.0.0\res
+com.example.ccc_app-jetified-startup-runtime-1.1.1-12 C:\Users\roohi\.gradle\caches\transforms-3\bd3bd8de58e695fb224fdc51e4722ccf\transformed\jetified-startup-runtime-1.1.1\res
+com.example.ccc_app-browser-1.8.0-13 C:\Users\roohi\.gradle\caches\transforms-3\c26e1f8a367bc5ffafa4478995b3cc68\transformed\browser-1.8.0\res
+com.example.ccc_app-lifecycle-livedata-2.7.0-14 C:\Users\roohi\.gradle\caches\transforms-3\cb5dbfecc67ba77c21ba51b5c1630ecc\transformed\lifecycle-livedata-2.7.0\res
+com.example.ccc_app-jetified-tracing-1.2.0-15 C:\Users\roohi\.gradle\caches\transforms-3\db7c88f8de23a0f6d402e63775afc7a0\transformed\jetified-tracing-1.2.0\res
+com.example.ccc_app-jetified-lifecycle-viewmodel-savedstate-2.7.0-16 C:\Users\roohi\.gradle\caches\transforms-3\e67825d2c56d386303ce36871ec95a26\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\res
+com.example.ccc_app-jetified-core-ktx-1.13.1-17 C:\Users\roohi\.gradle\caches\transforms-3\e9547e85c76d772180d8bc4edf48ba5b\transformed\jetified-core-ktx-1.13.1\res
+com.example.ccc_app-core-1.13.1-18 C:\Users\roohi\.gradle\caches\transforms-3\f282834f268bdf59b5c1018d02028aba\transformed\core-1.13.1\res
+com.example.ccc_app-jetified-lifecycle-livedata-core-ktx-2.7.0-19 C:\Users\roohi\.gradle\caches\transforms-3\f9dbc0cc54a3c8f63cb29dad0693e3f2\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\res
+com.example.ccc_app-lifecycle-viewmodel-2.7.0-20 C:\Users\roohi\.gradle\caches\transforms-3\fa0388a44248c924beee772090cbbcb6\transformed\lifecycle-viewmodel-2.7.0\res
+com.example.ccc_app-packaged_res-21 C:\Users\roohi\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_android-2.2.15\android\build\intermediates\packaged_res\release
+com.example.ccc_app-packaged_res-22 C:\Users\roohi\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.14\android\build\intermediates\packaged_res\release
+com.example.ccc_app-pngs-23 C:\flutter Dev\projects\ccc-app\android\app\build\generated\res\pngs\release
+com.example.ccc_app-resValues-24 C:\flutter Dev\projects\ccc-app\android\app\build\generated\res\resValues\release
+com.example.ccc_app-packageReleaseResources-25 C:\flutter Dev\projects\ccc-app\android\app\build\intermediates\incremental\release\packageReleaseResources\merged.dir
+com.example.ccc_app-packageReleaseResources-26 C:\flutter Dev\projects\ccc-app\android\app\build\intermediates\incremental\release\packageReleaseResources\stripped.dir
+com.example.ccc_app-merged-not-compiled-resources-27 C:\flutter Dev\projects\ccc-app\android\app\build\intermediates\merged-not-compiled-resources\release
+com.example.ccc_app-merged_res-28 C:\flutter Dev\projects\ccc-app\android\app\build\intermediates\merged_res\release
+com.example.ccc_app-main-29 C:\flutter Dev\projects\ccc-app\android\app\src\main\res
+com.example.ccc_app-release-30 C:\flutter Dev\projects\ccc-app\android\app\src\release\res
