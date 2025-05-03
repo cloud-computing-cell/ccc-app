@@ -33,11 +33,16 @@ class MyEventPage extends StatelessWidget {
   );
 
   final colorEvent = [
-    Color.fromRGBO(130, 120, 215, 1),
-    Color.fromRGBO(140, 226, 113, 1),
-    Color.fromRGBO(120, 201, 215, 1),
-    Color.fromRGBO(215, 120, 185, 1),
-    Color.fromRGBO(226, 133, 46, 1),
+    // Color.fromRGBO(130, 120, 215, 1),
+    // Color.fromRGBO(140, 226, 113, 1),
+    Color.fromRGBO(0, 0, 0, 0.5),
+    Color.fromRGBO(0, 0, 0, 0.5),
+    Color.fromRGBO(0, 0, 0, 0.5),
+    Color.fromRGBO(0, 0, 0, 0.5),
+    Color.fromRGBO(0, 0, 0, 0.5),
+    
+    // Color.fromRGBO(215, 120, 185, 1),
+    // Color.fromRGBO(226, 133, 46, 1),
   ];
 
   final List<List<Widget>> paragraphImages = [
@@ -160,9 +165,7 @@ class MyEventPage extends StatelessWidget {
                                           : TextOverflow.ellipsis,
                                       style: TextStyle(
                                         fontSize: 12,
-                                        color: i == 2 || i == 1
-                                            ? Colors.black
-                                            : Colors.white,
+                                        color:  Colors.white,
                                       ),
                                     ),
                                   ],

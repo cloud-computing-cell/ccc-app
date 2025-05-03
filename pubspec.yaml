@@ -46,6 +46,7 @@ dependencies:
   scrumlab_flutter_tindercard: ^1.2.0
   flutter_launcher_icons: ^0.14.3
   get: ^4.7.2
+  font_awesome_flutter: ^10.8.0
 
 flutter_icons:
   android: true
