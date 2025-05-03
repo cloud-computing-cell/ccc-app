@@ -1,11 +1,9 @@
-// main.dart
-import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:math';
 import 'package:http/http.dart' as http;
-import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:convert';
+import 'package:lottie/lottie.dart';
 
 void main() => runApp(const MaterialApp(home: Register()));
 
@@ -29,9 +27,11 @@ class Register extends StatelessWidget {
                 SizedBox(
                   height: 300,
                   width: double.infinity,
-                  child: Image.asset(
-                    'assets/images/header_image.png',
+                  child: Lottie.asset(
+                    'assets/animation.json',
                     fit: BoxFit.cover,
+                    repeat: true,
+                    animate: true,
                   ),
                 ),
                 const PositionedButton(),
@@ -119,50 +119,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
   String? section;
   String? residence;
 
-  Future<String?> showRecaptchaDialog(BuildContext context) async {
-    final controller = WebViewController();
-    final completer = Completer<String?>();
-
-    controller.setNavigationDelegate(
-      NavigationDelegate(
-        onNavigationRequest: (request) {
-          if (request.url.startsWith("https://recaptcha.success/#")) {
-            final token = request.url.split("#").last;
-            Navigator.of(context).pop();
-            completer.complete(token);
-            return NavigationDecision.prevent;
-          }
-          return NavigationDecision.navigate;
-        },
-      ),
-    );
-
-    controller.loadFlutterAsset('assets/recaptcha.html');
-
-    await showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        content: SizedBox(
-          width: 300,
-          height: 400,
-          child: WebViewWidget(controller: controller),
-        ),
-      ),
-    );
-
-    return completer.future;
-  }
-
   Future<void> _submitForm() async {
     if (!_formKey.currentState!.validate()) return;
 
-    final token = await showRecaptchaDialog(context);
-    if (token == null) {
-      _showDialog("Error", "reCAPTCHA verification failed");
-      return;
-    }
-
     final url = Uri.parse('https://registerbackend-4dz1.onrender.com/api/register/signup');
+
     final body = {
       'name': nameController.text,
       'studentID': idController.text,
@@ -171,7 +132,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
       'email': emailController.text,
       'mobile': mobileController.text,
       'residence': residence,
-      'token': token,
     };
 
     try {
@@ -182,7 +142,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       );
 
       final data = json.decode(response.body);
-      if (response.statusCode == 200 && data['success'] == true) {
+      if (response.statusCode == 200) {
         _showDialog('Success', 'Registered Successfully!');
       } else {
         _showDialog('Error', data['message'] ?? 'Registration failed');
@@ -273,10 +233,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Align(
-              alignment: Alignment.centerLeft,
+              alignment: Alignment.center,
               child: Text(
                 'Residence Category',
                 style: TextStyle(color: Colors.white, fontSize: 16),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -298,22 +259,36 @@ class _RegistrationFormState extends State<RegistrationForm> {
             ],
           ),
           const SizedBox(height: 20),
-          const Text('Continue with next', style: TextStyle(color: Colors.white70)),
-          const SizedBox(height: 12),
           SizedBox(
             width: 314,
             height: 55,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              ),
-              onPressed: _submitForm,
-              child: const Text(
-                'Next',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-              ),
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      'assets/images/next.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned.fill(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    ),
+                    onPressed: _submitForm,
+                    child: const Text(
+                      'Next',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 40),
@@ -323,5 +298,148 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 }
 
-// CustomTextField, CustomDropdown, and ResidenceRadio widgets stay the same as in your code
-// Be sure to include assets/recaptcha.html as explained in the previous message
+class CustomTextField extends StatelessWidget {
+  final String label;
+  final String hint;
+  final double? width;
+  final double? height;
+  final double? borderRadius;
+  final double? borderWidth;
+  final double? rotate;
+  final TextEditingController? controller;
+
+  const CustomTextField({
+    required this.label,
+    required this.hint,
+    this.width,
+    this.height,
+    this.borderRadius,
+    this.borderWidth,
+    this.rotate,
+    this.controller,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Transform.rotate(
+        angle: (rotate ?? 0) * pi / 180,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(label, style: const TextStyle(color: Colors.white)),
+            const SizedBox(height: 6),
+            SizedBox(
+              width: width,
+              height: height,
+              child: TextFormField(
+                controller: controller,
+                validator: (value) => value == null || value.isEmpty ? 'This field is required' : null,
+                decoration: InputDecoration(
+                  hintText: hint,
+                  hintStyle: TextStyle(color: Colors.grey[400]),
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.1),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(borderRadius ?? 10),
+                    borderSide: BorderSide(
+                      color: Colors.white.withOpacity(0.5),
+                      width: borderWidth ?? 0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(borderRadius ?? 10),
+                    borderSide: BorderSide(
+                      color: Colors.white.withOpacity(0.5),
+                      width: borderWidth ?? 0,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(borderRadius ?? 10),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: borderWidth ?? 0,
+                    ),
+                  ),
+                ),
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomDropdown extends StatelessWidget {
+  final String label;
+  final String? value;
+  final List<String> items;
+  final Function(String?) onChanged;
+
+  const CustomDropdown({
+    required this.label,
+    required this.value,
+    required this.items,
+    required this.onChanged,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(label, style: const TextStyle(color: Colors.white)),
+        const SizedBox(height: 6),
+        Container(
+          width: 140,
+          height: 55,
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.white, width: 0.3),
+          ),
+          child: DropdownButtonFormField<String>(
+            value: value,
+            dropdownColor: Colors.black,
+            iconEnabledColor: Colors.white,
+            style: const TextStyle(color: Colors.white),
+            decoration: const InputDecoration(border: InputBorder.none, contentPadding: EdgeInsets.all(12)),
+            items: items.map((val) => DropdownMenuItem(value: val, child: Text(val))).toList(),
+            onChanged: onChanged,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ResidenceRadio extends StatelessWidget {
+  final String label;
+  final String? groupValue;
+  final Function(String) onChanged;
+
+  const ResidenceRadio({
+    required this.label,
+    required this.groupValue,
+    required this.onChanged,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Radio<String>(
+          value: label,
+          groupValue: groupValue,
+          onChanged: (value) => onChanged(label),
+        ),
+        Text(label, style: const TextStyle(color: Colors.white)),
+      ],
+    );
+  }
+}

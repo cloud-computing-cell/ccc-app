@@ -48,6 +48,8 @@ dependencies:
   get: ^4.7.2
   webview_flutter: ^4.11.0
   flutter_easy_recaptcha_v2: ^0.1.0
+  lottie: ^3.3.1
+  
 
 flutter_icons:
   android: true
@@ -82,6 +84,7 @@ flutter:
     - assets/sampleapi/
     - assets/gif/
     - assets/recaptcha.html
+    - assets/animation.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
