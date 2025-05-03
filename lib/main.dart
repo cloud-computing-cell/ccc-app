@@ -39,7 +39,7 @@ class Main extends StatelessWidget {
     Quiz(),
     Project(),
     Connectus(),
-    Register(),
+    RegistrationPage(),
     Domain(),
   ];
 //comit
