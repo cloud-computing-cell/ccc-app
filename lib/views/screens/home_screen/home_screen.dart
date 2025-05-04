@@ -1,10 +1,17 @@
 import 'dart:async';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ccc_app/components/background%20Animation/bganimation.dart';
 import 'package:ccc_app/constants/colors.dart';
+import 'package:ccc_app/controllers/event_controller.dart';
+import 'package:ccc_app/views/explore_button/registration_screen/register_screen.dart';
 import 'package:ccc_app/views/screens/home_screen/widget/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -14,6 +21,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final EventController controller = Get.put(EventController());
+
+  final myitems = [
+    Image.asset("assets/images/event1.png"),
+    Image.asset("assets/images/event2.png"),
+    Image.asset("assets/images/event3.png"),
+    Image.asset("assets/images/event4.png"),
+    Image.asset("assets/images/event5.png"),
+  ];
   @override
   void initState() {
     super.initState();
@@ -26,38 +42,61 @@ class _HomeState extends State<Home> {
         barrierDismissible: false,
         builder: (context) {
           return Center(
-            child: Dialog(
-              backgroundColor: Colors.transparent,
-              insetPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    padding: EdgeInsets.only(
-                        top: 20, right: 10, left: 10, bottom: 10),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.asset(
-                        'assets/images/event1.png', 
-                        fit: BoxFit.contain,
-                      ),
+              child: Dialog(
+            backgroundColor: Colors.transparent,
+            insetPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding:
+                      EdgeInsets.only(top: 20, right: 10, left: 10, bottom: 10),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/nimbus2.jpg',
+                          fit: BoxFit.contain,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationPage()));
+                          },
+                          child: Text(
+                            'Register Now',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Positioned(
-                    right: 0,
-                    top: 0,
-                    child: IconButton(
-                      icon: Icon(Icons.close, color: Colors.white, size: 28),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
+                ),
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: IconButton(
+                    icon: Icon(Icons.close, color: Colors.white, size: 28),
+                    onPressed: () => Navigator.of(context).pop(),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          );
+          ));
         },
       );
     });
@@ -75,7 +114,26 @@ class _HomeState extends State<Home> {
               children: [
                 Appbar(),
 
-                
+                CarouselSlider(
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    height: 200,
+                    enableInfiniteScroll: true,
+                    enlargeCenterPage: true,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 800),
+                    autoPlayInterval: const Duration(seconds: 2),
+                    onPageChanged: (index, reason) {
+                      controller.myCurrentIndex.value = index;
+                    },
+                  ),
+                  items: myitems,
+                ),
+
+                // Indicator
+                Obx(() => buildUndicator(controller.myCurrentIndex.value)),
+
                 Padding(
                   padding: const EdgeInsets.only(left: 40, bottom: 8, top: 10),
                   child: Align(
@@ -328,4 +386,15 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+  Widget buildUndicator(int currentIndex) => AnimatedSmoothIndicator(
+        activeIndex: currentIndex,
+        count: myitems.length,
+        effect: const ScrollingDotsEffect(
+          activeDotColor: Color.fromRGBO(123, 97, 255, 1),
+          activeDotScale: 1.5,
+          dotHeight: 8,
+          dotWidth: 8,
+        ),
+      );
 }

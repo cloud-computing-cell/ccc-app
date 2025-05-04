@@ -48,6 +48,7 @@ dependencies:
   get: ^4.7.2
   font_awesome_flutter: ^10.8.0
   lottie: ^3.3.1
+  flutter_recaptcha_v2_compat: ^1.0.5
 
 flutter_icons:
   android: true

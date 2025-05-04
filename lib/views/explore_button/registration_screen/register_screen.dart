@@ -10,6 +10,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _formKey = GlobalKey<FormState>();
 
   String? selectedBranch;
+  String? selectedResidence;
+  String? selectedGender;
   String? selectedSection;
   String? residenceCategory;
 
@@ -32,6 +34,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
     'CIVIL'
   ];
   final List<String> sections = List.generate(20, (i) => '${i + 1}');
+  final List<String> Residence = [
+    'Hosteller',
+    'DayScholar',
+  ];
+  final List<String> Gender = [
+    'Male',
+    'Female',
+    'Others',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -127,12 +138,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 buildEmailField(),
                 buildMobileField(),
                 const SizedBox(height: 20),
-                const Text("Residence Category",
-                    style: TextStyle(color: Colors.white, fontSize: 16)),
                 Row(
                   children: [
-                    buildRadio("Hostler"),
-                    buildRadio("Day Scholar"),
+                    Expanded(
+                      child: buildDropdown(
+                          "Residence", selectedResidence, Residence, (val) {
+                        setState(() => selectedResidence = val);
+                      }),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: buildDropdown("Gender", selectedGender, Gender,
+                          (val) {
+                        setState(() => selectedGender = val);
+                      }),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 30),
@@ -318,23 +338,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
             validator: (val) => val == null ? 'Please select $label' : null,
           ),
         ),
-      ],
-    );
-  }
-
-  Widget buildRadio(String title) {
-    return Row(
-      children: [
-        Radio<String>(
-          value: title,
-          groupValue: residenceCategory,
-          onChanged: (val) {
-            setState(() => residenceCategory = val);
-          },
-          activeColor: Colors.white,
-        ),
-        Text(title, style: const TextStyle(color: Colors.white)),
-        const SizedBox(width: 20),
       ],
     );
   }
