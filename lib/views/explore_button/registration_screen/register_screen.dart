@@ -19,6 +19,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final idController = TextEditingController();
   final emailController = TextEditingController();
   final mobileController = TextEditingController();
+  final transactionIdController = TextEditingController();
+
+  bool showPaymentSection = false;
 
   final List<String> branches = [
     'CSE',
@@ -128,8 +131,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: buildDropdown("Section", selectedSection, sections,
-                          (val) {
+                      child: buildDropdown(
+                          "Section", selectedSection, sections, (val) {
                         setState(() => selectedSection = val);
                       }),
                     ),
@@ -148,51 +151,116 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: buildDropdown("Gender", selectedGender, Gender,
-                          (val) {
+                      child:
+                          buildDropdown("Gender", selectedGender, Gender, (val) {
                         setState(() => selectedGender = val);
                       }),
                     ),
                   ],
                 ),
                 const SizedBox(height: 30),
-                Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      if (_formKey.currentState!.validate() &&
-                          selectedBranch != null &&
-                          selectedSection != null &&
-                          residenceCategory != null) {
-                        //isme abhi navigate
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text(
-                                  "Please fill all fields and make selections.")),
-                        );
-                      }
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 55,
-                      decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                              colors: [Color(0xFFE96F6F), Color(0xFF6C4AB6)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Center(
-                        child: Text(
-                          "Next",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                if (!showPaymentSection)
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        if (_formKey.currentState!.validate() &&
+                            selectedBranch != null &&
+                            selectedSection != null &&
+                            selectedResidence != null &&
+                            selectedGender != null) {
+                          setState(() {
+                            showPaymentSection = true;
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                                    "Please fill all fields and make selections.")),
+                          );
+                        }
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 55,
+                        decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                                colors: [Color(0xFFE96F6F), Color(0xFF6C4AB6)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Center(
+                          child: Text(
+                            "Next",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                if (showPaymentSection) ...[
+                  const SizedBox(height: 20),
+                  const Text(
+                    "Proceed to Payment",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Scan the QR code below using any UPI app to pay ₹100. After the payment is completed, enter your Transaction ID below.",
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Image.asset(
+                      'assets/images/payment_qr.png', // your QR code image
+                      width: 200,
+                      height: 200,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  buildTextField("Transaction ID", "Enter Transaction ID",
+                      transactionIdController),
+                  const SizedBox(height: 30),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        if (transactionIdController.text.isNotEmpty) {
+                          // Submit logic here
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content:
+                                    Text("Please enter the Transaction ID.")),
+                          );
+                        }
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 55,
+                        decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                                colors: [Color(0xFF6C4AB6), Color(0xFFE96F6F)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Center(
+                          child: Text(
+                            "Submit",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
                 const SizedBox(height: 80),
               ],
             ),

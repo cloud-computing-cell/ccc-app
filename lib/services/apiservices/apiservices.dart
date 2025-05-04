@@ -38,4 +38,3 @@ Future getTeamDataForSecondYear() async{
   }
 }
 
-var registration = "";
