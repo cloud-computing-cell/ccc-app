@@ -83,8 +83,9 @@ flutter:
     - assets/images/
     - assets/sampleapi/
     - assets/gif/
-    - assets/recaptcha.html
-    - assets/animation.json
+    - assets/register.json
+    - assets/cloud.json
+    - assets/think.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -25,10 +25,10 @@ class Register extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: 300,
-                  width: double.infinity,
+                  height: 200, // Adjusted height
+                  width: 250,  // Adjusted width
                   child: Lottie.asset(
-                    'assets/animation.json',
+                    'assets/register.json',
                     fit: BoxFit.cover,
                     repeat: true,
                     animate: true,
