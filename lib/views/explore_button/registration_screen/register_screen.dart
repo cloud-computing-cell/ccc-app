@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:lottie/lottie.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -13,7 +15,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   String? selectedResidence;
   String? selectedGender;
   String? selectedSection;
-  String? residenceCategory;
 
   final nameController = TextEditingController();
   final idController = TextEditingController();
@@ -22,6 +23,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final transactionIdController = TextEditingController();
 
   bool showPaymentSection = false;
+  bool isLoading = false;
 
   final List<String> branches = [
     'CSE',
@@ -37,20 +39,69 @@ class _RegistrationPageState extends State<RegistrationPage> {
     'CIVIL'
   ];
   final List<String> sections = List.generate(20, (i) => '${i + 1}');
-  final List<String> Residence = [
-    'Hosteller',
-    'DayScholar',
-  ];
-  final List<String> Gender = [
-    'Male',
-    'Female',
-    'Others',
-  ];
+  final List<String> Residence = ['Hosteller', 'DayScholar'];
+  final List<String> Gender = ['Male', 'Female', 'Others'];
+
+  Future<void> submitRegistration() async {
+    final url = Uri.parse('https://backendrough.onrender.com/api/app/signUp');
+    setState(() => isLoading = true);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          "name": nameController.text.trim(),
+          "email": emailController.text.trim(),
+          "phoneNumber": int.tryParse(mobileController.text.trim()),
+          "studentNumber": int.tryParse(idController.text.trim()),
+          "branch": selectedBranch?.toLowerCase(),
+          "section": selectedSection,
+          "gender": selectedGender?.toLowerCase(),
+          "residence": selectedResidence?.toLowerCase(),
+          "transactionID": transactionIdController.text.trim(),
+        }),
+      );
+
+      setState(() => isLoading = false);
+
+      if (response.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Registration successful!")),
+        );
+
+        // Clear all controllers and selections
+        _formKey.currentState?.reset();
+        nameController.clear();
+        idController.clear();
+        emailController.clear();
+        mobileController.clear();
+        transactionIdController.clear();
+
+        setState(() {
+          selectedBranch = null;
+          selectedSection = null;
+          selectedResidence = null;
+          selectedGender = null;
+          showPaymentSection = false;
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed: ${response.body}")),
+        );
+      }
+    } catch (e) {
+      setState(() => isLoading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(50, 37, 55, 1),
+      backgroundColor: const Color.fromRGBO(50, 37, 55, 1),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -83,8 +134,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   width: double.infinity,
                   height: 60,
                   decoration: BoxDecoration(
-                      color: Colors.blue[800],
-                      borderRadius: BorderRadius.circular(10)),
+                    color: Colors.blue[800],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: const Center(
                     child: Text(
                       "Register Now",
@@ -118,21 +170,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 ),
                 buildTextField("Name", "Enter your Full Name", nameController),
-                buildTextField(
-                    "Student ID", "Enter your Student Number", idController),
+                buildTextField("Student ID", "Enter your Student Number", idController),
                 const SizedBox(height: 10),
                 Row(
                   children: [
                     Expanded(
-                      child: buildDropdown("Branch", selectedBranch, branches,
-                          (val) {
+                      child: buildDropdown("Branch", selectedBranch, branches, (val) {
                         setState(() => selectedBranch = val);
                       }),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: buildDropdown(
-                          "Section", selectedSection, sections, (val) {
+                      child: buildDropdown("Section", selectedSection, sections, (val) {
                         setState(() => selectedSection = val);
                       }),
                     ),
@@ -144,15 +193,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 Row(
                   children: [
                     Expanded(
-                      child: buildDropdown(
-                          "Residence", selectedResidence, Residence, (val) {
+                      child: buildDropdown("Residence", selectedResidence, Residence, (val) {
                         setState(() => selectedResidence = val);
                       }),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
-                      child:
-                          buildDropdown("Gender", selectedGender, Gender, (val) {
+                      child: buildDropdown("Gender", selectedGender, Gender, (val) {
                         setState(() => selectedGender = val);
                       }),
                     ),
@@ -173,9 +220,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           });
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text(
-                                    "Please fill all fields and make selections.")),
+                            const SnackBar(content: Text("Please fill all fields and make selections.")),
                           );
                         }
                       },
@@ -183,11 +228,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         width: double.infinity,
                         height: 55,
                         decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                                colors: [Color(0xFFE96F6F), Color(0xFF6C4AB6)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight),
-                            borderRadius: BorderRadius.circular(10)),
+                          gradient: const LinearGradient(
+                              colors: [Color(0xFFE96F6F), Color(0xFF6C4AB6)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         child: const Center(
                           child: Text(
                             "Next",
@@ -217,49 +263,46 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   const SizedBox(height: 20),
                   Center(
                     child: Image.asset(
-                      'assets/images/payment_qr.png', // your QR code image
+                      'assets/images/payment_qr.png',
                       width: 200,
                       height: 200,
                     ),
                   ),
                   const SizedBox(height: 20),
-                  buildTextField("Transaction ID", "Enter Transaction ID",
-                      transactionIdController),
+                  buildTextField("Transaction ID", "Enter Transaction ID", transactionIdController),
                   const SizedBox(height: 30),
-                  Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        if (transactionIdController.text.isNotEmpty) {
-                          // Submit logic here
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content:
-                                    Text("Please enter the Transaction ID.")),
-                          );
-                        }
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 55,
-                        decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                                colors: [Color(0xFF6C4AB6), Color(0xFFE96F6F)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: const Center(
-                          child: Text(
-                            "Submit",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                  isLoading
+                      ? const Center(child: CircularProgressIndicator(color: Colors.white))
+                      : GestureDetector(
+                          onTap: () {
+                            if (transactionIdController.text.isNotEmpty) {
+                              submitRegistration();
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Please enter the Transaction ID.")),
+                              );
+                            }
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 55,
+                            decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                    colors: [Color(0xFF6C4AB6), Color(0xFFE96F6F)],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: const Center(
+                              child: Text(
+                                "Submit",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
                 ],
                 const SizedBox(height: 80),
               ],
@@ -270,8 +313,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  Widget buildTextField(
-      String label, String hint, TextEditingController controller) {
+  Widget buildTextField(String label, String hint, TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: Column(
@@ -283,9 +325,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             controller: controller,
             style: const TextStyle(color: Colors.white),
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return '$label is required';
-              }
+              if (value == null || value.isEmpty) return '$label is required';
               return null;
             },
             decoration: InputDecoration(
@@ -294,9 +334,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
               filled: true,
               fillColor: Colors.white12,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide.none,
-              ),
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none),
             ),
           ),
         ],
@@ -305,77 +344,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget buildEmailField() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text("E-mail ID", style: TextStyle(color: Colors.white)),
-          const SizedBox(height: 8),
-          TextFormField(
-            controller: emailController,
-            style: const TextStyle(color: Colors.white),
-            validator: (value) {
-              if (value == null || value.isEmpty) return 'Email is required';
-              final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@akgec\.ac\.in$');
-              if (!emailRegex.hasMatch(value)) {
-                return 'Use college email (e.g. name@akgec.ac.in)';
-              }
-              return null;
-            },
-            decoration: InputDecoration(
-              hintText: "Enter your College E-mail ID",
-              hintStyle: const TextStyle(color: Colors.white70),
-              filled: true,
-              fillColor: Colors.white12,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    return buildTextField("E-mail ID", "Enter your College E-mail ID", emailController);
   }
 
   Widget buildMobileField() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text("Mobile Number", style: TextStyle(color: Colors.white)),
-          const SizedBox(height: 8),
-          TextFormField(
-            controller: mobileController,
-            keyboardType: TextInputType.phone,
-            style: const TextStyle(color: Colors.white),
-            validator: (value) {
-              if (value == null || value.isEmpty) return 'Mobile is required';
-              if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
-                return 'Enter valid 10-digit mobile number';
-              }
-              return null;
-            },
-            decoration: InputDecoration(
-              hintText: "Enter your Mobile Number",
-              hintStyle: const TextStyle(color: Colors.white70),
-              filled: true,
-              fillColor: Colors.white12,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    return buildTextField("Mobile Number", "Enter your Mobile Number", mobileController);
   }
 
-  Widget buildDropdown(String label, String? value, List<String> items,
-      ValueChanged<String?> onChanged) {
+  Widget buildDropdown(String label, String? value, List<String> items, ValueChanged<String?> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -388,8 +364,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
           child: DropdownButtonFormField<String>(
             value: value,
-            hint: Text("Select $label",
-                style: const TextStyle(color: Colors.white54)),
+            hint: Text("Select $label", style: const TextStyle(color: Colors.white54)),
             icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
             dropdownColor: Colors.black87,
             decoration: const InputDecoration(
