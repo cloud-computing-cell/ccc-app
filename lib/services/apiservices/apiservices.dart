@@ -10,26 +10,6 @@ import 'package:http/http.dart' as http;
   var team ="https://website-9egw.onrender.com/api/members/";
 
 
-// Future<List<dynamic>> getTeamDataForFourthYear() async {
-//   String fourthYearData = await rootBundle.loadString("assets/sampleapi/4thyr.json");
-//   var fourth =jsonDecode(fourthYearData);
-//   return fourth;
-// }
-
-// Future<List<dynamic>> getTeamDataForThirdYear() async {
-//   String thirdYearData = await rootBundle.loadString("assets/sampleapi/3rdyr.json");
-//   var third = jsonDecode(thirdYearData);
-//   return third;
-// }
-
-// Future<List<dynamic>> getTeamDataForSecondYear() async {
-//   String secondYearData = await rootBundle.loadString("assets/sampleapi/2ndyr.json");
-//   var sec =jsonDecode(secondYearData);
-//   return sec;
-// }
-
-
-
 Future getTeamDataForFourthYear() async{
   var team = await http.get(Uri.parse(four));
 
@@ -57,3 +37,5 @@ Future getTeamDataForSecondYear() async{
     return dataofteam2;
   }
 }
+
+var registration = "";

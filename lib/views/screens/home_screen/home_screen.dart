@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:ccc_app/components/background%20Animation/bganimation.dart';
 import 'package:ccc_app/constants/colors.dart';
+import 'package:ccc_app/views/screens/home_screen/widget/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,6 +15,55 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration(seconds: 3), () {
+      if (!mounted) return;
+
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return Center(
+            child: Dialog(
+              backgroundColor: Colors.transparent,
+              insetPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    padding: EdgeInsets.only(
+                        top: 20, right: 10, left: 10, bottom: 10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        'assets/images/event1.png', 
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                    top: 0,
+                    child: IconButton(
+                      icon: Icon(Icons.close, color: Colors.white, size: 28),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
@@ -21,57 +73,9 @@ class _HomeState extends State<Home> {
           SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage("assets/images/ccclogo.png"),
-                                fit: BoxFit.cover)),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "CLOUD COMPUTING CELL",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "Think  |  Develop  |  Deploy    ",
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 110, right: 40),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 200,
-                    child: Image.asset("assets/images/rectangle.png"),
-                  ),
-                ),
+                Appbar(),
+
+                
                 Padding(
                   padding: const EdgeInsets.only(left: 40, bottom: 8, top: 10),
                   child: Align(

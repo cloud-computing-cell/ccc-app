@@ -89,7 +89,7 @@ class Customnav extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _buildIcon(iconn[4], 4, "Projects", selectedIndex),
-                        _buildIcon(iconn[5], 5, "Contact", selectedIndex),
+                        _buildIcon(iconn[5], 5, "Contact Us", selectedIndex),
                         SizedBox(width: size.width * 0.06),
                         _buildIcon(iconn[6], 6, "Register", selectedIndex),
                         _buildIcon(iconn[7], 7, "Domain", selectedIndex),
