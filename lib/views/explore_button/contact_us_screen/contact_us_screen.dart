@@ -1,6 +1,7 @@
 import 'package:ccc_app/controllers/contact_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:get/get.dart';
 
@@ -19,13 +20,16 @@ class Connectus extends StatelessWidget {
           key: controller.formKey,
           child: Column(
             children: [
-              Container(
-                width: double.infinity,
+              SizedBox(
                 height: 250,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/contactus.png"),
-                      fit: BoxFit.cover),
+                width: double.infinity,
+                child: Center(
+                  child: Lottie.asset(
+                  'assets/lottie/contact_lottie.json',
+                  fit: BoxFit.cover,
+                  repeat: true,
+                  animate: true,
+                ),
                 ),
               ),
               Padding(
@@ -33,7 +37,7 @@ class Connectus extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Welcome Back",
+                    "Welcome,",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -159,25 +163,25 @@ class Connectus extends StatelessWidget {
                     onPressed: () {
                       openSocialMedia("https://instagram.com/im.alokk_");
                     },
-                    icon: SvgPicture.asset("assets/images/instagram.svg"),
+                    icon: Icon(FontAwesomeIcons.instagram),
                   ),
                   IconButton(
                     onPressed: () {
                       openSocialMedia("https://github.com/alokyadav686");
                     },
-                    icon: SvgPicture.asset("assets/images/github.svg"),
+                    icon: Icon(FontAwesomeIcons.github),
                   ),
                   IconButton(
                     onPressed: () {
                       openSocialMedia("https://linkedin.com/in/alok2005/");
                     },
-                    icon: SvgPicture.asset("assets/images/linkedin.svg"),
+                    icon: Icon(FontAwesomeIcons.linkedin),
                   ),
                   IconButton(
                     onPressed: () {
                       openSocialMedia("https://facebook.com/im.alokk_");
                     },
-                    icon: SvgPicture.asset("assets/images/facebook.svg"),
+                    icon: Icon(FontAwesomeIcons.facebook),
                   ),
                 ],
               ),
