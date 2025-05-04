@@ -91,16 +91,14 @@ class DomainDetails extends StatelessWidget {
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
-                  child:
-                      const Icon(Icons.circle, size: 12, color: Colors.black),
+                  child: const Icon(Icons.circle, size: 12, color: Colors.black),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: SingleChildScrollView(
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 500),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
+                      transitionBuilder: (Widget child, Animation<double> animation) {
                         return FadeTransition(opacity: animation, child: child);
                       },
                       child: Column(
@@ -121,7 +119,7 @@ class DomainDetails extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: Colors.white, // Updated color
+                              color: Colors.white,
                             ),
                           ),
                           const SizedBox(height: 80),
@@ -177,7 +175,7 @@ class _DomainPhotoState extends State<DomainPhoto>
   final List<String> images = [
     "assets/images/app.jpg",
     "assets/images/web.jpg",
-    "assets/images/cloud.jpg", 
+    "assets/images/cloud.jpg",
     "assets/images/machine.jpg",
     "assets/images/UI UX.jpg",
   ];
@@ -259,23 +257,17 @@ class DomainHead extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Column(
-        children: const [
-          SizedBox(height: 8),
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              "Technical Domains",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-              ),
-            ),
+    return Container(
+      color: Colors.black,
+      child: const Center(
+        child: Text(
+          "Technical Domains",
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
           ),
-        ],
+        ),
       ),
     );
   }
