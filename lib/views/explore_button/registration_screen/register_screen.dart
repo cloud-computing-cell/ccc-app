@@ -34,7 +34,8 @@ class RegistrationPage extends StatelessWidget {
                   SizedBox(
                     height: 300,
                     width: double.infinity,
-                    child: Lottie.asset('assets/lottie/register_animation.json'),
+                    child:
+                        Lottie.asset('assets/lottie/register_animation.json'),
                   ),
                   Container(
                     width: double.infinity,
@@ -69,20 +70,22 @@ class RegistrationPage extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.white70, fontSize: 14)),
                   ),
-                  buildTextField(
-                      "Name", "Enter your Full Name", controller.nameController),
+                  buildTextField("Name", "Enter your Full Name",
+                      controller.nameController),
                   buildTextField("Student ID", "Enter your Student Number",
                       controller.idController),
                   const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
-                          child: buildDropdown("Branch",
-                              controller.selectedBranch, controller.branches)),
+                        child: buildDropdown("Branch", controller.selectedBranch,
+                            controller.branches),
+                      ),
                       const SizedBox(width: 10),
                       Expanded(
-                          child: buildDropdown("Section",
-                              controller.selectedSection, controller.sections)),
+                        child: buildDropdown("Section",
+                            controller.selectedSection, controller.sections),
+                      ),
                     ],
                   ),
                   buildTextField("E-mail ID", "Enter your College E-mail ID",
@@ -93,14 +96,14 @@ class RegistrationPage extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                          child: buildDropdown(
-                              "Residence",
-                              controller.selectedResidence,
-                              controller.residences)),
+                        child: buildDropdown("Residence",
+                            controller.selectedResidence, controller.residences),
+                      ),
                       const SizedBox(width: 10),
                       Expanded(
-                          child: buildDropdown("Gender",
-                              controller.selectedGender, controller.genders)),
+                        child: buildDropdown("Gender",
+                            controller.selectedGender, controller.genders),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 30),
@@ -137,13 +140,12 @@ class RegistrationPage extends StatelessWidget {
                                 style: TextStyle(color: Colors.white70)),
                             const SizedBox(height: 20),
                             Center(
-                                child: Image.asset('assets/images/payment_qr.png',
-                                    width: 200, height: 200)),
+                              child: Image.asset('assets/images/payment_qr.png',
+                                  width: 200, height: 200),
+                            ),
                             const SizedBox(height: 20),
-                            buildTextField(
-                                "Transaction ID",
-                                "Enter Transaction ID",
-                                controller.transactionIdController),
+                            buildTextField("Transaction ID",
+                                "Enter Transaction ID", controller.transactionIdController),
                             const SizedBox(height: 30),
                             Obx(() => controller.isLoading.value
                                 ? const Center(
@@ -176,6 +178,7 @@ class RegistrationPage extends StatelessWidget {
     );
   }
 
+  /// TextField with custom validation
   Widget buildTextField(
       String label, String hint, TextEditingController controller) {
     return Padding(
@@ -188,16 +191,43 @@ class RegistrationPage extends StatelessWidget {
           TextFormField(
             controller: controller,
             style: const TextStyle(color: Colors.white),
-            validator: (value) =>
-                (value == null || value.isEmpty) ? '$label is required' : null,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return '$label is required';
+              }
+
+              if (label == "E-mail ID") {
+                final emailRegex =
+                    RegExp(r'^[a-zA-Z0-9._%+-]+@akgec\.ac\.in$');
+                if (!emailRegex.hasMatch(value)) {
+                  return 'Enter a valid email ending with @akgec.ac.in';
+                }
+              }
+
+              if (label == "Student ID") {
+                if (!value.startsWith('24')) {
+                  return 'Student ID must start with 24';
+                }
+              }
+
+              if (label == "Mobile Number") {
+                final mobileRegex = RegExp(r'^[0-9]{10}$');
+                if (!mobileRegex.hasMatch(value)) {
+                  return 'Enter a valid 10-digit mobile number';
+                }
+              }
+
+              return null;
+            },
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: const TextStyle(color: Colors.white70),
               filled: true,
               fillColor: Colors.white12,
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none),
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
             ),
           ),
         ],
@@ -205,6 +235,7 @@ class RegistrationPage extends StatelessWidget {
     );
   }
 
+  /// Dropdown builder
   Widget buildDropdown(
       String label, RxnString selectedValue, List<String> items) {
     return Obx(() => Column(
@@ -230,8 +261,7 @@ class RegistrationPage extends StatelessWidget {
                 items: items.map((item) {
                   return DropdownMenuItem<String>(
                     value: item,
-                    child:
-                        Text(item, style: const TextStyle(color: Colors.white)),
+                    child: Text(item, style: const TextStyle(color: Colors.white)),
                   );
                 }).toList(),
                 onChanged: (val) => selectedValue.value = val,
@@ -242,6 +272,7 @@ class RegistrationPage extends StatelessWidget {
         ));
   }
 
+  /// Gradient button
   Widget actionButton(String label, Color startColor, Color endColor) {
     return Container(
       width: double.infinity,

@@ -64,8 +64,8 @@ class Project extends StatelessWidget {
               CarouselSlider(
                 options: CarouselOptions(
                   enlargeCenterPage: true,
-                  aspectRatio: 1.0,
-                  viewportFraction: 0.8,
+                  aspectRatio: 0.90,
+                  viewportFraction: 0.6,
                   scrollPhysics: const BouncingScrollPhysics(),
                 ),
                 items: controller.projects.map((project) {
@@ -129,83 +129,86 @@ class TouristGuideCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 230,
+      height: 400,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: const Color(0xFF1A1A1A),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade800),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: ClipPath(
-                  clipper: TopRightArcClipper(),
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    color: Colors.greenAccent.shade200,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Center(
-                  child: Text(
-                    projectName,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: ClipPath(
+                    clipper: TopRightArcClipper(),
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      color: Colors.greenAccent.shade200,
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              const Text(
-                'By:- ',
-                style: TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
-              ),
-              Expanded(
-                child: Text(
-                  madeBy,
-                  style: const TextStyle(color: Colors.white70, height: 1.4),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          ...toolsUsed.map(
-            (tech) => Row(
-              children: [
-                const Text("• ", style: TextStyle(color: Colors.white, fontSize: 20)),
-                Expanded(
-                  child: Text(
-                    tech,
-                    style: const TextStyle(color: Colors.white),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Center(
+                    child: Text(
+                      projectName,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 12),
-          GestureDetector(
-            onTap: () => launchURL(githubLink),
-            child: const Text(
-              'View on GitHub',
-              style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold, fontSize: 14),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                const Text(
+                  'By:- ',
+                  style: TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
+                ),
+                Expanded(
+                  child: Text(
+                    madeBy,
+                    style: const TextStyle(color: Colors.white70, height: 1.4),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            ...toolsUsed.map(
+              (tech) => Row(
+                children: [
+                  const Text("• ", style: TextStyle(color: Colors.white, fontSize: 20)),
+                  Expanded(
+                    child: Text(
+                      tech,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            GestureDetector(
+              onTap: () => launchURL(githubLink),
+              child: const Text(
+                'View on GitHub',
+                style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold, fontSize: 14),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

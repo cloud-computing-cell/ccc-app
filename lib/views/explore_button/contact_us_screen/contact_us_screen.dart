@@ -164,7 +164,7 @@ class Connectus extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        openSocialMedia("https://instagram.com/im.alokk_");
+                        openSocialMedia("https://instagram.com/ccc_akgec");
                       },
                       icon: Icon(FontAwesomeIcons.instagram),
                     ),
