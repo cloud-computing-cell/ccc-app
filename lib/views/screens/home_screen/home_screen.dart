@@ -117,7 +117,7 @@ class _HomeState extends State<Home> {
                 CarouselSlider(
                   options: CarouselOptions(
                     autoPlay: true,
-                    height: 200,
+                    height: 400,
                     enableInfiniteScroll: true,
                     enlargeCenterPage: true,
                     autoPlayCurve: Curves.fastOutSlowIn,

@@ -1,6 +1,7 @@
 import 'package:ccc_app/controllers/domain_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:scrumlab_flutter_tindercard/scrumlab_flutter_tindercard.dart';
 
 class Domain extends StatelessWidget {
@@ -56,13 +57,13 @@ class DomainDetails extends StatelessWidget {
         "title": "Machine Learning",
         "description":
             "Machine Learning (ML) is a branch of artificial intelligence (AI) that focuses on developing systems capable of learning and improving from experience.",
-        "color": Color(0xFFCDDC39),
+        "color": Color.fromRGBO(213, 209, 240, 1),
       },
       {
         "title": "UI/UX Design",
         "description":
             "UI (User Interface) and UX (User Experience) design work together to ensure that a digital product is both visually appealing and easy to use.",
-        "color": Color(0xFFF50057),
+        "color": Color.fromRGBO(119, 210, 252, 1),
       },
     ];
 
@@ -172,11 +173,11 @@ class DomainPhoto extends StatefulWidget {
 class _DomainPhotoState extends State<DomainPhoto>
     with SingleTickerProviderStateMixin {
   final List<String> images = [
-    "assets/images/app.jpg",
-    "assets/images/web.jpg",
-    "assets/images/cloud.jpg",
-    "assets/images/machine.jpg",
-    "assets/images/UIUX.jpg",
+    "assets/lottie/appDev.json",
+    "assets/lottie/webDev.json",
+    "assets/lottie/cloud.json",
+    "assets/lottie/ml.json",
+    "assets/lottie/uiux.json",
   ];
 
   final CardController controller = CardController();
@@ -235,9 +236,9 @@ class _DomainPhotoState extends State<DomainPhoto>
                 borderRadius: BorderRadius.circular(20),
               ),
               clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Image.asset(
+              child: Lottie.asset(
                 images[index % images.length],
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
           );
