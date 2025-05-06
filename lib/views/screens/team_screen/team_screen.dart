@@ -1,38 +1,22 @@
 import 'package:ccc_app/components/background%20Animation/bganimation.dart';
 import 'package:ccc_app/constants/colors.dart';
-import 'package:ccc_app/services/apiservices/apiservices.dart';
+import 'package:ccc_app/controllers/team_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Team extends StatefulWidget {
-  const Team({super.key});
+class Team extends StatelessWidget {
+  Team({super.key});
+  final TeamController controller = Get.put(TeamController());
 
-  @override
-  State<Team> createState() => _TeamState();
-}
-
-class _TeamState extends State<Team> {
-  late Future team;
-  String selectedYear = "4th";
-
-  @override
-  void initState() {
-    super.initState();
-    team = fetchTeamData(selectedYear);
-  }
-
-  Future fetchTeamData(String year) {
-    switch (year) {
-      case "4th":
-        return getTeamDataForFourthYear();
-      case "3rd":
-        return getTeamDataForThirdYear();
-      case "2nd":
-        return getTeamDataForSecondYear();
-      default:
-        return getTeamDataForFourthYear();
+  void openSocialMedia(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 
@@ -86,261 +70,178 @@ class _TeamState extends State<Team> {
                   ),
                 ),
                 SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedYear = "4th";
-                          team = fetchTeamData(selectedYear);
-                        });
-                      },
-                      child: Text(
-                        "4th Year",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: selectedYear == "4th"
-                              ? Color.fromRGBO(245, 163, 10, 1)
-                              : Color.fromRGBO(145, 145, 145, 1),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedYear = "3rd";
-                          team = fetchTeamData(selectedYear);
-                        });
-                      },
-                      child: Text(
-                        "3rd Year",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: selectedYear == "3rd"
-                              ? Color.fromRGBO(110, 69, 172, 1)
-                              : Color.fromRGBO(145, 145, 145, 1),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedYear = "2nd";
-                          team = fetchTeamData(selectedYear);
-                        });
-                      },
-                      child: Text(
-                        "2nd Year",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: selectedYear == "2nd"
-                              ? Color.fromRGBO(102, 224, 206, 1)
-                              : Color.fromRGBO(145, 145, 145, 1),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                FutureBuilder(
-                  future: team,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Stack(
-                        children: [
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  SizedBox(
-                                    width: Widthh * 0.36,
-                                    height: Height * 0.22,
-                                    child: SvgPicture.asset(
-                                        "assets/images/loader.svg"),
-                                  ),
-                                  SizedBox(width: 2),
-                                  SizedBox(
-                                    width: Widthh * 0.36,
-                                    height: Height * 0.22,
-                                    child: SvgPicture.asset(
-                                        "assets/images/loader.svg"),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  SizedBox(
-                                    width: Widthh * 0.36,
-                                    height: Height * 0.22,
-                                    child: SvgPicture.asset(
-                                        "assets/images/loader.svg"),
-                                  ),
-                                  SizedBox(width: 2),
-                                  SizedBox(
-                                    width: Widthh * 0.36,
-                                    height: Height * 0.22,
-                                    child: SvgPicture.asset(
-                                        "assets/images/loader.svg"),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      );
-                    }
-                    if (snapshot.hasError) {
-                      return Center(child: Text("Error: ${snapshot.error}"));
-                    }
-                    if (snapshot.hasData) {
-                      var teamData = snapshot.data!;
-                      return GridView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 0,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemCount: teamData.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          var member = teamData[index];
-                          return Center(
-                            child: Container(
-                              width: Widthh * 0.36,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: LayoutBuilder(
-                                builder: (context, constraints) {
-                                  return Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      AnimatedWaveSVGBackground(
-                                        svgAsset: selectedYear == "4th"
-                                            ? "assets/images/4th.svg"
-                                            : selectedYear == "3rd"
-                                                ? "assets/images/card3.svg"
-                                                : "assets/images/card2.svg",
-                                      ),
-                                      Positioned(
-                                        top: constraints.maxHeight * 0.22,
-                                        child: CircleAvatar(
-                                          radius: constraints.maxWidth * 0.22,
-                                          backgroundImage:
-                                              NetworkImage(member["profile"]),
-                                          backgroundColor: Colors.grey[200],
-                                        ),
-                                      ),
-                                      Positioned(
-                                        bottom: constraints.maxHeight * 0.20,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              member["domain"],
-                                              style: TextStyle(
-                                                fontSize:
-                                                    constraints.maxWidth * 0.06,
-                                                fontWeight: FontWeight.w600,
-                                                color: Color.fromRGBO(
-                                                    130, 130, 130, 1),
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            Text(
-                                              member["name"],
-                                              style: TextStyle(
-                                                fontSize:
-                                                    constraints.maxWidth * 0.07,
-                                                fontWeight: FontWeight.w700,
-                                                color: Color.fromRGBO(
-                                                    21, 14, 43, 1),
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Positioned(
-                                        bottom: constraints.maxHeight * 0.09,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                openSocialMedia(
-                                                    member['github']);
-                                              },
-                                              child: Icon(
-                                                  FontAwesomeIcons.github,
-                                                  size: 18),
-                                            ),
-                                            SizedBox(width: 16),
-                                            GestureDetector(
-                                              onTap: () {
-                                                openSocialMedia(
-                                                    member['linkedin']);
-                                              },
-                                              child: Icon(
-                                                  FontAwesomeIcons.linkedinIn,
-                                                  size: 18),
-                                            ),
-                                            SizedBox(width: 16),
-                                            GestureDetector(
-                                              onTap: () {
-                                                openSocialMedia(
-                                                    member['instagram']);
-                                              },
-                                              child: Icon(
-                                                  FontAwesomeIcons.instagram,
-                                                  size: 18),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
+                Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        for (var year in ['4th', '3rd', '2nd'])
+                          GestureDetector(
+                            onTap: () => controller.updateYear(year),
+                            child: Text(
+                              "$year Year",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: controller.selectedYear.value == year
+                                    ? (year == '4th'
+                                        ? Color.fromRGBO(245, 163, 10, 1)
+                                        : year == '3rd'
+                                            ? Color.fromRGBO(110, 69, 172, 1)
+                                            : Color.fromRGBO(102, 224, 206, 1))
+                                    : Color.fromRGBO(145, 145, 145, 1),
                               ),
                             ),
-                          );
-                        },
-                      );
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
-                        ),
-                      );
-                    }
-                  },
-                ),
+                          ),
+                      ],
+                    )),
+                SizedBox(height: 10),
+                Obx(() {
+                  if (controller.isLoading.value) {
+                    return Column(
+                      children: [
+                        for (int i = 0; i < 2; i++)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              for (int j = 0; j < 2; j++)
+                                SizedBox(
+                                  width: Widthh * 0.36,
+                                  height: Height * 0.22,
+                                  child: SvgPicture.asset(
+                                      "assets/images/loader.svg"),
+                                ),
+                            ],
+                          ),
+                      ],
+                    );
+                  } else if (controller.hasError.value) {
+                    return Center(
+                        child: Text("Error loading data",
+                            style: TextStyle(color: Colors.white)));
+                  } else {
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 0,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemCount: controller.team.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var member = controller.team[index];
+                        return Center(
+                          child: Container(
+                            width: Widthh * 0.36,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: LayoutBuilder(
+                              builder: (context, constraints) {
+                                return Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    AnimatedWaveSVGBackground(
+                                      svgAsset: controller.selectedYear.value ==
+                                              "4th"
+                                          ? "assets/images/4th.svg"
+                                          : controller.selectedYear.value ==
+                                                  "3rd"
+                                              ? "assets/images/card3.svg"
+                                              : "assets/images/card2.svg",
+                                    ),
+                                    Positioned(
+                                      top: constraints.maxHeight * 0.22,
+                                      child: CircleAvatar(
+                                        radius: constraints.maxWidth * 0.22,
+                                        backgroundImage:
+                                            NetworkImage(member["profile"]),
+                                        backgroundColor: Colors.grey[200],
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: constraints.maxHeight * 0.20,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            member["domain"],
+                                            style: TextStyle(
+                                              fontSize:
+                                                  constraints.maxWidth * 0.06,
+                                              fontWeight: FontWeight.w600,
+                                              color: Color.fromRGBO(
+                                                  130, 130, 130, 1),
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Text(
+                                            member["name"],
+                                            style: TextStyle(
+                                              fontSize:
+                                                  constraints.maxWidth * 0.07,
+                                              fontWeight: FontWeight.w700,
+                                              color:
+                                                  Color.fromRGBO(21, 14, 43, 1),
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: constraints.maxHeight * 0.09,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              openSocialMedia(
+                                                  member['github']);
+                                            },
+                                            child: Icon(FontAwesomeIcons.github,
+                                                size: 18),
+                                          ),
+                                          SizedBox(width: 16),
+                                          GestureDetector(
+                                            onTap: () {
+                                              openSocialMedia(
+                                                  member['linkedin']);
+                                            },
+                                            child: Icon(
+                                                FontAwesomeIcons.linkedinIn,
+                                                size: 18),
+                                          ),
+                                          SizedBox(width: 16),
+                                          GestureDetector(
+                                            onTap: () {
+                                              openSocialMedia(
+                                                  member['instagram']);
+                                            },
+                                            child: Icon(
+                                                FontAwesomeIcons.instagram,
+                                                size: 18),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                }),
               ],
             ),
           ),
         ],
       ),
     );
-  }
-
-  void openSocialMedia(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }
 
@@ -364,7 +265,7 @@ class _AnimatedWaveSVGBackgroundState extends State<AnimatedWaveSVGBackground>
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: Duration(seconds: 5))
-          ..repeat();
+          ..repeat(reverse: true);
   }
 
   @override
