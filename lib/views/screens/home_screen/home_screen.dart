@@ -227,6 +227,7 @@ class _HomeState extends State<Home> {
                 ),
                 JourneyTimeline(),
                 OurVision(),
+                miniGallerySection(),
                 SizedBox(
                   height: 80,
                 ),
@@ -248,4 +249,50 @@ class _HomeState extends State<Home> {
           dotWidth: 8,
         ),
       );
+  Widget miniGallerySection() {
+    final List<String> galleryImages = [
+      'assets/images/mem1.jpg',
+      'assets/images/mem2.jpg',
+      'assets/images/negi.jpg',
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+          child: Text(
+            "Memories",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+              decoration: TextDecoration.underline,
+              decorationColor: Colors.white,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 140,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            itemCount: galleryImages.length,
+            separatorBuilder: (_, __) => SizedBox(width: 12),
+            itemBuilder: (context, index) {
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  galleryImages[index],
+                  width: 180,
+                  height: 120,
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
 }

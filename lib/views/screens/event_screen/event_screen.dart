@@ -40,28 +40,32 @@ class MyEventPage extends StatelessWidget {
     Color.fromRGBO(0, 0, 0, 0.5),
     Color.fromRGBO(0, 0, 0, 0.5),
     Color.fromRGBO(0, 0, 0, 0.5),
-    
+
     // Color.fromRGBO(215, 120, 185, 1),
     // Color.fromRGBO(226, 133, 46, 1),
   ];
 
   final List<List<Widget>> paragraphImages = [
     [
-      SvgPicture.asset("assets/images/devclash.svg", width: 100),
-      SvgPicture.asset('assets/images/2.svg', width: 100),
+      Image.asset("assets/images/devclash1.jpg", width: 100),
+      Image.asset("assets/images/devclash1.jpg", width: 100),
+      Image.asset("assets/images/devclash1.jpg", width: 100),
+      Image.asset("assets/images/devclash1.jpg", width: 100),
     ],
     [
-      SvgPicture.asset('assets/images/1.svg', width: 100),
-      SvgPicture.asset('assets/images/2.svg', width: 100),
+      SvgPicture.asset('assets/images/spocc.svg', width: 100),
+      SvgPicture.asset('assets/images/spocc.svg', width: 100),
     ],
     List.generate(
-        7,
-        (_) => SvgPicture.asset('assets/images/2.svg', width: 100)),
+        7, (_) => SvgPicture.asset('assets/images/2.svg', width: 100)),
     [
-      SvgPicture.asset('assets/images/1.svg', width: 100),
+      Image.asset('assets/images/mem1.jpg', width: 100),
+      Image.asset('assets/images/mem2.jpg', width: 100),
+      Image.asset('assets/images/mem1.jpg', width: 100),
+      Image.asset('assets/images/mem2.jpg', width: 100),
     ],
     [
-      SvgPicture.asset('assets/images/1.svg', width: 100),
+      Image.asset('assets/images/mem1.jpg', width: 100),
     ],
   ];
 
@@ -145,8 +149,7 @@ class MyEventPage extends StatelessWidget {
                         GestureDetector(
                           onTap: () => controller.toggleExpansion(i),
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 4),
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
                             child: ClipPath(
                               clipper: MiddleIndentClipper(isExpanded),
                               child: Container(
@@ -165,7 +168,7 @@ class MyEventPage extends StatelessWidget {
                                           : TextOverflow.ellipsis,
                                       style: TextStyle(
                                         fontSize: 12,
-                                        color:  Colors.white,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ],
@@ -178,11 +181,18 @@ class MyEventPage extends StatelessWidget {
                           const SizedBox(height: 10),
                           Container(
                             height: 120,
-                            margin:
-                                const EdgeInsets.symmetric(horizontal: 15),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
                             child: ListView(
                               scrollDirection: Axis.horizontal,
-                              children: paragraphImages[i],
+                              children: [
+                                for (int j = 0;
+                                    j < paragraphImages[i].length;
+                                    j++) ...[
+                                  paragraphImages[i][j],
+                                  if (j != paragraphImages[i].length - 1)
+                                    const SizedBox(width: 12),
+                                ]
+                              ],
                             ),
                           ),
                         ],
