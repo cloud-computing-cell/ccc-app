@@ -6,6 +6,7 @@ import 'package:ccc_app/constants/colors.dart';
 import 'package:ccc_app/controllers/event_controller.dart';
 import 'package:ccc_app/views/explore_button/registration_screen/register_screen.dart';
 import 'package:ccc_app/views/screens/home_screen/widget/appbar.dart';
+import 'package:ccc_app/views/screens/home_screen/widget/journey_timeline.dart';
 import 'package:ccc_app/views/screens/home_screen/widget/our_vision.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -74,7 +75,10 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationPage()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RegistrationPage()));
                           },
                           child: Text(
                             'Register Now',
@@ -203,9 +207,26 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
-               OurVision(),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Our Journey",
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.white),
+                    ),
+                  ),
+                ),
+                JourneyTimeline(),
+                OurVision(),
                 SizedBox(
                   height: 80,
                 ),
