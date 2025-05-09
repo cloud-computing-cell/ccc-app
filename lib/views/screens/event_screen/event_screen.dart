@@ -41,8 +41,6 @@ class MyEventPage extends StatelessWidget {
     Color.fromRGBO(0, 0, 0, 0.5),
     Color.fromRGBO(0, 0, 0, 0.5),
 
-    // Color.fromRGBO(215, 120, 185, 1),
-    // Color.fromRGBO(226, 133, 46, 1),
   ];
 
   final List<List<Widget>> paragraphImages = [
