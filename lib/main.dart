@@ -21,7 +21,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home:     SplashScreen(),
+      home: SplashScreen(),
     ),
   );
 }
