@@ -217,7 +217,7 @@ class _HomeState extends State<Home> {
                     child: Text(
                       "Our Journey",
                       style: TextStyle(
-                          fontSize: 24.5,
+                          fontSize: 24,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           decoration: TextDecoration.underline,
